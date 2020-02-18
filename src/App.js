@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import ColorPicker from './colorpicker/ColorPicker'
 
 import './App.css'
+import HuePicker from './huepicker/HuePicker'
 
 const App = () => {
   const [hue, setHue] = useState(100)
@@ -16,6 +17,8 @@ const App = () => {
         value={hue}
         onChange={e => setHue(e.target.value)}
       />
+
+      <HuePicker />
 
       <ColorPicker hue={hue} />
     </div>
