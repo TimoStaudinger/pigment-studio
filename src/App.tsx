@@ -1,25 +1,20 @@
 import React, {useState} from 'react'
 
 import ColorPicker from './colorpicker/ColorPicker'
-
-import './App.css'
 import HuePicker from './huepicker/HuePicker'
 
+import './App.css'
+
 const App = () => {
-  const [hue, setHue] = useState(100)
+  const [hue, setHue] = useState(250)
+  const [saturation, setSaturation] = useState(0.5)
+  const [lightness, setLightness] = useState(0.5)
+
   return (
     <div className="App">
-      <input
-        type="number"
-        min={0}
-        max={359}
-        value={hue}
-        onChange={e => setHue(parseInt(e.target.value))}
-      />
+      {/* <HuePicker /> */}
 
-      <HuePicker />
-
-      <ColorPicker hue={hue} />
+      <ColorPicker hue={hue} saturation={saturation} lightness={lightness} />
     </div>
   )
 }
