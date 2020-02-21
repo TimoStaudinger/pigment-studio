@@ -14,7 +14,13 @@ const App = () => {
     <div className="App">
       {/* <HuePicker /> */}
 
-      <ColorPicker hue={hue} saturation={saturation} lightness={lightness} />
+      <ColorPicker
+        hue={hue}
+        saturation={saturation}
+        lightness={lightness}
+        setSaturation={setSaturation}
+        setLightness={setLightness}
+      />
     </div>
   )
 }
