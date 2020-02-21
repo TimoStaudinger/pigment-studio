@@ -54,8 +54,10 @@ const HuePicker = ({
 
           context.beginPath()
           context.moveTo(x, 0)
-          context.lineWidth = isHovering ? 5 : 3
+          context.lineWidth = 3
           context.strokeStyle = '#222'
+          context.shadowColor = '#fff'
+          context.shadowBlur = 2
           context.lineTo(x, height)
           context.stroke()
         } else console.log('`hue` is null')
