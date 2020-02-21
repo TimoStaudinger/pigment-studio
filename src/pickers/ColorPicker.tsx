@@ -66,9 +66,11 @@ const ColorPicker = ({
             let y = lightness * height
 
             context.beginPath()
-            context.lineWidth = 3
+            context.lineWidth = 2
             context.strokeStyle = '#222'
-            context.arc(x, y, isHovering ? 15 : 10, 0, Math.PI * 2, true)
+            context.shadowColor = '#fff'
+            context.shadowBlur = 2
+            context.arc(x, y, 10, 0, Math.PI * 2, true)
             context.stroke()
           } else console.log('`saturation` or `lightness` is null')
         } else console.log('`hue` is null')
