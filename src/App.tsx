@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
 
-import ColorPicker from './colorpicker/ColorPicker'
-import HuePicker from './huepicker/HuePicker'
-
 import './App.css'
+import ColorPicker from './pickers/ColorPicker'
+import HuePicker from './pickers/HuePicker'
 
 const App = () => {
   const [hue, setHue] = useState(250)
@@ -12,7 +11,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {/* <HuePicker /> */}
+      <HuePicker hue={hue} setHue={setHue} />
 
       <ColorPicker
         hue={hue}

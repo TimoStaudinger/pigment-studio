@@ -1,7 +1,7 @@
-import React, {useRef, useEffect, useState, useCallback} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import {convertCoordsToOffset} from '../util/canvas'
 import {convertHSLtoRGB} from '../util/color'
-import {isInBoundingBox} from '../util/coordinates'
+import {isPointOnHandle2D} from '../util/coordinates'
 
 interface Props {
   hue: number | null
@@ -13,33 +13,8 @@ interface Props {
   height?: number
 }
 
-const isPointOnHandle = (
-  x: number,
-  y: number,
-  width: number | null,
-  height: number | null,
-  saturation: number | null,
-  lightness: number | null,
-  padding: number = 15
-): boolean => {
-  if (
-    saturation !== null &&
-    lightness !== null &&
-    width !== null &&
-    height !== null
-  ) {
-    return isInBoundingBox(
-      x,
-      y,
-      saturation * width,
-      lightness * height,
-      padding
-    )
-  } else return false
-}
-
 const ColorPicker = ({
-  hue = 250,
+  hue = null,
   saturation = null,
   lightness = null,
   setSaturation,
@@ -52,7 +27,7 @@ const ColorPicker = ({
 
   const canvas = useRef<HTMLCanvasElement | null>(null)
 
-  const render = (): void => {
+  const render = () => {
     if (canvas.current !== null) {
       let context = canvas.current.getContext('2d')
 
@@ -133,7 +108,7 @@ const ColorPicker = ({
       let x = e.clientX - left
       let y = e.clientY - top
 
-      if (isPointOnHandle(x, y, width, height, saturation, lightness))
+      if (isPointOnHandle2D(x, y, width, height, saturation, lightness))
         setIsDragging(true)
     }
   }
@@ -150,7 +125,7 @@ const ColorPicker = ({
     if (canvas.current !== null && mouseX !== null && mouseY !== null) {
       let {width, height} = canvas.current
       setIsHovering(
-        isPointOnHandle(mouseX, mouseY, width, height, saturation, lightness)
+        isPointOnHandle2D(mouseX, mouseY, width, height, saturation, lightness)
       )
     }
   }, [mouseX, mouseY, saturation, lightness])
