@@ -1,7 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react'
 import {convertHSLtoRGB} from '../util/color'
 import {convertCoordsToOffset} from '../util/canvas'
-import {isPointOnHandle1D} from '../util/coordinates'
 
 interface Props {
   hue: number | null
@@ -16,7 +15,6 @@ const HuePicker = ({
   width = 400,
   height = 50
 }: Props): JSX.Element => {
-  const [isHovering, setIsHovering] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
 
   const canvas = useRef<HTMLCanvasElement>(null)
@@ -56,8 +54,6 @@ const HuePicker = ({
           context.moveTo(x, 0)
           context.lineWidth = 3
           context.strokeStyle = '#222'
-          context.shadowColor = '#fff'
-          context.shadowBlur = 2
           context.lineTo(x, height)
           context.stroke()
         } else console.log('`hue` is null')
@@ -65,16 +61,12 @@ const HuePicker = ({
     } else console.log('`canvas.current` is null')
   }
 
-  const [mouseX, setMouseX] = useState<number | null>(null)
-
   const handleMouseMove = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
   ) => {
     if (canvas.current !== null) {
       let {left} = canvas.current.getBoundingClientRect()
       let x = e.clientX - left
-
-      setMouseX(x)
 
       if (isDragging && canvas.current !== null) {
         let {width} = canvas.current
@@ -91,8 +83,8 @@ const HuePicker = ({
 
       let x = e.clientX - left
 
-      if (isPointOnHandle1D(x, width, hue !== null ? hue / 360 : null))
-        setIsDragging(true)
+      setHue((x / width) * 360)
+      setIsDragging(true)
     }
   }
   const handleMouseUp = () => {
@@ -101,18 +93,7 @@ const HuePicker = ({
 
   const handleMouseLeave = () => {
     setIsDragging(false)
-    setIsHovering(false)
   }
-
-  useEffect(() => {
-    if (canvas.current !== null && mouseX !== null) {
-      let {width} = canvas.current
-
-      setIsHovering(
-        isPointOnHandle1D(mouseX, width, hue !== null ? hue / 360 : null)
-      )
-    }
-  }, [mouseX, hue])
 
   useEffect(() => {
     if (canvas.current) render()
