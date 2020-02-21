@@ -2,19 +2,17 @@ import React, {useRef, useEffect, useState} from 'react'
 import {convertHSLtoRGB} from '../util/color'
 import {convertCoordsToOffset} from '../util/canvas'
 
+import styles from './HuePicker.module.css'
+
+const canvasWidth = 200
+const canvasHeight = 20
+
 interface Props {
   hue: number | null
   setHue: (hue: number) => void
-  width?: number
-  height?: number
 }
 
-const HuePicker = ({
-  hue,
-  setHue,
-  width = 400,
-  height = 50
-}: Props): JSX.Element => {
+const HuePicker = ({hue, setHue}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
 
   const canvas = useRef<HTMLCanvasElement>(null)
@@ -100,15 +98,17 @@ const HuePicker = ({
   })
 
   return (
-    <canvas
-      height={height}
-      width={width}
-      ref={canvas}
-      onMouseMove={handleMouseMove}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-    ></canvas>
+    <div className={styles.picker}>
+      <canvas
+        height={canvasHeight}
+        width={canvasWidth}
+        ref={canvas}
+        onMouseMove={handleMouseMove}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+      ></canvas>
+    </div>
   )
 }
 

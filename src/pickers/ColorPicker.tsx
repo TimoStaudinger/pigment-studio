@@ -1,132 +1,25 @@
-import React, {useRef, useEffect, useState} from 'react'
-import {convertCoordsToOffset} from '../util/canvas'
-import {convertHSLtoRGB} from '../util/color'
+import React, {useState} from 'react'
 
-interface Props {
-  hue: number | null
-  saturation: number | null
-  lightness: number | null
-  setSaturation: (saturation: number) => void
-  setLightness: (lightness: number) => void
-  width?: number
-  height?: number
-}
+import styles from './ColorPicker.module.css'
+import HuePicker from './HuePicker'
+import ShadePicker from './ShadePicker'
 
-const ColorPicker = ({
-  hue = null,
-  saturation = null,
-  lightness = null,
-  setSaturation,
-  setLightness,
-  width = 400,
-  height = 400
-}: Props): JSX.Element => {
-  const [isDragging, setIsDragging] = useState(false)
-
-  const canvas = useRef<HTMLCanvasElement | null>(null)
-
-  const render = () => {
-    if (canvas.current !== null) {
-      let context = canvas.current.getContext('2d')
-
-      let {width, height} = canvas.current
-
-      if (context !== null) {
-        context.clearRect(0, 0, width, height)
-
-        let imageData = context.getImageData(0, 0, width, height)
-
-        if (hue !== null) {
-          for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-              const pixelOffset = convertCoordsToOffset(x, y, width)
-
-              let localSaturation = x / width
-              let localLightness = 1 - y / height
-
-              let [r, g, b] = convertHSLtoRGB(
-                hue,
-                localSaturation,
-                localLightness
-              )
-
-              imageData.data[pixelOffset + 0] = r
-              imageData.data[pixelOffset + 1] = g
-              imageData.data[pixelOffset + 2] = b
-              imageData.data[pixelOffset + 3] = 255
-            }
-          }
-
-          context.putImageData(imageData, 0, 0)
-
-          if (saturation !== null && lightness !== null) {
-            let x = saturation * width
-            let y = lightness * height
-
-            context.beginPath()
-            context.lineWidth = 2
-            context.strokeStyle = lightness < 0.5 ? '#222' : '#ccc'
-            context.arc(x, y, 10, 0, Math.PI * 2, true)
-            context.stroke()
-          } else console.log('`saturation` or `lightness` is null')
-        } else console.log('`hue` is null')
-      } else console.log('`context` is null')
-    } else console.log('`canvas.current` is null')
-  }
-
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
-  ) => {
-    if (canvas.current !== null) {
-      let {left, top} = canvas.current.getBoundingClientRect()
-
-      let x = e.clientX - left
-      let y = e.clientY - top
-
-      if (isDragging && canvas.current !== null) {
-        let {width, height} = canvas.current
-        setSaturation(x / width)
-        setLightness(y / height)
-      }
-    }
-  }
-  const handleMouseDown = (
-    e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
-  ) => {
-    if (canvas.current !== null) {
-      let {width, height} = canvas.current
-      let {left, top} = canvas.current.getBoundingClientRect()
-
-      let x = e.clientX - left
-      let y = e.clientY - top
-
-      setSaturation(x / width)
-      setLightness(y / height)
-      setIsDragging(true)
-    }
-  }
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-  }
-
-  useEffect(() => {
-    if (canvas.current) render()
-  })
+const ColorPicker = () => {
+  const [hue, setHue] = useState(250)
+  const [saturation, setSaturation] = useState(0.5)
+  const [lightness, setLightness] = useState(0.5)
 
   return (
-    <canvas
-      height={height}
-      width={width}
-      ref={canvas}
-      onMouseMove={handleMouseMove}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-    ></canvas>
+    <div className={styles.container}>
+      <HuePicker hue={hue} setHue={setHue} />
+      <ShadePicker
+        hue={hue}
+        saturation={saturation}
+        lightness={lightness}
+        setSaturation={setSaturation}
+        setLightness={setLightness}
+      />
+    </div>
   )
 }
 
