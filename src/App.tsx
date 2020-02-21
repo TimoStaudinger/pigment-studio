@@ -7,7 +7,6 @@ import HuePicker from './huepicker/HuePicker'
 
 const App = () => {
   const [hue, setHue] = useState(100)
-
   return (
     <div className="App">
       <input
@@ -15,7 +14,7 @@ const App = () => {
         min={0}
         max={359}
         value={hue}
-        onChange={e => setHue(e.target.value)}
+        onChange={e => setHue(parseInt(e.target.value))}
       />
 
       <HuePicker />
