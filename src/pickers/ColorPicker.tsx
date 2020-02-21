@@ -1,7 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react'
 import {convertCoordsToOffset} from '../util/canvas'
 import {convertHSLtoRGB} from '../util/color'
-import {isPointOnHandle2D} from '../util/coordinates'
 
 interface Props {
   hue: number | null
@@ -22,7 +21,6 @@ const ColorPicker = ({
   width = 400,
   height = 400
 }: Props): JSX.Element => {
-  const [isHovering, setIsHovering] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
 
   const canvas = useRef<HTMLCanvasElement | null>(null)
@@ -67,9 +65,7 @@ const ColorPicker = ({
 
             context.beginPath()
             context.lineWidth = 2
-            context.strokeStyle = '#222'
-            context.shadowColor = '#fff'
-            context.shadowBlur = 2
+            context.strokeStyle = lightness < 0.5 ? '#222' : '#ccc'
             context.arc(x, y, 10, 0, Math.PI * 2, true)
             context.stroke()
           } else console.log('`saturation` or `lightness` is null')
@@ -77,9 +73,6 @@ const ColorPicker = ({
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
   }
-
-  const [mouseX, setMouseX] = useState<number | null>(null)
-  const [mouseY, setMouseY] = useState<number | null>(null)
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
@@ -89,9 +82,6 @@ const ColorPicker = ({
 
       let x = e.clientX - left
       let y = e.clientY - top
-
-      setMouseX(x)
-      setMouseY(y)
 
       if (isDragging && canvas.current !== null) {
         let {width, height} = canvas.current
@@ -110,8 +100,9 @@ const ColorPicker = ({
       let x = e.clientX - left
       let y = e.clientY - top
 
-      if (isPointOnHandle2D(x, y, width, height, saturation, lightness))
-        setIsDragging(true)
+      setSaturation(x / width)
+      setLightness(y / height)
+      setIsDragging(true)
     }
   }
   const handleMouseUp = () => {
@@ -120,17 +111,7 @@ const ColorPicker = ({
 
   const handleMouseLeave = () => {
     setIsDragging(false)
-    setIsHovering(false)
   }
-
-  useEffect(() => {
-    if (canvas.current !== null && mouseX !== null && mouseY !== null) {
-      let {width, height} = canvas.current
-      setIsHovering(
-        isPointOnHandle2D(mouseX, mouseY, width, height, saturation, lightness)
-      )
-    }
-  }, [mouseX, mouseY, saturation, lightness])
 
   useEffect(() => {
     if (canvas.current) render()
