@@ -3,3 +3,8 @@
   margin-bottom: 3px;
   width: calc(100% - 36px);
 }
+
+.huePicker {
+  margin-left: 26px;
+  margin-top: 5px;
+}
