@@ -1,11 +1,12 @@
 import React, {useRef, useEffect, useState} from 'react'
+import {useMeasure} from 'react-use'
 
 import {convertCoordsToOffset} from '../../util/canvas'
 import {convertHSLtoRGB, getBaseShade} from '../../util/color'
+import {isPointOnHandle2D} from '../../util/coordinates'
 import {HSL, Shade} from '../../types/color'
 
 import styles from './ShadePicker.module.css'
-import {useMeasure} from 'react-use'
 
 interface Props {
   shades: Shade[]
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
-  const [isDragging, setIsDragging] = useState(false)
+  const [isDragging, setIsDragging] = useState<string | null>(null)
 
   const [canvasWidth, setCanvasWidth] = useState(0)
   const [ref, {width}] = useMeasure()
@@ -30,7 +31,7 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
       let {width, height} = canvas.current
 
       if (context !== null) {
-        let {hue, saturation, lightness} = baseShade.hsl
+        let {hue} = baseShade.hsl
 
         context.clearRect(0, 0, width, height)
 
@@ -86,11 +87,14 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
 
       if (isDragging && canvas.current !== null) {
         let {width, height} = canvas.current
-        setHSL(baseShade.id, {
-          ...baseShade.hsl,
-          saturation: x / width,
-          lightness: 1 - y / height
-        })
+        let draggedShade = shades.find(shade => shade.id === isDragging)
+        if (draggedShade) {
+          setHSL(draggedShade.id, {
+            ...draggedShade.hsl,
+            saturation: x / width,
+            lightness: 1 - y / height
+          })
+        } else setIsDragging(null)
       }
     }
   }
@@ -104,16 +108,27 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
       let x = e.clientX - left
       let y = e.clientY - top
 
-      setHSL(baseShade.id, {
-        ...baseShade.hsl,
-        saturation: x / width,
-        lightness: 1 - y / height
-      })
-      setIsDragging(true)
+      let draggedShade = null
+      for (let shade of shades) {
+        if (
+          isPointOnHandle2D(
+            x,
+            y,
+            width,
+            height,
+            shade.hsl.saturation,
+            1 - shade.hsl.lightness
+          )
+        ) {
+          draggedShade = shade.id
+        }
+      }
+
+      setIsDragging(draggedShade || null)
     }
   }
   const handleMouseUp = () => {
-    setIsDragging(false)
+    setIsDragging(null)
   }
 
   useEffect(() => {
