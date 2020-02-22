@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {HSL} from '../../types/color'
 import ColorPicker from '../colorpicker/ColorPicker'
 import ColorHeader from './ColorHeader'
@@ -13,16 +13,27 @@ interface Props {
   removeColor: () => void
 }
 
-const Color = ({name, hsl, setName, setHSL, removeColor}: Props) => (
-  <div className={styles.color}>
-    <ColorHeader
-      name={name}
-      hsl={hsl}
-      setName={setName}
-      removeColor={removeColor}
-    />
-    <ColorPicker hsl={hsl} setHSL={setHSL} />
-  </div>
-)
+const Color = ({name, hsl, setName, setHSL, removeColor}: Props) => {
+  let [isExpanded, setExpanded] = useState(false)
+
+  return (
+    <div className={styles.color}>
+      <ColorHeader
+        name={name}
+        hsl={hsl}
+        setName={setName}
+        removeColor={removeColor}
+        isExpanded={isExpanded}
+        setExpanded={setExpanded}
+      />
+      {isExpanded && (
+        <>
+          <ColorPicker hsl={hsl} setHSL={setHSL} />
+          <div className={styles.divider} />
+        </>
+      )}
+    </div>
+  )
+}
 
 export default Color

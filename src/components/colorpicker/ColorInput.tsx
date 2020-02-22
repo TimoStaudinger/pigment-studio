@@ -31,6 +31,7 @@ const ColorInput = ({label, value, onChange}: Props): JSX.Element => {
         value={buffer}
         onChange={e => handleChange(e.target.value)}
         className={classnames(styles.input, {[styles.invalid]: !isValid})}
+        spellCheck={false}
       />
 
       <AlertTriangle
