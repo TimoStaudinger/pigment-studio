@@ -5,7 +5,7 @@ import {convertCoordsToOffset} from '../util/canvas'
 import styles from './HuePicker.module.css'
 
 const canvasWidth = 200
-const canvasHeight = 20
+const canvasHeight = 30
 
 interface Props {
   hue: number | null
@@ -24,9 +24,11 @@ const HuePicker = ({hue, setHue}: Props): JSX.Element => {
       let {width, height} = canvas.current
 
       if (context !== null) {
+        context.clearRect(0, 0, width, height)
+
         let imageData = context.getImageData(0, 0, width, height)
 
-        for (let y = 0; y < height; y++) {
+        for (let y = 0; y < height - 10; y++) {
           for (let x = 0; x < width; x++) {
             const pixelOffset = convertCoordsToOffset(x, y, width)
 
@@ -47,13 +49,14 @@ const HuePicker = ({hue, setHue}: Props): JSX.Element => {
 
         if (hue !== null) {
           let x = (hue / 360) * width
+          let yOffset = height - 10
 
           context.beginPath()
-          context.moveTo(x, 0)
-          context.lineWidth = 3
-          context.strokeStyle = '#222'
-          context.lineTo(x, height)
-          context.stroke()
+          context.moveTo(x, yOffset)
+          context.fillStyle = '#eee'
+          context.lineTo(x + 10, height)
+          context.lineTo(x - 10, height)
+          context.fill()
         } else console.log('`hue` is null')
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
@@ -89,9 +92,10 @@ const HuePicker = ({hue, setHue}: Props): JSX.Element => {
     setIsDragging(false)
   }
 
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-  }
+  useEffect(() => {
+    window.addEventListener('mouseup', handleMouseUp)
+    return () => window.removeEventListener('mouseup', handleMouseUp)
+  }, [])
 
   useEffect(() => {
     if (canvas.current) render()
@@ -106,7 +110,6 @@ const HuePicker = ({hue, setHue}: Props): JSX.Element => {
         onMouseMove={handleMouseMove}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
       ></canvas>
     </div>
   )
