@@ -5,9 +5,7 @@ import {convertHSLtoRGB} from '../../util/color'
 import {HSL} from '../../types/color'
 
 import styles from './ShadePicker.module.css'
-
-const canvasWidth = 300
-const canvasHeight = 300
+import {useMeasure} from 'react-use'
 
 interface Props {
   hsl: HSL
@@ -16,6 +14,10 @@ interface Props {
 
 const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
+
+  const [canvasWidth, setCanvasWidth] = useState(0)
+  const [ref, {width}] = useMeasure()
+  useEffect(() => setCanvasWidth(width), [width])
 
   const canvas = useRef<HTMLCanvasElement | null>(null)
 
@@ -111,15 +113,17 @@ const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
   })
 
   return (
-    <div className={styles.picker}>
-      <canvas
-        height={canvasHeight}
-        width={canvasWidth}
-        ref={canvas}
-        onMouseMove={handleMouseMove}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-      ></canvas>
+    <div className={styles.picker} ref={ref}>
+      {canvasWidth > 0 && (
+        <canvas
+          height={canvasWidth}
+          width={canvasWidth}
+          ref={canvas}
+          onMouseMove={handleMouseMove}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+        ></canvas>
+      )}
     </div>
   )
 }

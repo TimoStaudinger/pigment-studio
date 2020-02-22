@@ -1,4 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react'
+import {useMeasure} from 'react-use'
 
 import {convertHSLtoRGB} from '../../util/color'
 import {convertCoordsToOffset} from '../../util/canvas'
@@ -6,7 +7,6 @@ import {HSL} from '../../types/color'
 
 import styles from './HuePicker.module.css'
 
-const canvasWidth = 300
 const canvasHeight = 30
 
 interface Props {
@@ -16,6 +16,10 @@ interface Props {
 
 const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
+
+  const [canvasWidth, setCanvasWidth] = useState(0)
+  const [ref, {width}] = useMeasure()
+  useEffect(() => setCanvasWidth(width), [width])
 
   const canvas = useRef<HTMLCanvasElement>(null)
 
@@ -105,15 +109,17 @@ const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
   })
 
   return (
-    <div className={styles.picker}>
-      <canvas
-        height={canvasHeight}
-        width={canvasWidth}
-        ref={canvas}
-        onMouseMove={handleMouseMove}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-      ></canvas>
+    <div className={styles.picker} ref={ref}>
+      {canvasWidth > 0 && (
+        <canvas
+          height={canvasHeight}
+          width={canvasWidth}
+          ref={canvas}
+          onMouseMove={handleMouseMove}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+        ></canvas>
+      )}
     </div>
   )
 }
