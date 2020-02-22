@@ -4,7 +4,6 @@ import {HSL, Shade} from '../../types/color'
 import {getBaseShade} from '../../util/color'
 import HuePicker from './HuePicker'
 import ShadePicker from './ShadePicker'
-import ColorInputs from './ColorInputs'
 
 import styles from './ColorPicker.module.css'
 
@@ -27,7 +26,6 @@ const ColorPicker = ({shades, setHSL}: Props) => {
         }}
       />
       <ShadePicker shades={shades} setHSL={setHSL} />
-      {/* <ColorInputs hsl={hsl} setHSL={setHSL} /> */}
     </div>
   )
 }
