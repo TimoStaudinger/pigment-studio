@@ -110,9 +110,10 @@ const ShadePicker = ({
     setIsDragging(false)
   }
 
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-  }
+  useEffect(() => {
+    window.addEventListener('mouseup', handleMouseUp)
+    return () => window.removeEventListener('mouseup', handleMouseUp)
+  }, [])
 
   useEffect(() => {
     if (canvas.current) render()
@@ -127,7 +128,6 @@ const ShadePicker = ({
         onMouseMove={handleMouseMove}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
       ></canvas>
     </div>
   )
