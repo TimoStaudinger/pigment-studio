@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './App.css'
-import ColorPicker from './pickers/ColorPicker'
+import ColorPicker from './colorpicker/ColorPicker'
 
 const App = () => {
   return (
