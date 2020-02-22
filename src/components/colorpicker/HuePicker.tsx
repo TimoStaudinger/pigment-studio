@@ -7,16 +7,24 @@ import {HSL} from '../../types/color'
 
 import styles from './HuePicker.module.css'
 
-const canvasHeight = 30
-
 interface Props {
   hsl: HSL
   setHSL: (hsl: HSL) => void
+  minHue?: number
+  maxHue?: number
+  height?: number
 }
 
-const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
+const HuePicker = ({
+  hsl,
+  setHSL,
+  minHue = 0,
+  maxHue = 359,
+  height = 30
+}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
 
+  const canvasHeight = height
   const [canvasWidth, setCanvasWidth] = useState(0)
   const [ref, {width}] = useMeasure()
   useEffect(() => setCanvasWidth(width), [width])
@@ -40,7 +48,7 @@ const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
           for (let x = 0; x < width; x++) {
             const pixelOffset = convertCoordsToOffset(x, y, width)
 
-            let hue = (x / width) * 360
+            let hue = (x / width) * (maxHue - minHue) + minHue
             let saturation = 1
             let lightness = 0.5
 
@@ -55,7 +63,7 @@ const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
 
         context.putImageData(imageData, 0, 0)
 
-        let x = (hue / 360) * width
+        let x = ((hue - minHue) / (maxHue - minHue)) * width
         let yOffset = height - 10
 
         context.beginPath()
@@ -78,7 +86,7 @@ const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
       if (isDragging && canvas.current !== null) {
         let {width} = canvas.current
 
-        setHSL({...hsl, hue: (x / width) * 360})
+        setHSL({...hsl, hue: (x / width) * (maxHue - minHue) + minHue})
       }
     }
   }
@@ -91,7 +99,7 @@ const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
 
       let x = e.clientX - left
 
-      setHSL({...hsl, hue: (x / width) * 360})
+      setHSL({...hsl, hue: (x / width) * (maxHue - minHue) + minHue})
       setIsDragging(true)
     }
   }

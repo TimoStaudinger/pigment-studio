@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
+
 import {HSL} from '../../types/color'
 import ColorHeader from './ColorHeader'
+import ColorInputs from './ColorInputs'
+import HuePicker from '../colorpicker/HuePicker'
 
 import styles from './Shade.module.css'
-import ColorInputs from './ColorInputs'
 
 interface Props {
   name: string
@@ -11,9 +13,10 @@ interface Props {
   setName: (name: string) => void
   setHSL: (hsl: HSL) => void
   removeShade: () => void
+  baseHue: number
 }
 
-const Shade = ({name, hsl, setHSL, setName, removeShade}: Props) => {
+const Shade = ({name, baseHue, hsl, setHSL, setName, removeShade}: Props) => {
   let [isExpanded, setExpanded] = useState(false)
 
   return (
@@ -27,7 +30,20 @@ const Shade = ({name, hsl, setHSL, setName, removeShade}: Props) => {
         isExpanded={isExpanded}
         setExpanded={setExpanded}
       />
-      {isExpanded && <ColorInputs hsl={hsl} setHSL={setHSL} />}
+      {isExpanded && (
+        <>
+          <div className={styles.huePicker}>
+            <HuePicker
+              hsl={hsl}
+              setHSL={(hsl: HSL) => setHSL({...hsl, hue: hsl.hue})}
+              minHue={baseHue - 30}
+              maxHue={baseHue + 30}
+              height={20}
+            />
+          </div>
+          <ColorInputs hsl={hsl} setHSL={setHSL} />
+        </>
+      )}
     </div>
   )
 }

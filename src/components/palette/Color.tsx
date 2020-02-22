@@ -19,6 +19,8 @@ interface Props {
 const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
   let [isExpanded, setExpanded] = useState(false)
 
+  let baseShade = getBaseShade(shades)
+
   return (
     <div className={styles.color}>
       <ColorHeader
@@ -40,6 +42,7 @@ const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
               setName={() => {}}
               setHSL={(hsl: HSL) => setHSL(shade.id, hsl)}
               removeShade={() => {}}
+              baseHue={baseShade.hsl.hue}
             />
           ))}
           <div className={styles.divider} />
