@@ -1,12 +1,13 @@
 import React from 'react'
 
-import './App.css'
-import ColorPicker from './colorpicker/ColorPicker'
+import Palette from './components/palette/Palette'
+
+import styles from './App.module.css'
 
 const App = () => {
   return (
-    <div className="App">
-      <ColorPicker />
+    <div className={styles.app}>
+      <Palette />
     </div>
   )
 }

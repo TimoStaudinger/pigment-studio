@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 
 import styles from './ColorInput.module.css'
-import {convertHSLToHex, convertHexToHSL} from '../util/color'
-import {HSL} from '../types/color'
+import {convertHSLToHex, convertHexToHSL} from '../../util/color'
+import {HSL} from '../../types/color'
 
 interface Props {
   hsl: HSL

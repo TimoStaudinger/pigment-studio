@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+}
+
+.header input {
+  border: 1px solid #444;
+  font-size: 1.4em;
+  width: 100%;
+  flex-grow: 1;
+  margin-right: 5px;
+}
+
+.header input:hover {
+  border: 1px solid #666;
+  background-color: #4a4a4a;
+}
+
+.removeButton {
+  height: 36px;
+  flex: 0 0 36px;
+  padding: 0;
+  line-height: 38px;
+}
+
+.removeButton svg {
+  height: 15px;
+}

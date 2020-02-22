@@ -1,9 +1,7 @@
 .container {
-  margin: 5px;
+  display: flex;
 }
-
 .container input {
-  width: 192px;
   border: 1px solid #666;
   background: #444;
   color: #eee;
@@ -12,4 +10,5 @@
   font-family: 'Fira Mono';
   text-align: center;
   font-size: 1.2em;
+  flex: 1;
 }
