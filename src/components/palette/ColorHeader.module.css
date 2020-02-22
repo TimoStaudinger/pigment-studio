@@ -4,10 +4,11 @@
 
 .header input {
   border: 1px solid #444;
-  font-size: 1.4em;
+  font-size: 1em;
   width: 100%;
   flex-grow: 1;
   margin-right: 5px;
+  font-weight: bold;
 }
 
 .header input:hover {
@@ -16,12 +17,12 @@
 }
 
 .removeButton {
-  height: 36px;
-  flex: 0 0 36px;
+  height: 30px;
+  flex: 0 0 30px;
   padding: 0;
-  line-height: 38px;
+  line-height: 32px;
 }
 
 .removeButton svg {
-  height: 15px;
+  /* height: 14px; */
 }

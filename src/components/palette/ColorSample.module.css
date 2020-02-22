@@ -1,8 +1,8 @@
 .sample {
   display: flex;
 
-  height: 34px;
-  flex: 0 0 34px;
+  height: 28px;
+  flex: 0 0 28px;
 
   border: 1px solid #666;
   border-radius: 3px;
