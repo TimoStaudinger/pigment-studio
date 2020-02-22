@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import {Trash, ChevronRight, ChevronDown} from 'react-feather'
 
 import styles from './ColorHeader.module.css'
@@ -12,6 +13,8 @@ interface Props {
   removeColor: () => void
   isExpanded: boolean
   setExpanded: (isExpanded: boolean) => void
+  compact?: boolean
+  className?: string
 }
 
 const ColorHeader = ({
@@ -20,9 +23,15 @@ const ColorHeader = ({
   setName,
   removeColor,
   isExpanded,
-  setExpanded
+  setExpanded,
+  compact,
+  className
 }: Props) => (
-  <div className={styles.header}>
+  <div
+    className={classnames(styles.header, className, {
+      [styles.compact]: compact
+    })}
+  >
     <button
       onClick={() => setExpanded(!isExpanded)}
       className={styles.expandButton}
@@ -30,12 +39,12 @@ const ColorHeader = ({
       {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
     </button>
 
-    <ColorSample hsl={hsl} />
+    <ColorSample hsl={hsl} compact={compact} />
 
     <input value={name} onChange={e => setName(e.target.value)} />
 
     <button onClick={removeColor} className={styles.removeButton}>
-      <Trash size={14} />
+      <Trash size={compact ? 10 : 14} />
     </button>
   </div>
 )
