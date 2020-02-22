@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   display: flex;
 }
 .container input {
@@ -11,4 +12,22 @@
   text-align: center;
   font-size: 1.2em;
   flex: 1;
+  transition: all 0.1s;
+}
+
+.container input.invalid {
+  background: #5d5100 !important;
+}
+
+.warningIcon {
+  position: absolute;
+  right: 10px;
+  top: 3px;
+  color: #ffed73;
+  opacity: 0;
+  transition: all 0.1s;
+}
+
+.warningIcon.invalid {
+  opacity: 1;
 }
