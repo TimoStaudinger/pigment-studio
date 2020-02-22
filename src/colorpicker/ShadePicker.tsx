@@ -62,11 +62,11 @@ const ShadePicker = ({
 
           if (saturation !== null && lightness !== null) {
             let x = saturation * width
-            let y = lightness * height
+            let y = (1 - lightness) * height
 
             context.beginPath()
             context.lineWidth = 1
-            context.strokeStyle = lightness < 0.5 ? '#111' : '#fff'
+            context.strokeStyle = lightness > 0.5 ? '#111' : '#fff'
             context.arc(x, y, 8, 0, Math.PI * 2, true)
             context.stroke()
           } else console.log('`saturation` or `lightness` is null')
@@ -87,7 +87,7 @@ const ShadePicker = ({
       if (isDragging && canvas.current !== null) {
         let {width, height} = canvas.current
         setSaturation(x / width)
-        setLightness(y / height)
+        setLightness(1 - y / height)
       }
     }
   }
@@ -102,7 +102,7 @@ const ShadePicker = ({
       let y = e.clientY - top
 
       setSaturation(x / width)
-      setLightness(y / height)
+      setLightness(1 - y / height)
       setIsDragging(true)
     }
   }

@@ -3,6 +3,8 @@ import React, {useState} from 'react'
 import styles from './ColorPicker.module.css'
 import HuePicker from './HuePicker'
 import ShadePicker from './ShadePicker'
+import ColorInput from './ColorInput'
+import {convertHSLToHex, convertHexToHSL} from '../util/color'
 
 const ColorPicker = () => {
   const [hue, setHue] = useState(250)
@@ -16,6 +18,14 @@ const ColorPicker = () => {
         hue={hue}
         saturation={saturation}
         lightness={lightness}
+        setSaturation={setSaturation}
+        setLightness={setLightness}
+      />
+      <ColorInput
+        hue={hue}
+        saturation={saturation}
+        lightness={lightness}
+        setHue={setHue}
         setSaturation={setSaturation}
         setLightness={setLightness}
       />
