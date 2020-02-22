@@ -1,45 +1,43 @@
 import React, {useState, useEffect} from 'react'
-
-import styles from './ColorInput.module.css'
-import {convertHSLToHex, convertHexToHSL} from '../../util/color'
-import {HSL} from '../../types/color'
+import classnames from 'classnames'
 import {AlertTriangle} from 'react-feather'
 
+import styles from './ColorInput.module.css'
+
 interface Props {
-  hsl: HSL
-  setHSL: (hsl: HSL) => void
+  label: string
+  value: string
+  onChange: (value: string) => boolean
 }
 
-const ColorInput = ({hsl, setHSL}: Props): JSX.Element => {
+const ColorInput = ({label, value, onChange}: Props): JSX.Element => {
   const [buffer, setBuffer] = useState('')
-  const [isInvalid, setIsInvalid] = useState(false)
+  const [isValid, setIsValid] = useState(true)
 
   useEffect(() => {
-    setIsInvalid(false)
-    setBuffer(convertHSLToHex(hsl))
-  }, [hsl])
+    setBuffer(value)
+    setIsValid(true)
+  }, [value])
 
-  const handleChangeHex = (hex: string): void => {
-    setBuffer(hex)
-
-    try {
-      setIsInvalid(false)
-      setHSL(convertHexToHSL(hex))
-    } catch (e) {
-      setIsInvalid(true)
-    }
+  const handleChange = (value: string): void => {
+    setBuffer(value)
+    setIsValid(onChange(value))
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.row}>
+      <label className={styles.label}>{label}</label>
       <input
         value={buffer}
-        onChange={e => handleChangeHex(e.target.value)}
-        className={isInvalid ? styles.invalid : undefined}
+        onChange={e => handleChange(e.target.value)}
+        className={classnames(styles.input, {[styles.invalid]: !isValid})}
       />
 
       <AlertTriangle
-        className={styles.warningIcon + (isInvalid ? ' ' + styles.invalid : '')}
+        size={16}
+        className={classnames(styles.warningIcon, {
+          [styles.invalid]: !isValid
+        })}
       />
     </div>
   )

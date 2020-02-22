@@ -1,9 +1,9 @@
 import React from 'react'
 
+import {HSL} from '../../types/color'
 import HuePicker from './HuePicker'
 import ShadePicker from './ShadePicker'
-import ColorInput from './ColorInput'
-import {HSL} from '../../types/color'
+import ColorInputs from './ColorInputs'
 
 import styles from './ColorPicker.module.css'
 
@@ -17,7 +17,7 @@ const ColorPicker = ({hsl, setHSL}: Props) => {
     <div className={styles.container}>
       <HuePicker hsl={hsl} setHSL={setHSL} />
       <ShadePicker hsl={hsl} setHSL={setHSL} />
-      <ColorInput hsl={hsl} setHSL={setHSL} />
+      <ColorInputs hsl={hsl} setHSL={setHSL} />
     </div>
   )
 }

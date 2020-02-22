@@ -19,7 +19,7 @@ const ColorHeader = ({name, hsl, setName, removeColor}: Props) => (
     <input value={name} onChange={e => setName(e.target.value)} />
 
     <button onClick={removeColor} className={styles.removeButton}>
-      <Trash />
+      <Trash size={14} />
     </button>
   </div>
 )

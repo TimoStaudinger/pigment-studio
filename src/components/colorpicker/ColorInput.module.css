@@ -1,28 +1,36 @@
-.container {
+.row {
   position: relative;
   display: flex;
-}
-.container input {
-  border: 1px solid #666;
-  background: #444;
-  color: #eee;
-  border-radius: 3px;
-  padding: 3px;
-  font-family: 'Fira Mono';
-  text-align: center;
-  font-size: 1.2em;
-  flex: 1;
-  transition: all 0.1s;
+  flex-direction: row;
 }
 
-.container input.invalid {
+.label {
+  width: 100px;
+
+  color: #eee;
+  line-height: 26px;
+  font-size: 0.8em;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.input {
+  font-family: 'Fira Mono';
+  text-align: center;
+  width: 192px;
+
+  border-radius: 0;
+  font-size: 0.8em;
+}
+
+.input.invalid {
   background: #5d5100 !important;
 }
 
 .warningIcon {
   position: absolute;
   right: 10px;
-  top: 3px;
+  top: 4px;
   color: #ffed73;
   opacity: 0;
   transition: all 0.1s;
