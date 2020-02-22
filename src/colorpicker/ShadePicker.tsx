@@ -3,25 +3,17 @@ import {convertCoordsToOffset} from '../util/canvas'
 import {convertHSLtoRGB} from '../util/color'
 
 import styles from './ShadePicker.module.css'
+import {HSL} from '../types/color'
 
 const canvasWidth = 200
 const canvasHeight = 200
 
 interface Props {
-  hue: number | null
-  saturation: number | null
-  lightness: number | null
-  setSaturation: (saturation: number) => void
-  setLightness: (lightness: number) => void
+  hsl: HSL
+  setHSL: (hsl: HSL) => void
 }
 
-const ShadePicker = ({
-  hue = null,
-  saturation = null,
-  lightness = null,
-  setSaturation,
-  setLightness
-}: Props): JSX.Element => {
+const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
 
   const canvas = useRef<HTMLCanvasElement | null>(null)
@@ -33,6 +25,8 @@ const ShadePicker = ({
       let {width, height} = canvas.current
 
       if (context !== null) {
+        let {hue, saturation, lightness} = hsl
+
         context.clearRect(0, 0, width, height)
 
         let imageData = context.getImageData(0, 0, width, height)
@@ -60,16 +54,14 @@ const ShadePicker = ({
 
           context.putImageData(imageData, 0, 0)
 
-          if (saturation !== null && lightness !== null) {
-            let x = saturation * width
-            let y = (1 - lightness) * height
+          let x = saturation * width
+          let y = (1 - lightness) * height
 
-            context.beginPath()
-            context.lineWidth = 1
-            context.strokeStyle = lightness > 0.5 ? '#111' : '#fff'
-            context.arc(x, y, 8, 0, Math.PI * 2, true)
-            context.stroke()
-          } else console.log('`saturation` or `lightness` is null')
+          context.beginPath()
+          context.lineWidth = 1
+          context.strokeStyle = lightness > 0.5 ? '#111' : '#fff'
+          context.arc(x, y, 8, 0, Math.PI * 2, true)
+          context.stroke()
         } else console.log('`hue` is null')
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
@@ -86,8 +78,7 @@ const ShadePicker = ({
 
       if (isDragging && canvas.current !== null) {
         let {width, height} = canvas.current
-        setSaturation(x / width)
-        setLightness(1 - y / height)
+        setHSL({...hsl, saturation: x / width, lightness: 1 - y / height})
       }
     }
   }
@@ -101,8 +92,7 @@ const ShadePicker = ({
       let x = e.clientX - left
       let y = e.clientY - top
 
-      setSaturation(x / width)
-      setLightness(1 - y / height)
+      setHSL({...hsl, saturation: x / width, lightness: 1 - y / height})
       setIsDragging(true)
     }
   }

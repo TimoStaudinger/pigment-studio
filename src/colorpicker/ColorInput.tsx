@@ -2,33 +2,19 @@ import React, {useState, useEffect} from 'react'
 
 import styles from './ColorInput.module.css'
 import {convertHSLToHex, convertHexToHSL} from '../util/color'
+import {HSL} from '../types/color'
 
 interface Props {
-  hue: number | null
-  saturation: number | null
-  lightness: number | null
-  setHue: (hue: number) => void
-  setSaturation: (saturation: number) => void
-  setLightness: (lightness: number) => void
+  hsl: HSL
+  setHSL: (hsl: HSL) => void
 }
 
-const ColorInput = ({
-  hue,
-  saturation,
-  lightness,
-  setHue,
-  setSaturation,
-  setLightness
-}: Props): JSX.Element => {
+const ColorInput = ({hsl, setHSL}: Props): JSX.Element => {
   const [buffer, setBuffer] = useState('')
 
   useEffect(() => {
-    if (hue !== null && saturation !== null && lightness !== null) {
-      setBuffer(convertHSLToHex(hue, saturation, lightness))
-    } else {
-      setBuffer('')
-    }
-  }, [hue, saturation, lightness])
+    setBuffer(convertHSLToHex(hsl))
+  }, [hsl])
 
   const handleChangeHex = (hex: string): void => {
     setBuffer(hex)
@@ -36,11 +22,7 @@ const ColorInput = ({
     console.log(hex)
 
     try {
-      let [h, s, l] = convertHexToHSL(hex)
-      console.log([h, s, l])
-      setHue(h)
-      setSaturation(s)
-      setLightness(l)
+      setHSL(convertHexToHSL(hex))
     } catch (e) {}
   }
 

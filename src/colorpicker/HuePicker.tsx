@@ -1,6 +1,8 @@
 import React, {useRef, useEffect, useState} from 'react'
+
 import {convertHSLtoRGB} from '../util/color'
 import {convertCoordsToOffset} from '../util/canvas'
+import {HSL} from '../types/color'
 
 import styles from './HuePicker.module.css'
 
@@ -8,16 +10,18 @@ const canvasWidth = 200
 const canvasHeight = 30
 
 interface Props {
-  hue: number | null
-  setHue: (hue: number) => void
+  hsl: HSL
+  setHSL: (hsl: HSL) => void
 }
 
-const HuePicker = ({hue, setHue}: Props): JSX.Element => {
+const HuePicker = ({hsl, setHSL}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
 
   const canvas = useRef<HTMLCanvasElement>(null)
 
   const render = () => {
+    let {hue} = hsl
+
     if (canvas.current !== null) {
       let context = canvas.current.getContext('2d')
 
@@ -47,17 +51,15 @@ const HuePicker = ({hue, setHue}: Props): JSX.Element => {
 
         context.putImageData(imageData, 0, 0)
 
-        if (hue !== null) {
-          let x = (hue / 360) * width
-          let yOffset = height - 10
+        let x = (hue / 360) * width
+        let yOffset = height - 10
 
-          context.beginPath()
-          context.moveTo(x, yOffset)
-          context.fillStyle = '#eee'
-          context.lineTo(x + 10, height)
-          context.lineTo(x - 10, height)
-          context.fill()
-        } else console.log('`hue` is null')
+        context.beginPath()
+        context.moveTo(x, yOffset)
+        context.fillStyle = '#eee'
+        context.lineTo(x + 10, height)
+        context.lineTo(x - 10, height)
+        context.fill()
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
   }
@@ -71,7 +73,8 @@ const HuePicker = ({hue, setHue}: Props): JSX.Element => {
 
       if (isDragging && canvas.current !== null) {
         let {width} = canvas.current
-        setHue((x / width) * 360)
+
+        setHSL({...hsl, hue: (x / width) * 360})
       }
     }
   }
@@ -84,7 +87,7 @@ const HuePicker = ({hue, setHue}: Props): JSX.Element => {
 
       let x = e.clientX - left
 
-      setHue((x / width) * 360)
+      setHSL({...hsl, hue: (x / width) * 360})
       setIsDragging(true)
     }
   }
