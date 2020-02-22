@@ -1,0 +1,11 @@
+.sample {
+  display: flex;
+
+  height: 34px;
+  flex: 0 0 34px;
+
+  border: 1px solid #666;
+  border-radius: 3px;
+
+  margin-right: 5px;
+}

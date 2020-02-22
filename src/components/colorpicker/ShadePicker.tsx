@@ -1,12 +1,13 @@
 import React, {useRef, useEffect, useState} from 'react'
-import {convertCoordsToOffset} from '../util/canvas'
-import {convertHSLtoRGB} from '../util/color'
+
+import {convertCoordsToOffset} from '../../util/canvas'
+import {convertHSLtoRGB} from '../../util/color'
+import {HSL} from '../../types/color'
 
 import styles from './ShadePicker.module.css'
-import {HSL} from '../types/color'
 
-const canvasWidth = 200
-const canvasHeight = 200
+const canvasWidth = 300
+const canvasHeight = 300
 
 interface Props {
   hsl: HSL
