@@ -9,6 +9,11 @@
   flex-grow: 1;
   margin-right: 5px;
   padding: 5px;
+  margin-bottom: 0;
+}
+
+.header.compact input {
+  padding: 1px;
 }
 
 .header input:hover {
@@ -23,6 +28,12 @@
   line-height: 32px;
 }
 
+.compact .removeButton {
+  height: 22px;
+  flex: 0 0 22px;
+  line-height: 20px;
+}
+
 .expandButton {
   height: 30px;
   flex: 0 0 30px;
@@ -32,4 +43,10 @@
   background-color: transparent !important;
   width: 20px;
   margin-right: 5px;
+}
+
+.compact .expandButton {
+  height: 20px;
+  flex: 0 0 20px;
+  line-height: 25px;
 }

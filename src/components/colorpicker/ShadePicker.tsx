@@ -1,18 +1,18 @@
 import React, {useRef, useEffect, useState} from 'react'
 
 import {convertCoordsToOffset} from '../../util/canvas'
-import {convertHSLtoRGB} from '../../util/color'
-import {HSL} from '../../types/color'
+import {convertHSLtoRGB, getBaseShade} from '../../util/color'
+import {HSL, Shade} from '../../types/color'
 
 import styles from './ShadePicker.module.css'
 import {useMeasure} from 'react-use'
 
 interface Props {
-  hsl: HSL
-  setHSL: (hsl: HSL) => void
+  shades: Shade[]
+  setHSL: (id: string, hsl: HSL) => void
 }
 
-const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
+const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
 
   const [canvasWidth, setCanvasWidth] = useState(0)
@@ -21,6 +21,8 @@ const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
 
   const canvas = useRef<HTMLCanvasElement | null>(null)
 
+  let baseShade = getBaseShade(shades)
+
   const render = () => {
     if (canvas.current !== null) {
       let context = canvas.current.getContext('2d')
@@ -28,7 +30,7 @@ const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
       let {width, height} = canvas.current
 
       if (context !== null) {
-        let {hue, saturation, lightness} = hsl
+        let {hue, saturation, lightness} = baseShade.hsl
 
         context.clearRect(0, 0, width, height)
 
@@ -57,14 +59,17 @@ const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
 
           context.putImageData(imageData, 0, 0)
 
-          let x = saturation * width
-          let y = (1 - lightness) * height
+          for (let shade of shades) {
+            let {saturation, lightness} = shade.hsl
+            let x = saturation * width
+            let y = (1 - lightness) * height
 
-          context.beginPath()
-          context.lineWidth = 1
-          context.strokeStyle = lightness > 0.5 ? '#111' : '#fff'
-          context.arc(x, y, 8, 0, Math.PI * 2, true)
-          context.stroke()
+            context.beginPath()
+            context.lineWidth = 1
+            context.strokeStyle = lightness > 0.5 ? '#111' : '#fff'
+            context.arc(x, y, 8, 0, Math.PI * 2, true)
+            context.stroke()
+          }
         } else console.log('`hue` is null')
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
@@ -81,7 +86,11 @@ const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
 
       if (isDragging && canvas.current !== null) {
         let {width, height} = canvas.current
-        setHSL({...hsl, saturation: x / width, lightness: 1 - y / height})
+        setHSL(baseShade.id, {
+          ...baseShade.hsl,
+          saturation: x / width,
+          lightness: 1 - y / height
+        })
       }
     }
   }
@@ -95,7 +104,11 @@ const ShadePicker = ({hsl, setHSL}: Props): JSX.Element => {
       let x = e.clientX - left
       let y = e.clientY - top
 
-      setHSL({...hsl, saturation: x / width, lightness: 1 - y / height})
+      setHSL(baseShade.id, {
+        ...baseShade.hsl,
+        saturation: x / width,
+        lightness: 1 - y / height
+      })
       setIsDragging(true)
     }
   }

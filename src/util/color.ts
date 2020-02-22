@@ -1,4 +1,4 @@
-import {HSL} from '../types/color'
+import {HSL, Shade} from '../types/color'
 
 export const convertHSLtoRGB = (
   h: number,
@@ -100,3 +100,6 @@ export const convertHexToHSL = (hex: string): HSL => {
 
   return {hue: h, saturation: s / 100, lightness: l / 100}
 }
+
+export const getBaseShade = (shades: Shade[]): Shade =>
+  shades.find(shade => shade.base) || shades[0]

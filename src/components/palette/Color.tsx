@@ -1,34 +1,46 @@
 import React, {useState} from 'react'
-import {HSL} from '../../types/color'
+
+import {HSL, Shade} from '../../types/color'
+import {getBaseShade} from '../../util/color'
 import ColorPicker from '../colorpicker/ColorPicker'
 import ColorHeader from './ColorHeader'
+import ShadeComponent from './Shade'
 
 import styles from './Color.module.css'
 
 interface Props {
   name: string
-  hsl: HSL
+  shades: Shade[]
   setName: (name: string) => void
-  setHSL: (hsl: HSL) => void
+  setHSL: (id: string, hsl: HSL) => void
   removeColor: () => void
 }
 
-const Color = ({name, hsl, setName, setHSL, removeColor}: Props) => {
+const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
   let [isExpanded, setExpanded] = useState(false)
 
   return (
     <div className={styles.color}>
       <ColorHeader
         name={name}
-        hsl={hsl}
+        hsl={getBaseShade(shades).hsl}
         setName={setName}
         removeColor={removeColor}
         isExpanded={isExpanded}
         setExpanded={setExpanded}
+        className={styles.header}
       />
       {isExpanded && (
         <>
-          <ColorPicker hsl={hsl} setHSL={setHSL} />
+          <ColorPicker shades={shades} setHSL={setHSL} />
+          {shades.map(shade => (
+            <ShadeComponent
+              {...shade}
+              setName={() => {}}
+              setHSL={(hsl: HSL) => setHSL(shade.id, hsl)}
+              removeShade={() => {}}
+            />
+          ))}
           <div className={styles.divider} />
         </>
       )}
