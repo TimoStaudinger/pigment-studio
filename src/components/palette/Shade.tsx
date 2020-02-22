@@ -36,8 +36,8 @@ const Shade = ({name, baseHue, hsl, setHSL, setName, removeShade}: Props) => {
             <HuePicker
               hsl={hsl}
               setHSL={(hsl: HSL) => setHSL({...hsl, hue: hsl.hue})}
-              minHue={baseHue - 30}
-              maxHue={baseHue + 30}
+              minHue={Math.max(baseHue - 30, 0)}
+              maxHue={Math.min(baseHue + 30, 359)}
               height={20}
             />
           </div>
