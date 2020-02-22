@@ -1,3 +1,5 @@
+import {HSL} from '../types/color'
+
 export const convertHSLtoRGB = (
   h: number,
   s: number,
@@ -42,8 +44,8 @@ export const convertHSLtoRGB = (
   return [r, g, b]
 }
 
-export const convertHSLToHex = (h: number, s: number, l: number) => {
-  let [rValue, gValue, bValue] = convertHSLtoRGB(h, s, l)
+export const convertHSLToHex = ({hue, saturation, lightness}: HSL) => {
+  let [rValue, gValue, bValue] = convertHSLtoRGB(hue, saturation, lightness)
 
   let r = rValue.toString(16)
   let g = gValue.toString(16)
@@ -56,7 +58,7 @@ export const convertHSLToHex = (h: number, s: number, l: number) => {
   return r + g + b
 }
 
-export const convertHexToHSL = (hex: string): [number, number, number] => {
+export const convertHexToHSL = (hex: string): HSL => {
   if (!Boolean(hex) || hex.length !== 6 || !hex.match(/^[0-9a-fA-F]*$/)) {
     throw new Error('Invalid hex code')
   }
@@ -96,5 +98,5 @@ export const convertHexToHSL = (hex: string): [number, number, number] => {
   s = +(s * 100).toFixed(1)
   l = +(l * 100).toFixed(1)
 
-  return [h, s / 100, l / 100]
+  return {hue: h, saturation: s / 100, lightness: l / 100}
 }
