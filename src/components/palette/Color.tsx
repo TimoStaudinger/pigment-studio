@@ -36,6 +36,7 @@ const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
           {shades.map(shade => (
             <ShadeComponent
               {...shade}
+              key={shade.id}
               setName={() => {}}
               setHSL={(hsl: HSL) => setHSL(shade.id, hsl)}
               removeShade={() => {}}
