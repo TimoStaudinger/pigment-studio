@@ -3,6 +3,7 @@ import {HSL} from '../../types/color'
 import ColorHeader from './ColorHeader'
 
 import styles from './Shade.module.css'
+import ColorInputs from './ColorInputs'
 
 interface Props {
   name: string
@@ -26,6 +27,7 @@ const Shade = ({name, hsl, setHSL, setName, removeShade}: Props) => {
         isExpanded={isExpanded}
         setExpanded={setExpanded}
       />
+      {isExpanded && <ColorInputs hsl={hsl} setHSL={setHSL} />}
     </div>
   )
 }
