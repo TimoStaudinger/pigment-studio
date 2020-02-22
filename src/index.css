@@ -12,7 +12,6 @@ input {
   border: 1px solid #666;
   background-color: #444;
   color: #eee;
-  border-radius: 3px;
   padding: 3px;
   font-size: 1.2em;
   margin-bottom: 10px;
@@ -21,6 +20,10 @@ input {
 
 input:hover {
   background-color: #4a4a4a;
+}
+input:focus {
+  border-color: #aaa;
+  outline: none;
 }
 
 button {

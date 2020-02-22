@@ -1,5 +1,5 @@
 import React from 'react'
-import {Trash} from 'react-feather'
+import {Trash, ChevronRight, ChevronDown} from 'react-feather'
 
 import styles from './ColorHeader.module.css'
 import ColorSample from './ColorSample'
@@ -10,10 +10,26 @@ interface Props {
   hsl: HSL
   setName: (name: string) => void
   removeColor: () => void
+  isExpanded: boolean
+  setExpanded: (isExpanded: boolean) => void
 }
 
-const ColorHeader = ({name, hsl, setName, removeColor}: Props) => (
+const ColorHeader = ({
+  name,
+  hsl,
+  setName,
+  removeColor,
+  isExpanded,
+  setExpanded
+}: Props) => (
   <div className={styles.header}>
+    <button
+      onClick={() => setExpanded(!isExpanded)}
+      className={styles.expandButton}
+    >
+      {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+    </button>
+
     <ColorSample hsl={hsl} />
 
     <input value={name} onChange={e => setName(e.target.value)} />

@@ -1,4 +1,11 @@
 .color {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   width: 300px;
+}
+
+.divider {
+  height: 1px;
+  background: #666;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

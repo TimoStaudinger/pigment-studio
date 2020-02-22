@@ -19,7 +19,7 @@ const Palette = () => {
   let [colors, setColors] = useState<Color[]>([
     {
       id: ulid(),
-      name: 'My new color',
+      name: 'Untitled',
       hsl: {hue: 250, saturation: 0.5, lightness: 0.5}
     }
   ])
@@ -29,7 +29,7 @@ const Palette = () => {
       ...colors,
       {
         id: ulid(),
-        name: 'My new color',
+        name: 'Untitled',
         hsl: {hue: 250, saturation: 0.5, lightness: 0.5}
       }
     ])
