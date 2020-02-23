@@ -1,0 +1,58 @@
+.potentiallyDroppableElement {
+  background: none;
+  transition: all 0.2s;
+}
+
+.droppableElement {
+  position: relative;
+  padding: 10px;
+  margin: -10px;
+}
+
+.droppableElement::before {
+  content: ' ';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.5;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    -55deg,
+    #aaa,
+    #aaa 10px,
+    #333 10px,
+    #333 20px
+  );
+}
+
+.attributeDropZones {
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+
+  background-color: #444;
+  border: 1px solid #666;
+  border-radius: 5px;
+
+  text-align: left;
+  color: #eee;
+  font-family: 'Open Sans';
+  font-size: 0.9em;
+}
+
+.attributeDropZone {
+  padding: 5px;
+}
+.attributeDropZone:first-of-type {
+  border-radius: 3px 3px 0 0;
+}
+.attributeDropZone:last-of-type {
+  border-radius: 0 0 3px 3px;
+}
+
+.dropping {
+  background-color: #222;
+}
