@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import {HSL, Shade} from '../../types/color'
 import {getBaseShade} from '../../util/color'
-import ColorPicker from '../colorpicker/ColorPicker'
+import ColorPicker from './ColorPicker'
 import ColorHeader from './ColorHeader'
 import ShadeComponent from './Shade'
 

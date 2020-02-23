@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {HSL} from '../../types/color'
 import ColorHeader from './ColorHeader'
 import ColorInputs from './ColorInputs'
-import HuePicker from '../colorpicker/HuePicker'
+import HuePicker from './HuePicker'
 
 import styles from './Shade.module.css'
 

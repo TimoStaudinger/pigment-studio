@@ -1,18 +1,18 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {ulid} from 'ulid'
 
-import {generatePalette} from '../../util/sample'
 import AddColorButton from './AddColorButton'
 import ColorComponent from './Color'
 import {Color} from '../../types/color'
 
 import styles from './Palette.module.css'
 
-interface Props {}
+interface Props {
+  colors: Color[]
+  setColors: (colors: (prev: Color[]) => Color[]) => void
+}
 
-const Palette = () => {
-  let [colors, setColors] = useState<Color[]>(generatePalette())
-
+const Palette = ({colors, setColors}: Props) => {
   const handleAddColor = () => {
     setColors(colors => [
       ...colors,
