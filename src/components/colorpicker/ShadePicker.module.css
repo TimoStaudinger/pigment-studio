@@ -2,3 +2,10 @@
   margin-bottom: 5px;
   cursor: grab;
 }
+
+.picker.isDraggingOverLight {
+  cursor: url(cursor-black.png) 10 10, auto;
+}
+.picker.isDraggingOverDark {
+  cursor: url(cursor-white.png) 10 10, auto;
+}

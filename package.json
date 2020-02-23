@@ -11,6 +11,8 @@
     "@types/react": "^16.9.21",
     "@types/react-dom": "^16.9.5",
     "classnames": "^2.2.6",
+    "debounce": "^1.2.0",
+    "memoizee": "^0.4.14",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-feather": "^2.0.3",
@@ -42,6 +44,8 @@
     ]
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.9"
+    "@types/classnames": "^2.2.9",
+    "@types/debounce": "^1.2.0",
+    "@types/memoizee": "^0.4.3"
   }
 }

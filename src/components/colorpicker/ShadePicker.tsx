@@ -1,5 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react'
 import {useMeasure} from 'react-use'
+import classnames from 'classnames'
 
 import {convertCoordsToOffset} from '../../util/canvas'
 import {convertHSLtoRGB, getBaseShade} from '../../util/color'
@@ -7,6 +8,7 @@ import {isPointOnHandle2D} from '../../util/coordinates'
 import {HSL, Shade} from '../../types/color'
 
 import styles from './ShadePicker.module.css'
+import {throttle} from '../../util/throttle'
 
 interface Props {
   shades: Shade[]
@@ -15,6 +17,9 @@ interface Props {
 
 const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState<string | null>(null)
+  let draggedShade = isDragging
+    ? shades.find(shade => shade.id === isDragging) ?? null
+    : null
 
   const [canvasWidth, setCanvasWidth] = useState(0)
   const [ref, {width}] = useMeasure()
@@ -24,7 +29,8 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
 
   let baseShade = getBaseShade(shades)
 
-  const render = () => {
+  const render = throttle(() => {
+    console.log('rerendering shade picker')
     if (canvas.current !== null) {
       let context = canvas.current.getContext('2d')
 
@@ -61,6 +67,8 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
           context.putImageData(imageData, 0, 0)
 
           for (let shade of shades) {
+            if (isDragging === shade.id) continue
+
             let {saturation, lightness} = shade.hsl
             let x = saturation * width
             let y = (1 - lightness) * height
@@ -74,7 +82,7 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
         } else console.log('`hue` is null')
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
-  }
+  }, 15)
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
@@ -137,11 +145,22 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    if (canvas.current) render()
+    if (canvas.current && !isDragging) render()
   })
+  useEffect(() => {
+    if (canvas.current) render()
+  }, [isDragging]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={styles.picker} ref={ref}>
+    <div
+      className={classnames(styles.picker, {
+        [styles.isDraggingOverLight]:
+          draggedShade && draggedShade?.hsl.lightness >= 0.5,
+        [styles.isDraggingOverDark]:
+          draggedShade && draggedShade?.hsl.lightness < 0.5
+      })}
+      ref={ref}
+    >
       {canvasWidth > 0 && (
         <canvas
           height={canvasWidth}

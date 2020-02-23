@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react'
+import React, {useRef, useEffect, useState, useCallback} from 'react'
 import {useMeasure} from 'react-use'
 
 import {convertHSLtoRGB} from '../../util/color'
@@ -42,7 +42,7 @@ const HuePicker = ({
 
   const canvas = useRef<HTMLCanvasElement>(null)
 
-  const render = () => {
+  const render = useCallback(() => {
     let {hue} = hsl
 
     if (canvas.current !== null) {
@@ -87,7 +87,7 @@ const HuePicker = ({
         context.fill()
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
-  }
+  }, [bufferedMaxHue, bufferedMinHue, hsl, specificSaturationAndLightness])
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
