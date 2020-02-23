@@ -32,6 +32,7 @@ const ColorInputs = ({hsl, setHSL}: Props) => {
       <div className={styles.column}>
         <ColorInput
           label="H"
+          allowMouseWheelChanges
           value={String(Math.round(hsl.hue))}
           onChange={hue => {
             let parsed = parseInt(hue)
@@ -44,6 +45,7 @@ const ColorInputs = ({hsl, setHSL}: Props) => {
         />
         <ColorInput
           label="S"
+          allowMouseWheelChanges
           value={String(Math.round(hsl.saturation * 100))}
           onChange={saturation => {
             let parsed = parseInt(saturation)
@@ -56,6 +58,7 @@ const ColorInputs = ({hsl, setHSL}: Props) => {
         />
         <ColorInput
           label="L"
+          allowMouseWheelChanges
           value={String(Math.round(hsl.lightness * 100))}
           onChange={lightness => {
             let parsed = parseInt(lightness)

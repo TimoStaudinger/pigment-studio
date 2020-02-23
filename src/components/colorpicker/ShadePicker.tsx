@@ -30,7 +30,6 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
   let baseShade = getBaseShade(shades)
 
   const render = throttle(() => {
-    console.log('rerendering shade picker')
     if (canvas.current !== null) {
       let context = canvas.current.getContext('2d')
 
