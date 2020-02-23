@@ -7,6 +7,7 @@ import ColorHeader from './ColorHeader'
 import ShadeComponent from './Shade'
 
 import styles from './Color.module.css'
+import ShadePreview from './ShadePreview'
 
 interface Props {
   name: string
@@ -32,7 +33,7 @@ const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
         setExpanded={setExpanded}
         className={styles.header}
       />
-      {isExpanded && (
+      {isExpanded ? (
         <>
           <ColorPicker shades={shades} setHSL={setHSL} />
           {shades.map(shade => (
@@ -47,6 +48,8 @@ const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
           ))}
           <div className={styles.divider} />
         </>
+      ) : (
+        <ShadePreview shades={shades} />
       )}
     </div>
   )
