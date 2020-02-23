@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Shade} from '../../types/color'
-import ColorSample from './ColorSample'
+import Swatch from './Swatch'
 
 import styles from './ShadePreview.module.css'
 
@@ -12,7 +12,7 @@ interface Props {
 const ShadePreview = ({shades}: Props) => (
   <div className={styles.container}>
     {shades.map(shade => (
-      <ColorSample key={shade.id} hsl={shade.hsl} compact />
+      <Swatch key={shade.id} hsl={shade.hsl} compact />
     ))}
   </div>
 )

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import {Trash, ChevronRight} from 'react-feather'
 
 import styles from './ColorHeader.module.css'
-import ColorSample from './ColorSample'
+import Swatch from './Swatch'
 import {HSL} from '../../types/color'
 
 interface Props {
@@ -42,7 +42,7 @@ const ColorHeader = ({
       />
     </button>
 
-    <ColorSample hsl={hsl} compact={compact} />
+    <Swatch hsl={hsl} compact={compact} />
 
     <input value={name} onChange={e => setName(e.target.value)} />
 

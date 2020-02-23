@@ -8,6 +8,8 @@
   border-radius: 3px;
 
   margin-right: 5px;
+
+  cursor: grab;
 }
 
 .sample.compact {
