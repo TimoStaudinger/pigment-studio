@@ -1,11 +1,10 @@
 .palette {
   background-color: #444;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* padding: 5px; */
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
