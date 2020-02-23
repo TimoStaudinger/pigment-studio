@@ -2,6 +2,7 @@ import React from 'react'
 import {Color, HSL} from '../../types/color'
 
 import styles from './Preview.module.css'
+import ColorSlot from './ColorSlot'
 
 const hslToCSS = (hsl: HSL) =>
   `hsl(${hsl.hue}, ${Math.round(hsl.saturation * 100)}%, ${Math.round(
@@ -39,9 +40,11 @@ const Preview = ({colors}: Props) => {
           className={styles.currentValue}
           style={{color: getColor('Primary 2', '400')}}
         >
-          <span style={{color: getColor('Primary 1', '400')}}>
-            Current Portfolio Value{' '}
-          </span>
+          <ColorSlot colors={colors} defaultColorName={['Primary 1', '400']}>
+            {(color: string) => (
+              <span style={{color}}>Current Portfolio Value </span>
+            )}
+          </ColorSlot>
           <br />
           USD 1,645,091.49
         </p>
