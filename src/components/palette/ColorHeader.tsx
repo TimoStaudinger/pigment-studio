@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import {Trash, ChevronRight, ChevronDown} from 'react-feather'
+import {Trash, ChevronRight} from 'react-feather'
 
 import styles from './ColorHeader.module.css'
 import ColorSample from './ColorSample'
@@ -36,7 +36,10 @@ const ColorHeader = ({
       onClick={() => setExpanded(!isExpanded)}
       className={styles.expandButton}
     >
-      {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+      <ChevronRight
+        size={14}
+        className={classnames({[styles.expanded]: isExpanded})}
+      />
     </button>
 
     <ColorSample hsl={hsl} compact={compact} />

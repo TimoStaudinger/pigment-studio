@@ -38,6 +38,11 @@ button {
   font-size: 0.9em;
 }
 
+button:focus {
+  border: 1px solid #aaa;
+  outline: none;
+}
+
 button:hover {
   background-color: #222;
 }
@@ -90,4 +95,26 @@ button:hover {
 }
 .Resizer.disabled:hover {
   border-color: transparent;
+}
+
+*::-webkit-scrollbar {
+  background-color: #444;
+  width: 16px;
+}
+
+/* background of the scrollbar except button or resizer */
+*::-webkit-scrollbar-track {
+  background-color: #444;
+}
+
+/* scrollbar itself */
+*::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 16px;
+  border: 4px solid #444;
+}
+
+/* set button(top and bottom of the scrollbar) */
+*::-webkit-scrollbar-button {
+  display: none;
 }
