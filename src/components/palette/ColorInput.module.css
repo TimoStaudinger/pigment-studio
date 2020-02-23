@@ -30,6 +30,7 @@
   margin-bottom: 0;
   border-radius: 0;
   font-size: 0.7em;
+  touch-action: none;
 }
 
 .input.invalid {
