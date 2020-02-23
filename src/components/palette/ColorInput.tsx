@@ -27,19 +27,22 @@ const ColorInput = ({label, value, onChange}: Props): JSX.Element => {
   return (
     <div className={styles.row}>
       <label className={styles.label}>{label}</label>
-      <input
-        value={buffer}
-        onChange={e => handleChange(e.target.value)}
-        className={classnames(styles.input, {[styles.invalid]: !isValid})}
-        spellCheck={false}
-      />
+      <span className={styles.inputContainer}>
+        <input
+          value={buffer}
+          onChange={e => handleChange(e.target.value)}
+          className={classnames(styles.input, {[styles.invalid]: !isValid})}
+          spellCheck={false}
+          onFocus={e => e.target.select()}
+        />
 
-      <AlertTriangle
-        size={16}
-        className={classnames(styles.warningIcon, {
-          [styles.invalid]: !isValid
-        })}
-      />
+        <AlertTriangle
+          size={13}
+          className={classnames(styles.warningIcon, {
+            [styles.invalid]: !isValid
+          })}
+        />
+      </span>
     </div>
   )
 }
