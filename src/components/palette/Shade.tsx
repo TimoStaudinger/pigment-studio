@@ -39,6 +39,7 @@ const Shade = ({name, baseHue, hsl, setHSL, setName, removeShade}: Props) => {
               minHue={Math.max(baseHue - 30, 0)}
               maxHue={Math.min(baseHue + 30, 359)}
               height={20}
+              specificSaturationAndLightness
             />
           </div>
           <ColorInputs hsl={hsl} setHSL={setHSL} />
