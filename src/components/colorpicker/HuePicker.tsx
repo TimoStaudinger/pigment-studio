@@ -13,6 +13,7 @@ interface Props {
   minHue?: number
   maxHue?: number
   height?: number
+  specificSaturationAndLightness?: boolean
 }
 
 const HuePicker = ({
@@ -20,7 +21,8 @@ const HuePicker = ({
   setHSL,
   minHue = 0,
   maxHue = 359,
-  height = 30
+  height = 30,
+  specificSaturationAndLightness
 }: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
   const [bufferedMinHue, setBufferedMinHue] = useState(minHue)
@@ -59,8 +61,8 @@ const HuePicker = ({
 
             let hue =
               (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
-            let saturation = 1
-            let lightness = 0.5
+            let saturation = specificSaturationAndLightness ? hsl.saturation : 1
+            let lightness = specificSaturationAndLightness ? hsl.lightness : 0.5
 
             let [r, g, b] = convertHSLtoRGB(hue, saturation, lightness)
 

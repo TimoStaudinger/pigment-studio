@@ -1,7 +1,7 @@
 .color {
-  margin-left: 28px;
+  margin-left: 35px;
   margin-bottom: 3px;
-  width: calc(100% - 36px);
+  width: calc(100% - 35px);
 }
 
 .huePicker {
