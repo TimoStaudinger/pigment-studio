@@ -23,6 +23,15 @@ const HuePicker = ({
   height = 30
 }: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
+  const [bufferedMinHue, setBufferedMinHue] = useState(minHue)
+  const [bufferedMaxHue, setBufferedMaxHue] = useState(maxHue)
+
+  useEffect(() => {
+    if (!isDragging) {
+      setBufferedMaxHue(maxHue)
+      setBufferedMinHue(minHue)
+    }
+  }, [maxHue, minHue, isDragging])
 
   const canvasHeight = height
   const [canvasWidth, setCanvasWidth] = useState(0)
@@ -48,7 +57,8 @@ const HuePicker = ({
           for (let x = 0; x < width; x++) {
             const pixelOffset = convertCoordsToOffset(x, y, width)
 
-            let hue = (x / width) * (maxHue - minHue) + minHue
+            let hue =
+              (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
             let saturation = 1
             let lightness = 0.5
 
@@ -63,7 +73,8 @@ const HuePicker = ({
 
         context.putImageData(imageData, 0, 0)
 
-        let x = ((hue - minHue) / (maxHue - minHue)) * width
+        let x =
+          ((hue - bufferedMinHue) / (bufferedMaxHue - bufferedMinHue)) * width
         let yOffset = height - 10
 
         context.beginPath()
@@ -86,7 +97,10 @@ const HuePicker = ({
       if (isDragging && canvas.current !== null) {
         let {width} = canvas.current
 
-        setHSL({...hsl, hue: (x / width) * (maxHue - minHue) + minHue})
+        setHSL({
+          ...hsl,
+          hue: (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
+        })
       }
     }
   }
@@ -99,7 +113,10 @@ const HuePicker = ({
 
       let x = e.clientX - left
 
-      setHSL({...hsl, hue: (x / width) * (maxHue - minHue) + minHue})
+      setHSL({
+        ...hsl,
+        hue: (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
+      })
       setIsDragging(true)
     }
   }
