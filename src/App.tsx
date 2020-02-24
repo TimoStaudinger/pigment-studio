@@ -7,9 +7,10 @@ import {DndProvider} from 'react-dnd'
 import {generatePalette} from './util/sample'
 import {Color} from './types/color'
 import Palette from './components/palette/Palette'
+import Preview from './components/preview/Preview'
+import Contrast from './components/contrast/Contrast'
 
 import styles from './App.module.css'
-import Preview from './components/preview/Preview'
 
 const App = () => {
   const [colors, setColors] = useState<Color[]>(generatePalette())
@@ -23,7 +24,9 @@ const App = () => {
           maxSize={500}
         >
           <Palette colors={colors} setColors={setColors} />
-          <Preview colors={colors} />
+          {/* <Preview colors={colors} /> */}
+          <Contrast colors={colors} />
+          <div></div>
         </SplitPane>
       </div>
     </DndProvider>
