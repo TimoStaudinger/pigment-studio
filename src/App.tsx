@@ -24,8 +24,8 @@ const App = () => {
           maxSize={500}
         >
           <Palette colors={colors} setColors={setColors} />
-          {/* <Preview colors={colors} /> */}
-          <Contrast colors={colors} />
+          <Preview colors={colors} />
+          {/* <Contrast colors={colors} /> */}
           <div></div>
         </SplitPane>
       </div>

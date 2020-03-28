@@ -1,22 +1,21 @@
 import React, {useState} from 'react'
 
-import {HSL} from '../../types/color'
+import {Lab} from '../../types/color'
 import ColorHeader from './ColorHeader'
 import ColorInputs from './ColorInputs'
-import HuePicker from './HuePicker'
+import LightnessPicker from './LightnessPicker'
 
 import styles from './Shade.module.css'
 
 interface Props {
   name: string
-  hsl: HSL
+  lab: Lab
   setName: (name: string) => void
-  setHSL: (hsl: HSL) => void
+  setLab: (hsl: Lab) => void
   removeShade: () => void
-  baseHue: number
 }
 
-const Shade = ({name, baseHue, hsl, setHSL, setName, removeShade}: Props) => {
+const Shade = ({name, lab, setLab, setName, removeShade}: Props) => {
   let [isExpanded, setExpanded] = useState(false)
 
   return (
@@ -24,7 +23,7 @@ const Shade = ({name, baseHue, hsl, setHSL, setName, removeShade}: Props) => {
       <ColorHeader
         compact
         name={name}
-        hsl={hsl}
+        lab={lab}
         setName={setName}
         removeColor={removeShade}
         isExpanded={isExpanded}
@@ -33,16 +32,16 @@ const Shade = ({name, baseHue, hsl, setHSL, setName, removeShade}: Props) => {
       {isExpanded && (
         <>
           <div className={styles.huePicker}>
-            <HuePicker
-              hsl={hsl}
-              setHSL={(hsl: HSL) => setHSL({...hsl, hue: hsl.hue})}
-              minHue={Math.max(baseHue - 30, 0)}
-              maxHue={Math.min(baseHue + 30, 359)}
+            <LightnessPicker
+              lab={lab}
+              setLab={(updated: Lab) => setLab({...lab, l: updated.l})}
+              // minLightness={Math.max(baseHue - 30, 0)}
+              // maxLightness={Math.min(baseHue + 30, 359)}
               height={20}
-              specificSaturationAndLightness
+              specificShade
             />
           </div>
-          <ColorInputs hsl={hsl} setHSL={setHSL} />
+          <ColorInputs lab={lab} setLab={setLab} />
         </>
       )}
     </div>

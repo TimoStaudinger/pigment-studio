@@ -1,13 +1,25 @@
 export interface HSL {
-  hue: number
-  saturation: number
-  lightness: number
+  h: number
+  s: number
+  l: number
+}
+
+export interface Lab {
+  l: number
+  a: number
+  b: number
+}
+
+export interface RGB {
+  r: number
+  g: number
+  b: number
 }
 
 export interface Shade {
   id: string
   name: string
-  hsl: HSL
+  lab: Lab
   base?: boolean
 }
 

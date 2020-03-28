@@ -1,39 +1,39 @@
 import React, {useRef, useEffect, useState, useCallback} from 'react'
 import {useMeasure} from 'react-use'
 
-import {convertHSLtoRGB} from '../../util/color'
+import {convertHSLtoRGB, convertLabToRGB} from '../../util/color'
 import {convertCoordsToOffset} from '../../util/canvas'
-import {HSL} from '../../types/color'
+import {Lab} from '../../types/color'
 
-import styles from './HuePicker.module.css'
+import styles from './LightnessPicker.module.css'
 
 interface Props {
-  hsl: HSL
-  setHSL: (hsl: HSL) => void
-  minHue?: number
-  maxHue?: number
+  lab: Lab
+  setLab: (hsl: Lab) => void
+  minLightness?: number
+  maxLightness?: number
   height?: number
-  specificSaturationAndLightness?: boolean
+  specificShade?: boolean
 }
 
-const HuePicker = ({
-  hsl,
-  setHSL,
-  minHue = 0,
-  maxHue = 359,
+const LightnessPicker = ({
+  lab,
+  setLab,
+  minLightness = 0,
+  maxLightness = 359,
   height = 30,
-  specificSaturationAndLightness
+  specificShade
 }: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
-  const [bufferedMinHue, setBufferedMinHue] = useState(minHue)
-  const [bufferedMaxHue, setBufferedMaxHue] = useState(maxHue)
+  const [bufferedMinHue, setBufferedMinHue] = useState(minLightness)
+  const [bufferedMaxHue, setBufferedMaxHue] = useState(maxLightness)
 
   useEffect(() => {
     if (!isDragging) {
-      setBufferedMaxHue(maxHue)
-      setBufferedMinHue(minHue)
+      setBufferedMaxHue(maxLightness)
+      setBufferedMinHue(minLightness)
     }
-  }, [maxHue, minHue, isDragging])
+  }, [maxLightness, minLightness, isDragging])
 
   const canvasHeight = height
   const [canvasWidth, setCanvasWidth] = useState(0)
@@ -43,8 +43,6 @@ const HuePicker = ({
   const canvas = useRef<HTMLCanvasElement>(null)
 
   const render = useCallback(() => {
-    let {hue} = hsl
-
     if (canvas.current !== null) {
       let context = canvas.current.getContext('2d')
 
@@ -59,12 +57,12 @@ const HuePicker = ({
           for (let x = 0; x < width; x++) {
             const pixelOffset = convertCoordsToOffset(x, y, width)
 
-            let hue =
-              (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
-            let saturation = specificSaturationAndLightness ? hsl.saturation : 1
-            let lightness = specificSaturationAndLightness ? hsl.lightness : 0.5
+            // let hue =
+            //   (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
+            // let saturation = specificShade ? lab.saturation : 1
+            // let lightness = specificShade ? lab.lightness : 0.5
 
-            let [r, g, b] = convertHSLtoRGB(hue, saturation, lightness)
+            let {r, g, b} = convertLabToRGB({...lab, l: (x / width) * 100})
 
             imageData.data[pixelOffset + 0] = r
             imageData.data[pixelOffset + 1] = g
@@ -75,8 +73,8 @@ const HuePicker = ({
 
         context.putImageData(imageData, 0, 0)
 
-        let x =
-          ((hue - bufferedMinHue) / (bufferedMaxHue - bufferedMinHue)) * width
+        let x = (lab.l / 100) * width
+        // ((hue - bufferedMinHue) / (bufferedMaxHue - bufferedMinHue)) * width
         let yOffset = height - 10
 
         context.beginPath()
@@ -87,7 +85,7 @@ const HuePicker = ({
         context.fill()
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
-  }, [bufferedMaxHue, bufferedMinHue, hsl, specificSaturationAndLightness])
+  }, [lab])
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
@@ -99,9 +97,9 @@ const HuePicker = ({
       if (isDragging && canvas.current !== null) {
         let {width} = canvas.current
 
-        setHSL({
-          ...hsl,
-          hue: (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
+        setLab({
+          ...lab,
+          l: (x / width) * 100
         })
       }
     }
@@ -115,9 +113,9 @@ const HuePicker = ({
 
       let x = e.clientX - left
 
-      setHSL({
-        ...hsl,
-        hue: (x / width) * (bufferedMaxHue - bufferedMinHue) + bufferedMinHue
+      setLab({
+        ...lab,
+        l: (x / width) * 100
       })
       setIsDragging(true)
     }
@@ -151,4 +149,4 @@ const HuePicker = ({
   )
 }
 
-export default HuePicker
+export default LightnessPicker

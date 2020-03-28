@@ -3,31 +3,29 @@ import {useMeasure} from 'react-use'
 import classnames from 'classnames'
 
 import {convertCoordsToOffset} from '../../util/canvas'
-import {convertHSLtoRGB, getBaseShade} from '../../util/color'
+import {convertLabToRGB} from '../../util/color'
 import {isPointOnHandle2D} from '../../util/coordinates'
-import {HSL, Shade} from '../../types/color'
+import {Lab} from '../../types/color'
 
 import styles from './ShadePicker.module.css'
 import {throttle} from '../../util/throttle'
 
+const fractionToAB = (fraction: number) => fraction * 256 - 128
+const abToFraction = (ab: number) => (ab + 128) / 256
+
 interface Props {
-  shades: Shade[]
-  setHSL: (id: string, hsl: HSL) => void
+  lab: Lab
+  setLab: (lab: Lab) => void
 }
 
-const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
-  const [isDragging, setIsDragging] = useState<string | null>(null)
-  let draggedShade = isDragging
-    ? shades.find(shade => shade.id === isDragging) ?? null
-    : null
+const ShadePicker = ({lab, setLab}: Props): JSX.Element => {
+  const [isDragging, setIsDragging] = useState(false)
 
   const [canvasWidth, setCanvasWidth] = useState(0)
   const [ref, {width}] = useMeasure()
   useEffect(() => setCanvasWidth(width), [width])
 
   const canvas = useRef<HTMLCanvasElement | null>(null)
-
-  let baseShade = getBaseShade(shades)
 
   const render = throttle(() => {
     if (canvas.current !== null) {
@@ -36,49 +34,43 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
       let {width, height} = canvas.current
 
       if (context !== null) {
-        let {hue} = baseShade.hsl
-
         context.clearRect(0, 0, width, height)
 
         let imageData = context.getImageData(0, 0, width, height)
 
-        if (hue !== null) {
-          for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-              const pixelOffset = convertCoordsToOffset(x, y, width)
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const pixelOffset = convertCoordsToOffset(x, y, width)
 
-              let localSaturation = x / width
-              let localLightness = 1 - y / height
+            let aFraction = x / width
+            let bFraction = y / height
 
-              let [r, g, b] = convertHSLtoRGB(
-                hue,
-                localSaturation,
-                localLightness
-              )
+            let {r, g, b} = convertLabToRGB({
+              l: 50,
+              a: fractionToAB(aFraction),
+              b: fractionToAB(bFraction)
+            })
 
-              imageData.data[pixelOffset + 0] = r
-              imageData.data[pixelOffset + 1] = g
-              imageData.data[pixelOffset + 2] = b
-              imageData.data[pixelOffset + 3] = 255
-            }
+            imageData.data[pixelOffset + 0] = r
+            imageData.data[pixelOffset + 1] = g
+            imageData.data[pixelOffset + 2] = b
+            imageData.data[pixelOffset + 3] = 255
           }
+        }
 
-          context.putImageData(imageData, 0, 0)
+        context.putImageData(imageData, 0, 0)
 
-          for (let shade of shades) {
-            if (isDragging === shade.id) continue
+        if (!isDragging) {
+          let {l, a, b} = lab
+          let x = ((a + 128) / 256) * width
+          let y = ((b + 128) / 256) * height
 
-            let {saturation, lightness} = shade.hsl
-            let x = saturation * width
-            let y = (1 - lightness) * height
-
-            context.beginPath()
-            context.lineWidth = 1
-            context.strokeStyle = lightness > 0.5 ? '#111' : '#fff'
-            context.arc(x, y, 8, 0, Math.PI * 2, true)
-            context.stroke()
-          }
-        } else console.log('`hue` is null')
+          context.beginPath()
+          context.lineWidth = 1
+          context.strokeStyle = l > 50 ? '#111' : '#fff'
+          context.arc(x, y, 8, 0, Math.PI * 2, true)
+          context.stroke()
+        }
       } else console.log('`context` is null')
     } else console.log('`canvas.current` is null')
   }, 15)
@@ -94,17 +86,15 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
 
       if (isDragging && canvas.current !== null) {
         let {width, height} = canvas.current
-        let draggedShade = shades.find(shade => shade.id === isDragging)
-        if (draggedShade) {
-          setHSL(draggedShade.id, {
-            ...draggedShade.hsl,
-            saturation: x / width,
-            lightness: 1 - y / height
-          })
-        } else setIsDragging(null)
-      }
+        setLab({
+          ...lab,
+          a: fractionToAB(x / width),
+          b: fractionToAB(y / height)
+        })
+      } else setIsDragging(false)
     }
   }
+
   const handleMouseDown = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
   ) => {
@@ -115,27 +105,23 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
       let x = e.clientX - left
       let y = e.clientY - top
 
-      let draggedShade = null
-      for (let shade of shades) {
-        if (
-          isPointOnHandle2D(
-            x,
-            y,
-            width,
-            height,
-            shade.hsl.saturation,
-            1 - shade.hsl.lightness
-          )
-        ) {
-          draggedShade = shade.id
-        }
+      if (
+        isPointOnHandle2D(
+          x,
+          y,
+          width,
+          height,
+          abToFraction(lab.a),
+          abToFraction(lab.b)
+        )
+      ) {
+        setIsDragging(true)
       }
-
-      setIsDragging(draggedShade || null)
     }
   }
+
   const handleMouseUp = () => {
-    setIsDragging(null)
+    setIsDragging(false)
   }
 
   useEffect(() => {
@@ -146,6 +132,7 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
   useEffect(() => {
     if (canvas.current && !isDragging) render()
   })
+
   useEffect(() => {
     if (canvas.current) render()
   }, [isDragging]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -153,10 +140,8 @@ const ShadePicker = ({shades, setHSL}: Props): JSX.Element => {
   return (
     <div
       className={classnames(styles.picker, {
-        [styles.isDraggingOverLight]:
-          draggedShade && draggedShade?.hsl.lightness >= 0.5,
-        [styles.isDraggingOverDark]:
-          draggedShade && draggedShade?.hsl.lightness < 0.5
+        [styles.isDraggingOverLight]: isDragging && lab.l >= 50,
+        [styles.isDraggingOverDark]: isDragging && lab.l < 50
       })}
       ref={ref}
     >

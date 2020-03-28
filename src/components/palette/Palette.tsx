@@ -6,6 +6,7 @@ import ColorComponent from './Color'
 import {Color} from '../../types/color'
 
 import styles from './Palette.module.css'
+import {convertHSLtoLab} from '../../util/color'
 
 interface Props {
   colors: Color[]
@@ -23,7 +24,7 @@ const Palette = ({colors, setColors}: Props) => {
           {
             id: ulid(),
             name: '500',
-            hsl: {hue: 250, saturation: 0.5, lightness: 0.5}
+            lab: convertHSLtoLab({h: 250, s: 0.5, l: 0.5})
           }
         ]
       }
@@ -36,14 +37,14 @@ const Palette = ({colors, setColors}: Props) => {
         <ColorComponent
           key={currentColor.id}
           {...currentColor}
-          setHSL={(id, hsl) => {
+          setLab={(id, lab) => {
             setColors(colors =>
               colors.map(updatedColor =>
                 updatedColor.id === currentColor.id
                   ? {
                       ...updatedColor,
                       shades: updatedColor.shades.map(shade =>
-                        shade.id === id ? {...shade, hsl} : shade
+                        shade.id === id ? {...shade, lab: lab} : shade
                       )
                     }
                   : updatedColor

@@ -1,22 +1,23 @@
 import React from 'react'
-import {Color, HSL} from '../../types/color'
+import {Color, Lab} from '../../types/color'
 
 import styles from './Preview.module.css'
 import ColorSlot from './ColorSlot'
+import {convertLabToRGB} from '../../util/color'
 
-const hslToCSS = (hsl: HSL) =>
-  `hsl(${hsl.hue}, ${Math.round(hsl.saturation * 100)}%, ${Math.round(
-    hsl.lightness * 100
-  )}%)`
+const labToCSS = (lab: Lab) => {
+  let {r, g, b} = convertLabToRGB(lab)
+  return `rgb(${r}, ${g}, ${b})`
+}
 
 const makeGetColor = (colors: Color[]) => (
   colorName: string,
   shadeName: string
 ) =>
-  hslToCSS(
+  labToCSS(
     colors
       .find(color => color.name === colorName)
-      ?.shades.find(shade => shade.name === shadeName)?.hsl as HSL
+      ?.shades.find(shade => shade.name === shadeName)?.lab as Lab
   )
 
 interface Props {
