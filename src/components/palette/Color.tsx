@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {HSL, Shade} from '../../types/color'
+import {Lab, Shade} from '../../types/color'
 import {getBaseShade} from '../../util/color'
 import ColorPicker from './ColorPicker'
 import ColorHeader from './ColorHeader'
@@ -13,11 +13,11 @@ interface Props {
   name: string
   shades: Shade[]
   setName: (name: string) => void
-  setHSL: (id: string, hsl: HSL) => void
+  setLab: (id: string, lab: Lab) => void
   removeColor: () => void
 }
 
-const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
+const Color = ({name, shades, setName, setLab, removeColor}: Props) => {
   let [isExpanded, setExpanded] = useState(false)
 
   let baseShade = getBaseShade(shades)
@@ -26,7 +26,7 @@ const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
     <div className={styles.color}>
       <ColorHeader
         name={name}
-        hsl={getBaseShade(shades).hsl}
+        lab={getBaseShade(shades).lab}
         setName={setName}
         removeColor={removeColor}
         isExpanded={isExpanded}
@@ -35,15 +35,21 @@ const Color = ({name, shades, setName, setHSL, removeColor}: Props) => {
       />
       {isExpanded ? (
         <>
-          <ColorPicker shades={shades} setHSL={setHSL} />
+          <ColorPicker
+            shades={shades}
+            setLab={(lab: Lab) =>
+              shades.forEach(shade =>
+                setLab(shade.id, {...shade.lab, a: lab.a, b: lab.b})
+              )
+            }
+          />
           {shades.map(shade => (
             <ShadeComponent
               {...shade}
               key={shade.id}
               setName={() => {}}
-              setHSL={(hsl: HSL) => setHSL(shade.id, hsl)}
+              setLab={(lab: Lab) => setLab(shade.id, lab)}
               removeShade={() => {}}
-              baseHue={baseShade.hsl.hue}
             />
           ))}
           <div className={styles.divider} />

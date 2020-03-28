@@ -12,7 +12,7 @@ interface Props {
 const ShadePreview = ({shades}: Props) => (
   <div className={styles.container}>
     {shades.map(shade => (
-      <Swatch key={shade.id} hsl={shade.hsl} compact />
+      <Swatch key={shade.id} lab={shade.lab} compact />
     ))}
   </div>
 )

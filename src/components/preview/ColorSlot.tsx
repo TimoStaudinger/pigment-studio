@@ -2,14 +2,15 @@ import React, {ReactNode, useState} from 'react'
 import {useDrop} from 'react-dnd'
 import classnames from 'classnames'
 
-import {Color, Shade, HSL} from '../../types/color'
+import {Color, Shade, Lab} from '../../types/color'
 
 import styles from './ColorSlot.module.css'
+import {convertLabToRGB} from '../../util/color'
 
-const hslToCSS = (hsl: HSL) =>
-  `hsl(${hsl.hue}, ${Math.round(hsl.saturation * 100)}%, ${Math.round(
-    hsl.lightness * 100
-  )}%)`
+const labToCSS = (lab: Lab) => {
+  let {r, g, b} = convertLabToRGB(lab)
+  return `rgb(${r}, ${g}, ${b})`
+}
 
 const getColor = (colors: Color[], colorName: string, shadeName: string) =>
   colors
@@ -54,7 +55,6 @@ const ColorSlot = ({defaultColorName, colors, children}: Props) => {
       canDrop: monitor.canDrop()
     })
   })
-  console.log(isOver, canDrop)
 
   return (
     <span
@@ -64,7 +64,7 @@ const ColorSlot = ({defaultColorName, colors, children}: Props) => {
       style={{}}
       ref={drop}
     >
-      {children(hslToCSS(shade.hsl))}
+      {children(labToCSS(shade.lab))}
 
       {canDrop && (isOver || isOverBackground || isOverBorder) && (
         <span className={styles.attributeDropZones}>

@@ -1,31 +1,30 @@
 import React from 'react'
 
-import {HSL, Shade} from '../../types/color'
+import {Lab, Shade} from '../../types/color'
 import {getBaseShade} from '../../util/color'
-import HuePicker from './HuePicker'
 import ShadePicker from './ShadePicker'
 
 import styles from './ColorPicker.module.css'
 
 interface Props {
   shades: Shade[]
-  setHSL: (id: string, hsl: HSL) => void
+  setLab: (lab: Lab) => void
 }
 
-const ColorPicker = ({shades, setHSL}: Props) => {
+const ColorPicker = ({shades, setLab}: Props) => {
   let baseShade = getBaseShade(shades)
 
   return (
     <div className={styles.container}>
-      <HuePicker
-        hsl={baseShade.hsl}
-        setHSL={(hsl: HSL) => {
+      {/* <LightnessPicker
+        lab={baseShade.lab}
+        setLab={(lab: Lab) => {
           shades.forEach(shade => {
-            setHSL(shade.id, {...shade.hsl, hue: hsl.hue})
+            setLab(shade.id, {...shade.lab, l: lab.l})
           })
         }}
-      />
-      <ShadePicker shades={shades} setHSL={setHSL} />
+      /> */}
+      <ShadePicker lab={baseShade.lab} setLab={setLab} />
     </div>
   )
 }

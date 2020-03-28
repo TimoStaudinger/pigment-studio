@@ -4,11 +4,11 @@ import {Trash, ChevronRight} from 'react-feather'
 
 import styles from './ColorHeader.module.css'
 import Swatch from './Swatch'
-import {HSL} from '../../types/color'
+import {Lab} from '../../types/color'
 
 interface Props {
   name: string
-  hsl: HSL
+  lab: Lab
   setName: (name: string) => void
   removeColor: () => void
   isExpanded: boolean
@@ -19,7 +19,7 @@ interface Props {
 
 const ColorHeader = ({
   name,
-  hsl,
+  lab: hsl,
   setName,
   removeColor,
   isExpanded,
@@ -42,7 +42,7 @@ const ColorHeader = ({
       />
     </button>
 
-    <Swatch hsl={hsl} compact={compact} />
+    <Swatch lab={hsl} compact={compact} />
 
     <input value={name} onChange={e => setName(e.target.value)} />
 
