@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabbar {
+  display: flex;
+  flex-direction: row;
+
+  background-color: #444;
+}
+
+.tabbarItem {
+  flex: 1;
+  text-align: center;
+
+  padding: 10px;
+  padding: 10px;
+
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #444;
+  color: #eee;
+}
+
+.tabbarItem:hover {
+  background-color: #222;
+}
+
+.tabbarItem.selected {
+  font-weight: 700;
+}
+
+.content {
+  flex: 1;
+  position: relative;
+}
