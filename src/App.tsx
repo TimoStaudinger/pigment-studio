@@ -11,6 +11,8 @@ import Preview from './components/preview/Preview'
 import Contrast from './components/contrast/Contrast'
 
 import styles from './App.module.css'
+import Workarea from './components/Workarea'
+import Charts from './components/charts/Charts'
 
 const App = () => {
   const [colors, setColors] = useState<Color[]>(generatePalette())
@@ -24,9 +26,14 @@ const App = () => {
           maxSize={500}
         >
           <Palette colors={colors} setColors={setColors} />
-          <Preview colors={colors} />
-          {/* <Contrast colors={colors} /> */}
-          <div></div>
+
+          <Workarea
+            areas={[
+              ['Charts', <Charts />],
+              ['Preview', <Preview colors={colors} />],
+              ['Contrast', <Contrast colors={colors} />]
+            ]}
+          ></Workarea>
         </SplitPane>
       </div>
     </DndProvider>
