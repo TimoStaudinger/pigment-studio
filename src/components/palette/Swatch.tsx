@@ -20,7 +20,7 @@ const Swatch = ({lab, compact}: Props) => {
     })
   })
 
-  let {r, g, b} = convertLabToRGB(lab)
+  let rgb = convertLabToRGB(lab)
 
   return (
     <div
@@ -28,7 +28,7 @@ const Swatch = ({lab, compact}: Props) => {
       className={classnames(styles.sample, {[styles.compact]: compact})}
       style={{
         opacity,
-        backgroundColor: `rgb(${r}, ${g}, ${b})`
+        backgroundColor: `rgb(${rgb?.r ?? 255}, ${rgb?.g ?? 0}, ${rgb?.b ?? 0})`
       }}
     />
   )

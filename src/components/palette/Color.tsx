@@ -20,8 +20,6 @@ interface Props {
 const Color = ({name, shades, setName, setLab, removeColor}: Props) => {
   let [isExpanded, setExpanded] = useState(false)
 
-  let baseShade = getBaseShade(shades)
-
   return (
     <div className={styles.color}>
       <ColorHeader

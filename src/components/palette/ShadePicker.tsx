@@ -45,15 +45,15 @@ const ShadePicker = ({lab, setLab}: Props): JSX.Element => {
             let aFraction = x / width
             let bFraction = y / height
 
-            let {r, g, b} = convertLabToRGB({
-              l: 50,
+            let rgb = convertLabToRGB({
+              l: 60,
               a: fractionToAB(aFraction),
               b: fractionToAB(bFraction)
             })
 
-            imageData.data[pixelOffset + 0] = r
-            imageData.data[pixelOffset + 1] = g
-            imageData.data[pixelOffset + 2] = b
+            imageData.data[pixelOffset + 0] = rgb?.r ?? 255
+            imageData.data[pixelOffset + 1] = rgb?.g ?? 0
+            imageData.data[pixelOffset + 2] = rgb?.b ?? 0
             imageData.data[pixelOffset + 3] = 255
           }
         }

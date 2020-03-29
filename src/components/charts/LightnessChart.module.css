@@ -1,0 +1,29 @@
+.chart svg {
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+}
+
+.values {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
+
+.value {
+  flex: 1;
+
+  font-weight: 700;
+  font-size: 0.8em;
+
+  color: #888;
+}
+
+.title {
+  /* text-align: left; */
+  margin-bottom: 5px;
+  font-size: 0.8em;
+}

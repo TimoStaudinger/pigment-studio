@@ -100,7 +100,7 @@ export const convertHexToHSL = (hex: string): HSL => {
 export const getBaseShade = (shades: Shade[]): Shade =>
   shades.find(shade => shade.base) || shades[0]
 
-export const convertLabToRGB = (lab: Lab): RGB => {
+export const convertLabToRGBStrict = (lab: Lab): RGB | null => {
   var y = (lab.l + 16) / 116,
     x = lab.a / 500 + y,
     z = y - lab.b / 200,
@@ -120,11 +120,17 @@ export const convertLabToRGB = (lab: Lab): RGB => {
   g = g > 0.0031308 ? 1.055 * Math.pow(g, 1 / 2.4) - 0.055 : 12.92 * g
   b = b > 0.0031308 ? 1.055 * Math.pow(b, 1 / 2.4) - 0.055 : 12.92 * b
 
-  return {
-    r: Math.max(0, Math.min(1, r)) * 255,
-    g: Math.max(0, Math.min(1, g)) * 255,
-    b: Math.max(0, Math.min(1, b)) * 255
-  }
+  if (r > 1 || r < 0 || g > 1 || g < 0 || b > 1 || b < 0) return null
+
+  return {r: r * 255, g: g * 255, b: b * 255}
+}
+
+export const convertLabToRGB = (lab: Lab): RGB => {
+  let rgb = convertLabToRGBStrict(lab)
+
+  if (rgb === null) return {r: 255, g: 0, b: 0}
+
+  return (rgb as unknown) as RGB
 }
 
 export const convertRGBtoLab = (rgb: RGB): Lab => {
@@ -154,9 +160,9 @@ export const convertHSLtoLab = (hsl: HSL): Lab =>
   convertRGBtoLab(convertHSLtoRGB(hsl))
 
 export const convertRGBtoHex = (rgb: RGB) => {
-  let r = rgb.r.toString(16)
-  let g = rgb.g.toString(16)
-  let b = rgb.b.toString(16)
+  let r = Math.round(rgb.r).toString(16)
+  let g = Math.round(rgb.g).toString(16)
+  let b = Math.round(rgb.b).toString(16)
 
   if (r.length === 1) r = '0' + r
   if (g.length === 1) g = '0' + g
@@ -165,45 +171,5 @@ export const convertRGBtoHex = (rgb: RGB) => {
   return r + g + b
 }
 
-// export const convertHexToRGB = (h: string): RGB => {
-//   let r = '0',
-//     g = '0',
-//     b = '0'
-
-//   // 3 digits
-//   if (h.length === 3) {
-//     r = '0x' + h[0] + h[0]
-//     g = '0x' + h[1] + h[1]
-//     b = '0x' + h[2] + h[2]
-
-//     // 6 digits
-//   } else if (h.length === 6) {
-//     r = '0x' + h[0] + h[1]
-//     g = '0x' + h[2] + h[3]
-//     b = '0x' + h[4] + h[5]
-//   }
-
-//   return 'rgb(' + +r + ',' + +g + ',' + +b + ')'
-// }
-
 export const convertLabToHex = (lab: Lab): string =>
   convertRGBtoHex(convertLabToRGB(lab))
-
-// function deltaE(labA, labB) {
-//   var deltaL = labA[0] - labB[0]
-//   var deltaA = labA[1] - labB[1]
-//   var deltaB = labA[2] - labB[2]
-//   var c1 = Math.sqrt(labA[1] * labA[1] + labA[2] * labA[2])
-//   var c2 = Math.sqrt(labB[1] * labB[1] + labB[2] * labB[2])
-//   var deltaC = c1 - c2
-//   var deltaH = deltaA * deltaA + deltaB * deltaB - deltaC * deltaC
-//   deltaH = deltaH < 0 ? 0 : Math.sqrt(deltaH)
-//   var sc = 1.0 + 0.045 * c1
-//   var sh = 1.0 + 0.015 * c1
-//   var deltaLKlsl = deltaL / 1.0
-//   var deltaCkcsc = deltaC / sc
-//   var deltaHkhsh = deltaH / sh
-//   var i =
-//     deltaLKlsl * deltaLKlsl + deltaCkcsc * deltaCkcsc + deltaHkhsh * deltaHkhsh
-//   return i < 0 ? 0 : Math.sqrt(i)
-// }
