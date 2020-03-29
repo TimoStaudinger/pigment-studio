@@ -65,7 +65,7 @@ const draw = (
   shades.forEach((shade, i) => {
     linearGradient
       .append('stop')
-      .attr('offset', `${(100 * i) / shades.length}%`)
+      .attr('offset', `${(100 * i) / (shades.length - 1)}%`)
       .attr('stop-color', '#' + convertLabToHex(shade.lab))
   })
 
