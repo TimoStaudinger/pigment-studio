@@ -6,7 +6,7 @@ import {DndProvider} from 'react-dnd'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import {generatePalette} from './util/sample'
-import {Color} from './types/color'
+import {Color, Lab} from './types/color'
 import Palette from './components/palette/Palette'
 import Preview from './components/preview/Preview'
 import Contrast from './components/contrast/Contrast'
@@ -17,6 +17,22 @@ import Charts from './components/charts/Charts'
 
 const App = () => {
   const [colors, setColors] = useState<Color[]>(generatePalette())
+
+  const setLab = (shadeId: string, lab: Lab) => {
+    setColors(colors =>
+      colors.map(color =>
+        color.shades.some(shade => shade.id === shadeId)
+          ? {
+              ...color,
+              shades: color.shades.map(shade =>
+                shade.id === shadeId ? {...shade, lab: lab} : shade
+              )
+            }
+          : color
+      )
+    )
+  }
+
   return (
     <Router>
       <DndProvider backend={Backend}>
@@ -28,11 +44,11 @@ const App = () => {
               minSize={250}
               maxSize={500}
             >
-              <Palette colors={colors} setColors={setColors} />
+              <Palette colors={colors} setColors={setColors} setLab={setLab} />
 
               <Workarea
                 areas={[
-                  ['Charts', <Charts colors={colors} />],
+                  ['Charts', <Charts colors={colors} setLab={setLab} />],
                   ['Preview', <Preview colors={colors} />],
                   ['Contrast', <Contrast colors={colors} />]
                 ]}

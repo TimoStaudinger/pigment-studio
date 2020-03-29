@@ -1,7 +1,7 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
 
-import {Color, Shade} from '../../types/color'
+import {Color, Shade, Lab} from '../../types/color'
 import Labels from './Labels'
 import LightnessChart from './LightnessChart'
 import ChromaChart from './ChromaChart'
@@ -11,9 +11,10 @@ import styles from './Charts.module.css'
 
 interface Props {
   colors: Color[]
+  setLab: (shadeId: string, lab: Lab) => void
 }
 
-const Charts = ({colors}: Props) => {
+const Charts = ({colors, setLab}: Props) => {
   let {shadeId} = useParams()
 
   let color = colors.find(color =>
@@ -30,7 +31,11 @@ const Charts = ({colors}: Props) => {
     <div className={styles.container}>
       <div className={styles.column}>
         <Labels shades={color.shades} />
-        <LightnessChart id={`${shade.id}-shades`} shades={color.shades} />
+        <LightnessChart
+          id={`${shade.id}-shades`}
+          shades={color.shades}
+          setLab={setLab}
+        />
         <ChromaChart id={`${shade.id}-shades`} shades={color.shades} />
         <HueChart id={`${shade.id}-shades`} shades={color.shades} />
       </div>
@@ -46,7 +51,11 @@ const Charts = ({colors}: Props) => {
               .filter(Boolean) as [string, Shade][]
           }
         />
-        <LightnessChart id={`${shade.id}-colors`} shades={crossColorShades} />
+        <LightnessChart
+          id={`${shade.id}-colors`}
+          shades={crossColorShades}
+          setLab={setLab}
+        />
         <ChromaChart id={`${shade.id}-colors`} shades={crossColorShades} />
         <HueChart id={`${shade.id}-colors`} shades={crossColorShades} />
       </div>

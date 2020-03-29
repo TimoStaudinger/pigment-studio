@@ -3,7 +3,7 @@ import {ulid} from 'ulid'
 
 import AddColorButton from './AddColorButton'
 import ColorComponent from './Color'
-import {Color} from '../../types/color'
+import {Color, Lab} from '../../types/color'
 
 import styles from './Palette.module.css'
 import {convertHSLtoLab} from '../../util/color'
@@ -13,9 +13,10 @@ import {useParams, useHistory} from 'react-router-dom'
 interface Props {
   colors: Color[]
   setColors: (colors: (prev: Color[]) => Color[]) => void
+  setLab: (shadeId: string, lab: Lab) => void
 }
 
-const Palette = ({colors, setColors}: Props) => {
+const Palette = ({colors, setColors, setLab}: Props) => {
   let {shadeId} = useParams()
   let history = useHistory()
 
@@ -55,20 +56,7 @@ const Palette = ({colors, setColors}: Props) => {
         <ColorComponent
           key={currentColor.id}
           {...currentColor}
-          setLab={(id, lab) => {
-            setColors(colors =>
-              colors.map(updatedColor =>
-                updatedColor.id === currentColor.id
-                  ? {
-                      ...updatedColor,
-                      shades: updatedColor.shades.map(shade =>
-                        shade.id === id ? {...shade, lab: lab} : shade
-                      )
-                    }
-                  : updatedColor
-              )
-            )
-          }}
+          setLab={setLab}
           setName={name =>
             setColors(colors =>
               colors.map(updatedColor =>
