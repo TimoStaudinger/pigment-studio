@@ -1,0 +1,19 @@
+.labels {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.label {
+  flex: 1;
+
+  font-size: 0.8em;
+  color: #444;
+}
+.sample {
+  height: 5px;
+  margin-top: 2px;
+}

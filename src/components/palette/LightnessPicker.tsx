@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState, useCallback} from 'react'
 import {useMeasure} from 'react-use'
 
-import {convertHSLtoRGB, convertLabToRGB} from '../../util/color'
+import {convertLabToRGB} from '../../util/color'
 import {convertCoordsToOffset} from '../../util/canvas'
 import {Lab} from '../../types/color'
 
@@ -25,15 +25,6 @@ const LightnessPicker = ({
   specificShade
 }: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
-  const [bufferedMinHue, setBufferedMinHue] = useState(minLightness)
-  const [bufferedMaxHue, setBufferedMaxHue] = useState(maxLightness)
-
-  useEffect(() => {
-    if (!isDragging) {
-      setBufferedMaxHue(maxLightness)
-      setBufferedMinHue(minLightness)
-    }
-  }, [maxLightness, minLightness, isDragging])
 
   const canvasHeight = height
   const [canvasWidth, setCanvasWidth] = useState(0)

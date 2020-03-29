@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import SplitPane from 'react-split-pane'
 import Backend from 'react-dnd-html5-backend'
 import {DndProvider} from 'react-dnd'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import {generatePalette} from './util/sample'
 import {Color} from './types/color'
@@ -17,26 +18,30 @@ import Charts from './components/charts/Charts'
 const App = () => {
   const [colors, setColors] = useState<Color[]>(generatePalette())
   return (
-    <DndProvider backend={Backend}>
-      <div className={styles.app}>
-        <SplitPane
-          split="vertical"
-          defaultSize={350}
-          minSize={250}
-          maxSize={500}
-        >
-          <Palette colors={colors} setColors={setColors} />
+    <Router>
+      <DndProvider backend={Backend}>
+        <div className={styles.app}>
+          <Route path="/:shadeId?/:view?">
+            <SplitPane
+              split="vertical"
+              defaultSize={350}
+              minSize={250}
+              maxSize={500}
+            >
+              <Palette colors={colors} setColors={setColors} />
 
-          <Workarea
-            areas={[
-              ['Charts', <Charts />],
-              ['Preview', <Preview colors={colors} />],
-              ['Contrast', <Contrast colors={colors} />]
-            ]}
-          ></Workarea>
-        </SplitPane>
-      </div>
-    </DndProvider>
+              <Workarea
+                areas={[
+                  ['Charts', <Charts colors={colors} />],
+                  ['Preview', <Preview colors={colors} />],
+                  ['Contrast', <Contrast colors={colors} />]
+                ]}
+              ></Workarea>
+            </SplitPane>
+          </Route>
+        </div>
+      </DndProvider>
+    </Router>
   )
 }
 

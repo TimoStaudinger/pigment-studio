@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {ulid} from 'ulid'
 
 import AddColorButton from './AddColorButton'
@@ -7,6 +7,8 @@ import {Color} from '../../types/color'
 
 import styles from './Palette.module.css'
 import {convertHSLtoLab} from '../../util/color'
+import Quickview from './quickview/Quickview'
+import {useParams, useHistory} from 'react-router-dom'
 
 interface Props {
   colors: Color[]
@@ -14,6 +16,20 @@ interface Props {
 }
 
 const Palette = ({colors, setColors}: Props) => {
+  let {shadeId} = useParams()
+  let history = useHistory()
+
+  let isShadeSelected =
+    shadeId &&
+    colors.some(color => color.shades.some(shade => shade.id === shadeId))
+
+  useEffect(() => {
+    if (!isShadeSelected && colors && colors.length)
+      history.push(
+        `/${colors[0].shades.find(shade => shade.name === '500')?.id}`
+      )
+  })
+
   const handleAddColor = () => {
     setColors(colors => [
       ...colors,
@@ -33,6 +49,8 @@ const Palette = ({colors, setColors}: Props) => {
 
   return (
     <div className={styles.palette}>
+      <Quickview colors={colors} />
+
       {colors.map(currentColor => (
         <ColorComponent
           key={currentColor.id}
