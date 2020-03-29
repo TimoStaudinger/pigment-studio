@@ -1,7 +1,7 @@
 .labels {
   display: flex;
   flex-direction: row;
-  width: 400px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
@@ -12,6 +12,10 @@
 
   font-size: 0.8em;
   color: #444;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .sample {
   height: 5px;

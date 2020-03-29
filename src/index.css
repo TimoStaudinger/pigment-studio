@@ -97,6 +97,10 @@ button:hover {
   border-color: transparent;
 }
 
+.Pane {
+  overflow-x: hidden;
+}
+
 *::-webkit-scrollbar {
   background-color: #444;
   width: 16px;

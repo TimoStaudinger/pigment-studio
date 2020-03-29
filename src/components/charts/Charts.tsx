@@ -32,12 +32,20 @@ const Charts = ({colors, setLab}: Props) => {
       <div className={styles.column}>
         <Labels shades={color.shades} />
         <LightnessChart
-          id={`${shade.id}-shades`}
+          id={`${shade.id}-shades-lightness`}
           shades={color.shades}
           setLab={setLab}
         />
-        <ChromaChart id={`${shade.id}-shades`} shades={color.shades} />
-        <HueChart id={`${shade.id}-shades`} shades={color.shades} />
+        <ChromaChart
+          id={`${shade.id}-shades-chroma`}
+          shades={color.shades}
+          setLab={setLab}
+        />
+        <HueChart
+          id={`${shade.id}-shades-hue`}
+          shades={color.shades}
+          setLab={setLab}
+        />
       </div>
 
       <div className={styles.column}>
@@ -52,12 +60,20 @@ const Charts = ({colors, setLab}: Props) => {
           }
         />
         <LightnessChart
-          id={`${shade.id}-colors`}
+          id={`${shade.id}-colors-lightness`}
           shades={crossColorShades}
           setLab={setLab}
         />
-        <ChromaChart id={`${shade.id}-colors`} shades={crossColorShades} />
-        <HueChart id={`${shade.id}-colors`} shades={crossColorShades} />
+        <ChromaChart
+          id={`${shade.id}-colors-chroma`}
+          shades={crossColorShades}
+          setLab={setLab}
+        />
+        <HueChart
+          id={`${shade.id}-colors-hue`}
+          shades={crossColorShades}
+          setLab={setLab}
+        />
       </div>
     </div>
   ) : null
