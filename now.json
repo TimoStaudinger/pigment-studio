@@ -1,0 +1,12 @@
+{
+  "name": "pigment",
+  "version": 2,
+  "alias": ["pigment.studio"],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {"distDir": "build", "newPipeline": true}
+    }
+  ]
+}
