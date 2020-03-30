@@ -8,5 +8,6 @@
       "use": "@now/static-build",
       "config": {"distDir": "build", "newPipeline": true}
     }
-  ]
+  ],
+  "routes": [{"src": "^/(.*)", "dest": "/$1"}]
 }
