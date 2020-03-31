@@ -1,16 +1,17 @@
 import React from 'react'
-import {Color, Lab} from '../../types/color'
+
+import {Color} from '../../types/color'
+import {labToRGB, Lab} from '../../util/color'
 
 import styles from './Contrast.module.css'
-import {convertLabToRGB} from '../../util/color'
 
 interface Props {
   colors: Color[]
 }
 
 const Cell = ({fontLab, backgroundLab}: {fontLab: Lab; backgroundLab: Lab}) => {
-  let fontRGB = convertLabToRGB(fontLab)
-  let backgroundRGB = convertLabToRGB(backgroundLab)
+  let fontRGB = labToRGB(fontLab)
+  let backgroundRGB = labToRGB(backgroundLab)
 
   return (
     <td

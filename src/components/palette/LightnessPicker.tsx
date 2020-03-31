@@ -1,9 +1,8 @@
 import React, {useRef, useEffect, useState, useCallback} from 'react'
 import {useMeasure} from 'react-use'
 
-import {convertLabToRGB} from '../../util/color'
+import {labToRGB, Lab} from '../../util/color'
 import {convertCoordsToOffset} from '../../util/canvas'
-import {Lab} from '../../types/color'
 
 import styles from './LightnessPicker.module.css'
 
@@ -53,7 +52,7 @@ const LightnessPicker = ({
             // let saturation = specificShade ? lab.saturation : 1
             // let lightness = specificShade ? lab.lightness : 0.5
 
-            let {r, g, b} = convertLabToRGB({...lab, l: (x / width) * 100})
+            let {r, g, b} = labToRGB({...lab, l: (x / width) * 100})
 
             imageData.data[pixelOffset + 0] = r
             imageData.data[pixelOffset + 1] = g

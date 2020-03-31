@@ -1,6 +1,6 @@
 import {ulid} from 'ulid'
 import {Color} from '../types/color'
-import {convertHSLtoLab} from './color'
+import {hslToLab} from './color'
 
 export const generatePalette = (): Color[] => [
   {
@@ -10,53 +10,53 @@ export const generatePalette = (): Color[] => [
       {
         id: ulid(),
         name: '900',
-        lab: convertHSLtoLab({h: 205, s: 1, l: 0.21})
+        lab: hslToLab({h: 205, s: 1, l: 0.21})
       },
       {
         id: ulid(),
         name: '800',
-        lab: convertHSLtoLab({h: 205, s: 0.87, l: 0.29})
+        lab: hslToLab({h: 205, s: 0.87, l: 0.29})
       },
       {
         id: ulid(),
         name: '700',
-        lab: convertHSLtoLab({h: 205, s: 0.82, l: 0.33})
+        lab: hslToLab({h: 205, s: 0.82, l: 0.33})
       },
       {
         id: ulid(),
         name: '600',
-        lab: convertHSLtoLab({h: 205, s: 0.76, l: 0.39})
+        lab: hslToLab({h: 205, s: 0.76, l: 0.39})
       },
       {
         id: ulid(),
         name: '500',
-        lab: convertHSLtoLab({h: 205, s: 0.67, l: 0.45}),
+        lab: hslToLab({h: 205, s: 0.67, l: 0.45}),
         base: true
       },
       {
         id: ulid(),
         name: '400',
-        lab: convertHSLtoLab({h: 205, s: 0.65, l: 0.55})
+        lab: hslToLab({h: 205, s: 0.65, l: 0.55})
       },
       {
         id: ulid(),
         name: '300',
-        lab: convertHSLtoLab({h: 205, s: 0.74, l: 0.65})
+        lab: hslToLab({h: 205, s: 0.74, l: 0.65})
       },
       {
         id: ulid(),
         name: '200',
-        lab: convertHSLtoLab({h: 205, s: 0.84, l: 0.74})
+        lab: hslToLab({h: 205, s: 0.84, l: 0.74})
       },
       {
         id: ulid(),
         name: '100',
-        lab: convertHSLtoLab({h: 205, s: 0.97, l: 0.85})
+        lab: hslToLab({h: 205, s: 0.97, l: 0.85})
       },
       {
         id: ulid(),
         name: '000',
-        lab: convertHSLtoLab({h: 205, s: 0.79, l: 0.92})
+        lab: hslToLab({h: 205, s: 0.79, l: 0.92})
       }
     ]
   },
@@ -67,53 +67,53 @@ export const generatePalette = (): Color[] => [
       {
         id: ulid(),
         name: '900',
-        lab: convertHSLtoLab({h: 15, s: 0.86, l: 0.3})
+        lab: hslToLab({h: 15, s: 0.86, l: 0.3})
       },
       {
         id: ulid(),
         name: '800',
-        lab: convertHSLtoLab({h: 22, s: 0.82, l: 0.39})
+        lab: hslToLab({h: 22, s: 0.82, l: 0.39})
       },
       {
         id: ulid(),
         name: '700',
-        lab: convertHSLtoLab({h: 29, s: 0.8, l: 0.44})
+        lab: hslToLab({h: 29, s: 0.8, l: 0.44})
       },
       {
         id: ulid(),
         name: '600',
-        lab: convertHSLtoLab({h: 36, s: 0.77, l: 0.49})
+        lab: hslToLab({h: 36, s: 0.77, l: 0.49})
       },
       {
         id: ulid(),
         name: '500',
-        lab: convertHSLtoLab({h: 42, s: 0.87, l: 0.55}),
+        lab: hslToLab({h: 42, s: 0.87, l: 0.55}),
         base: true
       },
       {
         id: ulid(),
         name: '400',
-        lab: convertHSLtoLab({h: 44, s: 0.92, l: 0.63})
+        lab: hslToLab({h: 44, s: 0.92, l: 0.63})
       },
       {
         id: ulid(),
         name: '300',
-        lab: convertHSLtoLab({h: 48, s: 0.94, l: 0.68})
+        lab: hslToLab({h: 48, s: 0.94, l: 0.68})
       },
       {
         id: ulid(),
         name: '200',
-        lab: convertHSLtoLab({h: 48, s: 0.95, l: 0.76})
+        lab: hslToLab({h: 48, s: 0.95, l: 0.76})
       },
       {
         id: ulid(),
         name: '100',
-        lab: convertHSLtoLab({h: 48, s: 1, l: 0.88})
+        lab: hslToLab({h: 48, s: 1, l: 0.88})
       },
       {
         id: ulid(),
         name: '000',
-        lab: convertHSLtoLab({h: 49, s: 1, l: 0.96})
+        lab: hslToLab({h: 49, s: 1, l: 0.96})
       }
     ]
   },
@@ -124,53 +124,53 @@ export const generatePalette = (): Color[] => [
       {
         id: ulid(),
         name: '900',
-        lab: convertHSLtoLab({h: 209, s: 0.61, l: 0.16})
+        lab: hslToLab({h: 209, s: 0.61, l: 0.16})
       },
       {
         id: ulid(),
         name: '800',
-        lab: convertHSLtoLab({h: 211, s: 0.39, l: 0.23})
+        lab: hslToLab({h: 211, s: 0.39, l: 0.23})
       },
       {
         id: ulid(),
         name: '700',
-        lab: convertHSLtoLab({h: 209, s: 0.34, l: 0.3})
+        lab: hslToLab({h: 209, s: 0.34, l: 0.3})
       },
       {
         id: ulid(),
         name: '600',
-        lab: convertHSLtoLab({h: 209, s: 0.28, l: 0.39})
+        lab: hslToLab({h: 209, s: 0.28, l: 0.39})
       },
       {
         id: ulid(),
         name: '500',
-        lab: convertHSLtoLab({h: 210, s: 0.22, l: 0.49}),
+        lab: hslToLab({h: 210, s: 0.22, l: 0.49}),
         base: true
       },
       {
         id: ulid(),
         name: '400',
-        lab: convertHSLtoLab({h: 209, s: 0.23, l: 0.6})
+        lab: hslToLab({h: 209, s: 0.23, l: 0.6})
       },
       {
         id: ulid(),
         name: '300',
-        lab: convertHSLtoLab({h: 211, s: 0.27, l: 0.7})
+        lab: hslToLab({h: 211, s: 0.27, l: 0.7})
       },
       {
         id: ulid(),
         name: '200',
-        lab: convertHSLtoLab({h: 210, s: 0.31, l: 0.8})
+        lab: hslToLab({h: 210, s: 0.31, l: 0.8})
       },
       {
         id: ulid(),
         name: '100',
-        lab: convertHSLtoLab({h: 212, s: 0.33, l: 0.89})
+        lab: hslToLab({h: 212, s: 0.33, l: 0.89})
       },
       {
         id: ulid(),
         name: '000',
-        lab: convertHSLtoLab({h: 210, s: 0.36, l: 0.96})
+        lab: hslToLab({h: 210, s: 0.36, l: 0.96})
       }
     ]
   },
@@ -181,53 +181,53 @@ export const generatePalette = (): Color[] => [
       {
         id: ulid(),
         name: '900',
-        lab: convertHSLtoLab({h: 184, s: 0.91, l: 0.17})
+        lab: hslToLab({h: 184, s: 0.91, l: 0.17})
       },
       {
         id: ulid(),
         name: '800',
-        lab: convertHSLtoLab({h: 185, s: 0.84, l: 0.25})
+        lab: hslToLab({h: 185, s: 0.84, l: 0.25})
       },
       {
         id: ulid(),
         name: '700',
-        lab: convertHSLtoLab({h: 185, s: 0.81, l: 0.29})
+        lab: hslToLab({h: 185, s: 0.81, l: 0.29})
       },
       {
         id: ulid(),
         name: '600',
-        lab: convertHSLtoLab({h: 184, s: 0.77, l: 0.34})
+        lab: hslToLab({h: 184, s: 0.77, l: 0.34})
       },
       {
         id: ulid(),
         name: '500',
-        lab: convertHSLtoLab({h: 185, s: 0.62, l: 0.45}),
+        lab: hslToLab({h: 185, s: 0.62, l: 0.45}),
         base: true
       },
       {
         id: ulid(),
         name: '400',
-        lab: convertHSLtoLab({h: 185, s: 0.57, l: 0.5})
+        lab: hslToLab({h: 185, s: 0.57, l: 0.5})
       },
       {
         id: ulid(),
         name: '300',
-        lab: convertHSLtoLab({h: 184, s: 0.65, l: 0.59})
+        lab: hslToLab({h: 184, s: 0.65, l: 0.59})
       },
       {
         id: ulid(),
         name: '200',
-        lab: convertHSLtoLab({h: 184, s: 0.8, l: 0.74})
+        lab: hslToLab({h: 184, s: 0.8, l: 0.74})
       },
       {
         id: ulid(),
         name: '100',
-        lab: convertHSLtoLab({h: 185, s: 0.94, l: 0.87})
+        lab: hslToLab({h: 185, s: 0.94, l: 0.87})
       },
       {
         id: ulid(),
         name: '000',
-        lab: convertHSLtoLab({h: 186, s: 1, l: 0.94})
+        lab: hslToLab({h: 186, s: 1, l: 0.94})
       }
     ]
   },
@@ -238,53 +238,53 @@ export const generatePalette = (): Color[] => [
       {
         id: ulid(),
         name: '900',
-        lab: convertHSLtoLab({h: 359, s: 0.92, l: 0.2})
+        lab: hslToLab({h: 359, s: 0.92, l: 0.2})
       },
       {
         id: ulid(),
         name: '800',
-        lab: convertHSLtoLab({h: 359, s: 0.85, l: 0.25})
+        lab: hslToLab({h: 359, s: 0.85, l: 0.25})
       },
       {
         id: ulid(),
         name: '700',
-        lab: convertHSLtoLab({h: 359, s: 0.79, l: 0.32})
+        lab: hslToLab({h: 359, s: 0.79, l: 0.32})
       },
       {
         id: ulid(),
         name: '600',
-        lab: convertHSLtoLab({h: 359, s: 0.72, l: 0.38})
+        lab: hslToLab({h: 359, s: 0.72, l: 0.38})
       },
       {
         id: ulid(),
         name: '500',
-        lab: convertHSLtoLab({h: 359, s: 0.67, l: 0.44}),
+        lab: hslToLab({h: 359, s: 0.67, l: 0.44}),
         base: true
       },
       {
         id: ulid(),
         name: '400',
-        lab: convertHSLtoLab({h: 359, s: 0.64, l: 0.55})
+        lab: hslToLab({h: 359, s: 0.64, l: 0.55})
       },
       {
         id: ulid(),
         name: '300',
-        lab: convertHSLtoLab({h: 359, s: 0.71, l: 0.66})
+        lab: hslToLab({h: 359, s: 0.71, l: 0.66})
       },
       {
         id: ulid(),
         name: '200',
-        lab: convertHSLtoLab({h: 359, s: 0.77, l: 0.78})
+        lab: hslToLab({h: 359, s: 0.77, l: 0.78})
       },
       {
         id: ulid(),
         name: '100',
-        lab: convertHSLtoLab({h: 359, s: 0.82, l: 0.8})
+        lab: hslToLab({h: 359, s: 0.82, l: 0.8})
       },
       {
         id: ulid(),
         name: '000',
-        lab: convertHSLtoLab({h: 359, s: 1, l: 0.97})
+        lab: hslToLab({h: 359, s: 1, l: 0.97})
       }
     ]
   }

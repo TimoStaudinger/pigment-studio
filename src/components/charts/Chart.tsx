@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react'
 import * as d3 from 'd3'
 import {useMeasure} from 'react-use'
 
-import {convertLabToHex} from '../../util/color'
-import {Shade, Lab} from '../../types/color'
+import {labToHex, Lab} from '../../util/color'
+import {Shade} from '../../types/color'
 
 import styles from './Chart.module.css'
+import NumberInput from '../common/NumberInput'
 
 const height = 200
 
@@ -47,17 +48,6 @@ const draw = (
     .y(d => yScale(d[1]))
     .curve(d3.curveMonotoneX)
 
-  // svg
-  //   .append('g')
-  //   .attr('class', 'x axis')
-  //   .attr('transform', `translate(0, ${height})`)
-  //   .call(d3.axisBottom(xScale))
-
-  // svg
-  //   .append('g')
-  //   .attr('class', 'y axis')
-  //   .call(d3.axisLeft(yScale))
-
   const linearGradient = defs
     .append('linearGradient')
     .attr('id', `${containerId}-linear-gradient`)
@@ -66,7 +56,7 @@ const draw = (
     linearGradient
       .append('stop')
       .attr('offset', `${(100 * i) / (shades.length - 1)}%`)
-      .attr('stop-color', '#' + convertLabToHex(shade.lab))
+      .attr('stop-color', '#' + labToHex(shade.lab))
   })
 
   let pattern = defs
@@ -144,7 +134,7 @@ const draw = (
     .enter()
     .append('circle')
     .attr('class', 'dot-main')
-    .attr('fill', d => '#' + convertLabToHex(shades[d[0]].lab))
+    .attr('fill', d => '#' + labToHex(shades[d[0]].lab))
     .attr('stroke', d => '#fff')
     .attr('cx', (d, i) => xScale(i))
     .attr('cy', d => yScale(d[1]))
@@ -175,7 +165,6 @@ const draw = (
 
           updateValue(i, yScale.invert(d3.event.y))
 
-          // d.x = newY
           svg
             .select('.line')
             .datum(
@@ -188,17 +177,6 @@ const draw = (
         })
         .on('end', () => setIsInteracting(false))
     )
-
-  // svg
-  // .append('g')
-  // .attr('class', 'axislabels')
-  // .attr('style', 'transform: translateY(0)')
-  // .call(d3.axisBottom(xScale).tickFormat(d => String(d)))
-  // .call(g => {
-  //   g.selectAll('.domain').remove()
-  //   g.selectAll('.tick line').remove()
-  //   g.selectAll('.tick').attr('style')
-  // })
 }
 
 interface Props {
@@ -254,9 +232,16 @@ const Chart = ({
     <div>
       <div className={styles.title}>{title}</div>
       <div className={styles.values}>
-        {shades.map(shade => (
+        {shades.map((shade, i) => (
           <div className={styles.value}>
-            {convertLabToValue(shade.lab).toFixed(1)}
+            <NumberInput
+              value={convertLabToValue(shade.lab)}
+              onChange={value => {
+                updateValue(i, value)
+                return value >= minValue && value <= maxValue
+              }}
+              allowMouseWheelChanges
+            />
           </div>
         ))}
       </div>

@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 
-import {Lab, Shade} from '../../types/color'
-import {getBaseShade} from '../../util/color'
+import {Shade} from '../../types/color'
 import ColorPicker from './ColorPicker'
 import ColorHeader from './ColorHeader'
 import ShadeComponent from './Shade'
+import ShadePreview from './ShadePreview'
+import {Lab} from '../../util/color'
+import {getBaseShade} from '../../util/shades'
 
 import styles from './Color.module.css'
-import ShadePreview from './ShadePreview'
 
 interface Props {
   name: string

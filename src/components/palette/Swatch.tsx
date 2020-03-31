@@ -2,10 +2,9 @@ import React from 'react'
 import classnames from 'classnames'
 import {useDrag} from 'react-dnd'
 
-import {Lab} from '../../types/color'
+import {labToRGB, Lab} from '../../util/color'
 
 import styles from './Swatch.module.css'
-import {convertLabToRGB} from '../../util/color'
 
 interface Props {
   lab: Lab
@@ -20,7 +19,7 @@ const Swatch = ({lab, compact}: Props) => {
     })
   })
 
-  let rgb = convertLabToRGB(lab)
+  let rgb = labToRGB(lab)
 
   return (
     <div

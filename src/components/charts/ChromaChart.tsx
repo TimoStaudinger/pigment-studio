@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
-import {convertLabToRGBStrict} from '../../util/color'
-import {Shade, Lab} from '../../types/color'
-
+import {Shade} from '../../types/color'
+import {labToRGB, Lab} from '../../util/color'
 import Chart from './Chart'
 
 const radToDeg = (rad: number) => (rad / Math.PI) * 180 + (rad > 0 ? 0 : 360)
@@ -34,7 +33,7 @@ const ChromaChart = ({id, shades, setLab}: Props) => {
     const calculateBadAreasMax = (shades: Shade[]) => {
       let badAreas = shades.map(shade => {
         for (let c = chromaMax; c >= chromaMin; c--) {
-          let rgb = convertLabToRGBStrict(applyChromaToLab(shade.lab, c))
+          let rgb = labToRGB(applyChromaToLab(shade.lab, c), true)
           if (rgb === null) continue
 
           return {min: c + 1, max: chromaMax}

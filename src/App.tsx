@@ -6,14 +6,15 @@ import {DndProvider} from 'react-dnd'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import {generatePalette} from './util/sample'
-import {Color, Lab} from './types/color'
+import {Lab} from './util/color'
+import {Color} from './types/color'
 import Palette from './components/palette/Palette'
 import Preview from './components/preview/Preview'
 import Contrast from './components/contrast/Contrast'
-
-import styles from './App.module.css'
 import Workarea from './components/Workarea'
 import Charts from './components/charts/Charts'
+
+import styles from './App.module.css'
 
 const App = () => {
   const [colors, setColors] = useState<Color[]>(generatePalette())

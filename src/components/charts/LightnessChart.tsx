@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
-import {convertLabToRGBStrict} from '../../util/color'
-import {Shade, Lab} from '../../types/color'
-
+import {Shade} from '../../types/color'
+import {labToRGB, Lab} from '../../util/color'
 import Chart from './Chart'
 
 interface Props {
@@ -18,7 +17,7 @@ const LightnessChart = ({id, shades, setLab}: Props) => {
     const calculateBadAreasMin = (shades: Shade[]) => {
       let badAreas = shades.map(shade => {
         for (let l = 0; l <= 100; l++) {
-          let rgb = convertLabToRGBStrict({...shade.lab, l})
+          let rgb = labToRGB({...shade.lab, l}, true)
           if (rgb === null) continue
 
           return {min: 0, max: l - 1}
@@ -32,7 +31,7 @@ const LightnessChart = ({id, shades, setLab}: Props) => {
     const calculateBadAreasMax = (shades: Shade[]) => {
       let badAreas = shades.map(shade => {
         for (let l = 100; l >= 0; l--) {
-          let rgb = convertLabToRGBStrict({...shade.lab, l})
+          let rgb = labToRGB({...shade.lab, l}, true)
           if (rgb === null) continue
 
           return {min: l + 1, max: 100}

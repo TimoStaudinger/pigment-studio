@@ -1,7 +1,8 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
 
-import {Color, Shade, Lab} from '../../types/color'
+import {Lab} from '../../util/color'
+import {Color, Shade} from '../../types/color'
 import Labels from './Labels'
 import LightnessChart from './LightnessChart'
 import ChromaChart from './ChromaChart'

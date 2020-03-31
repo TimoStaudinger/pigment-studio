@@ -1,8 +1,9 @@
 import React from 'react'
 
-import {Lab, Shade} from '../../types/color'
-import {getBaseShade} from '../../util/color'
+import {Shade} from '../../types/color'
 import ShadePicker from './ShadePicker'
+import {Lab} from '../../util/color'
+import {getBaseShade} from '../../util/shades'
 
 import styles from './ColorPicker.module.css'
 

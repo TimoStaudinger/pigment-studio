@@ -2,9 +2,10 @@ import React from 'react'
 import classnames from 'classnames'
 import {Trash, ChevronRight} from 'react-feather'
 
-import styles from './ColorHeader.module.css'
+import {Lab} from '../../util/color'
 import Swatch from './Swatch'
-import {Lab} from '../../types/color'
+
+import styles from './ColorHeader.module.css'
 
 interface Props {
   name: string
