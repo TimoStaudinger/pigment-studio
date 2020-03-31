@@ -9,9 +9,9 @@ input {
 }
 
 input {
-  border: 1px solid #666;
-  background-color: #444;
-  color: #eee;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  color: #333;
   padding: 3px;
   font-size: 1.2em;
   margin-bottom: 10px;
@@ -19,7 +19,7 @@ input {
 }
 
 input:hover {
-  background-color: #4a4a4a;
+  background-color: #eaeaea;
 }
 input:focus {
   border-color: #aaa;

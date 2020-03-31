@@ -21,32 +21,3 @@
   margin-bottom: 2px;
   height: 20px;
 }
-
-.input {
-  width: calc(100% - 8px);
-  font-family: 'Fira Mono';
-  text-align: right;
-  height: 12px;
-  margin-bottom: 0;
-  border-radius: 0;
-  font-size: 0.7em;
-  touch-action: none;
-}
-
-.input.invalid {
-  background: #5d5100 !important;
-}
-
-.warningIcon {
-  position: absolute;
-  pointer-events: none;
-  top: 7px;
-  left: 4px;
-  color: #ffed73;
-  opacity: 0;
-  transition: all 0.1s;
-}
-
-.warningIcon.invalid {
-  opacity: 1;
-}

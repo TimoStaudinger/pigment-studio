@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {Lab} from '../../types/color'
 import ColorInput from './ColorInput'
+import {Lab} from '../../util/color'
 
 import styles from './ColorInputs.module.css'
 

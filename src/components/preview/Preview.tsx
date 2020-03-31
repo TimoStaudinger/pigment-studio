@@ -1,12 +1,13 @@
 import React from 'react'
-import {Color, Lab} from '../../types/color'
+
+import {Color} from '../../types/color'
+import {labToRGB, Lab} from '../../util/color'
+import ColorSlot from './ColorSlot'
 
 import styles from './Preview.module.css'
-import ColorSlot from './ColorSlot'
-import {convertLabToRGB} from '../../util/color'
 
 const labToCSS = (lab: Lab) => {
-  let {r, g, b} = convertLabToRGB(lab)
+  let {r, g, b} = labToRGB(lab)
   return `rgb(${r}, ${g}, ${b})`
 }
 

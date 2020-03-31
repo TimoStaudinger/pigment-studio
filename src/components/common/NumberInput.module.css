@@ -1,0 +1,29 @@
+.input {
+  width: calc(100% - 8px);
+  font-family: 'Fira Mono';
+  text-align: right;
+  height: 12px;
+  margin-bottom: 0;
+  border-radius: 0;
+  font-size: 0.8em;
+  touch-action: none;
+  text-align: center;
+}
+
+.input.invalid {
+  background: #fff4c3 !important;
+}
+
+.warningIcon {
+  position: absolute;
+  pointer-events: none;
+  top: 4px;
+  left: 4px;
+  color: #cc6e16;
+  opacity: 0;
+  transition: all 0.1s;
+}
+
+.warningIcon.invalid {
+  opacity: 1;
+}

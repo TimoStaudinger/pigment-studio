@@ -1,26 +1,4 @@
-export interface HSL {
-  h: number
-  s: number
-  l: number
-}
-
-export interface Lab {
-  l: number
-  a: number
-  b: number
-}
-
-export interface RGB {
-  r: number
-  g: number
-  b: number
-}
-
-export interface XYZ {
-  x: number
-  y: number
-  z: number
-}
+import {Lab} from '../util/color'
 
 export interface Shade {
   id: string

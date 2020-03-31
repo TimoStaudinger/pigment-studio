@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 
 import {Color} from '../../../types/color'
-import {convertLabToHex} from '../../../util/color'
+import {labToHex} from '../../../util/color'
 
 import styles from './Quickview.module.css'
 import {useHistory, useParams} from 'react-router-dom'
@@ -25,7 +25,7 @@ const Quickview = ({colors}: Props) => {
                 className={classnames(styles.sample, {
                   [styles.selected]: shade.id === shadeId
                 })}
-                style={{backgroundColor: `#${convertLabToHex(shade.lab)}`}}
+                style={{backgroundColor: `#${labToHex(shade.lab)}`}}
                 onClick={() =>
                   history.push(`/${shade.id}${view ? `/${view}` : ''}`)
                 }

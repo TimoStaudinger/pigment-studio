@@ -3,12 +3,12 @@ import {ulid} from 'ulid'
 
 import AddColorButton from './AddColorButton'
 import ColorComponent from './Color'
-import {Color, Lab} from '../../types/color'
-
-import styles from './Palette.module.css'
-import {convertHSLtoLab} from '../../util/color'
+import {Color} from '../../types/color'
+import {hslToLab, Lab} from '../../util/color'
 import Quickview from './quickview/Quickview'
 import {useParams, useHistory} from 'react-router-dom'
+
+import styles from './Palette.module.css'
 
 interface Props {
   colors: Color[]
@@ -41,7 +41,7 @@ const Palette = ({colors, setColors, setLab}: Props) => {
           {
             id: ulid(),
             name: '500',
-            lab: convertHSLtoLab({h: 250, s: 0.5, l: 0.5})
+            lab: hslToLab({h: 250, s: 0.5, l: 0.5})
           }
         ]
       }

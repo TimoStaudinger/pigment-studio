@@ -2,13 +2,13 @@ import React, {ReactNode, useState} from 'react'
 import {useDrop} from 'react-dnd'
 import classnames from 'classnames'
 
-import {Color, Shade, Lab} from '../../types/color'
+import {Color, Shade} from '../../types/color'
+import {labToRGB, Lab} from '../../util/color'
 
 import styles from './ColorSlot.module.css'
-import {convertLabToRGB} from '../../util/color'
 
 const labToCSS = (lab: Lab) => {
-  let {r, g, b} = convertLabToRGB(lab)
+  let {r, g, b} = labToRGB(lab)
   return `rgb(${r}, ${g}, ${b})`
 }
 

@@ -3,12 +3,11 @@ import {useMeasure} from 'react-use'
 import classnames from 'classnames'
 
 import {convertCoordsToOffset} from '../../util/canvas'
-import {convertLabToRGB} from '../../util/color'
+import {labToRGB, Lab} from '../../util/color'
 import {isPointOnHandle2D} from '../../util/coordinates'
-import {Lab} from '../../types/color'
+import {throttle} from '../../util/throttle'
 
 import styles from './ShadePicker.module.css'
-import {throttle} from '../../util/throttle'
 
 const fractionToAB = (fraction: number) => fraction * 256 - 128
 const abToFraction = (ab: number) => (ab + 128) / 256
@@ -45,7 +44,7 @@ const ShadePicker = ({lab, setLab}: Props): JSX.Element => {
             let aFraction = x / width
             let bFraction = y / height
 
-            let rgb = convertLabToRGB({
+            let rgb = labToRGB({
               l: 60,
               a: fractionToAB(aFraction),
               b: fractionToAB(bFraction)

@@ -1,6 +1,7 @@
 import React from 'react'
 
-import {Shade, Lab} from '../../types/color'
+import {Shade} from '../../types/color'
+import {Lab} from '../../util/color'
 
 import Chart from './Chart'
 

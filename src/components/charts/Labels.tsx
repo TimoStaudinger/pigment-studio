@@ -2,7 +2,7 @@ import React from 'react'
 import {Shade} from '../../types/color'
 
 import styles from './Labels.module.css'
-import {convertLabToHex} from '../../util/color'
+import {labToHex} from '../../util/color'
 
 interface Props {
   shades: (Shade | [string, Shade])[]
@@ -19,7 +19,7 @@ const Labels = ({shades}: Props) => (
           {name}
           <div
             className={styles.sample}
-            style={{backgroundColor: `#${convertLabToHex(lab)}`}}
+            style={{backgroundColor: `#${labToHex(lab)}`}}
           ></div>
         </div>
       )
