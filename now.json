@@ -4,10 +4,10 @@
   "alias": ["pigment.studio"],
   "builds": [
     {
-      "src": "package.json",
+      "src": "packages/app/package.json",
       "use": "@now/static-build",
       "config": {"distDir": "build", "newPipeline": true}
     }
   ],
-  "routes": [{"src": "^/(.*)", "dest": "/$1"}]
+  "routes": [{"src": "^/(.*)", "dest": "/packages/app/$1"}]
 }
