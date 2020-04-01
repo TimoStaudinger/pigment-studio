@@ -28,10 +28,9 @@ input:focus {
 }
 
 button {
-  color: #eee;
+  color: #333;
   background: none;
-  background-color: #444;
-  border: 1px solid #666;
+  border: 1px solid #ccc;
   border-radius: 3px;
   padding: 10px;
   cursor: pointer;
@@ -40,12 +39,12 @@ button {
 }
 
 button:focus {
-  border: 1px solid #aaa;
+  background-color: #ccc;
   outline: none;
 }
 
 button:hover {
-  background-color: #222;
+  background-color: #ccc;
 }
 
 .Resizer {

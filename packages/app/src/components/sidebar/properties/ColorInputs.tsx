@@ -1,5 +1,5 @@
 import React from 'react'
-import {Lab} from '@pigmentstudio/convert'
+import {Lab, labToRGB, RGB_MIN, RGB_MAX, rgbToLab} from '@pigmentstudio/convert'
 
 import ColorInput from './ColorInput'
 
@@ -11,21 +11,58 @@ interface Props {
 }
 
 const ColorInputs = ({lab, setLab}: Props) => {
+  let rgb = labToRGB(lab, true)
   return (
     <div className={styles.container}>
       <div className={styles.column}>
-        {/* <ColorInput
-          label="Hex"
-          value={convertLabToHex(lab)}
-          onChange={hex => {
-            try {
-              setLab(convertHexToHSL(hex))
-              return true
-            } catch (e) {
+        <ColorInput
+          label="R"
+          allowMouseWheelChanges
+          value={rgb ? String(rgb.r) : ''}
+          onChange={r => {
+            if (rgb === null) return false
+
+            let parsed = parseInt(r)
+            if (isNaN(parsed) || parsed < RGB_MIN || parsed > RGB_MAX)
               return false
+            else {
+              setLab(rgbToLab({...rgb, r: parsed}))
+              return true
             }
           }}
-        />*/}
+        />
+        <ColorInput
+          label="G"
+          allowMouseWheelChanges
+          value={rgb ? String(rgb.g) : ''}
+          onChange={g => {
+            if (rgb === null) return false
+
+            let parsed = parseInt(g)
+            if (isNaN(parsed) || parsed < RGB_MIN || parsed > RGB_MAX)
+              return false
+            else {
+              setLab(rgbToLab({...rgb, g: parsed}))
+              return true
+            }
+          }}
+        />
+        <ColorInput
+          label="B"
+          allowMouseWheelChanges
+          value={rgb ? String(rgb.b) : ''}
+          onChange={b => {
+            if (rgb === null) return false
+
+            let parsed = parseInt(b)
+            if (isNaN(parsed) || parsed < RGB_MIN || parsed > RGB_MAX)
+              return false
+            else {
+              setLab(rgbToLab({...rgb, b: parsed}))
+              return true
+            }
+          }}
+        />
       </div>
 
       <div className={styles.column}>
