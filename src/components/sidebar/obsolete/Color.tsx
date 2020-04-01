@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 
-import {Shade} from '../../types/color'
-import ColorPicker from './ColorPicker'
+import {Shade} from '../../../types/color'
 import ColorHeader from './ColorHeader'
 import ShadeComponent from './Shade'
 import ShadePreview from './ShadePreview'
-import {Lab} from '../../util/color'
-import {getBaseShade} from '../../util/shades'
+import {Lab} from '../../../util/color'
+import {getBaseShade} from '../../../util/shades'
 
 import styles from './Color.module.css'
 
@@ -34,14 +33,6 @@ const Color = ({name, shades, setName, setLab, removeColor}: Props) => {
       />
       {isExpanded ? (
         <>
-          <ColorPicker
-            shades={shades}
-            setLab={(lab: Lab) =>
-              shades.forEach(shade =>
-                setLab(shade.id, {...shade.lab, a: lab.a, b: lab.b})
-              )
-            }
-          />
           {shades.map(shade => (
             <ShadeComponent
               {...shade}

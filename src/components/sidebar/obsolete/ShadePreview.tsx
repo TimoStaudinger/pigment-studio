@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Shade} from '../../types/color'
+import {Shade} from '../../../types/color'
 import Swatch from './Swatch'
 
 import styles from './ShadePreview.module.css'

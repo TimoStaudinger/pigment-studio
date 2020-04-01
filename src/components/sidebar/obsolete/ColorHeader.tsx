@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import {Trash, ChevronRight} from 'react-feather'
 
-import {Lab} from '../../util/color'
+import {Lab} from '../../../util/color'
 import Swatch from './Swatch'
 
 import styles from './ColorHeader.module.css'

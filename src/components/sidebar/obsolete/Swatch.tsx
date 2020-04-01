@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import {useDrag} from 'react-dnd'
 
-import {labToRGB, Lab} from '../../util/color'
+import {labToRGB, Lab} from '../../../util/color'
 
 import styles from './Swatch.module.css'
 

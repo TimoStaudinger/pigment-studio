@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react'
 import {ulid} from 'ulid'
-
-import AddColorButton from './AddColorButton'
-import ColorComponent from './Color'
-import {Color} from '../../types/color'
-import {hslToLab, Lab} from '../../util/color'
-import Quickview from './quickview/Quickview'
 import {useParams, useHistory} from 'react-router-dom'
 
-import styles from './Palette.module.css'
+import {Color} from '../../types/color'
+import {hslToLab, Lab} from '../../util/color'
+
+import Palette from './palette/Palette'
+import Properties from './properties/Properties'
+
+import styles from './Sidebar.module.css'
 
 interface Props {
   colors: Color[]
@@ -16,16 +16,18 @@ interface Props {
   setLab: (shadeId: string, lab: Lab) => void
 }
 
-const Palette = ({colors, setColors, setLab}: Props) => {
+const Sidebar = ({colors, setColors, setLab}: Props) => {
   let {shadeId} = useParams()
   let history = useHistory()
 
-  let isShadeSelected =
-    shadeId &&
-    colors.some(color => color.shades.some(shade => shade.id === shadeId))
+  let selectedColor = colors.find(color =>
+    color.shades.some(shade => shade.id === shadeId)
+  )
+  let selectedShade =
+    selectedColor && selectedColor.shades.find(shade => shade.id === shadeId)
 
   useEffect(() => {
-    if (!isShadeSelected && colors && colors.length)
+    if (!selectedShade && colors && colors.length)
       history.push(
         `/${colors[0].shades.find(shade => shade.name === '500')?.id}`
       )
@@ -50,9 +52,29 @@ const Palette = ({colors, setColors, setLab}: Props) => {
 
   return (
     <div className={styles.palette}>
-      <Quickview colors={colors} />
+      <Palette colors={colors} />
 
-      {colors.map(currentColor => (
+      <div className={styles.spacer} />
+
+      {selectedShade && selectedColor && (
+        <Properties
+          color={selectedColor}
+          shade={selectedShade}
+          setLab={setLab}
+          setName={name =>
+            selectedColor &&
+            setColors(colors =>
+              colors.map(updatedColor =>
+                updatedColor.id === selectedColor?.id
+                  ? {...updatedColor, name}
+                  : updatedColor
+              )
+            )
+          }
+        />
+      )}
+
+      {/* {colors.map(currentColor => (
         <ColorComponent
           key={currentColor.id}
           {...currentColor}
@@ -72,11 +94,11 @@ const Palette = ({colors, setColors, setLab}: Props) => {
             )
           }
         />
-      ))}
+      ))} */}
 
-      <AddColorButton onClick={handleAddColor} />
+      {/* <AddColorButton onClick={handleAddColor} /> */}
     </div>
   )
 }
 
-export default Palette
+export default Sidebar

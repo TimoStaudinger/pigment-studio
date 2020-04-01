@@ -1,6 +1,4 @@
 import React, {useState} from 'react'
-//@ts-ignore
-import SplitPane from 'react-split-pane'
 import Backend from 'react-dnd-html5-backend'
 import {DndProvider} from 'react-dnd'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
@@ -8,7 +6,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {generatePalette} from './util/sample'
 import {Lab} from './util/color'
 import {Color} from './types/color'
-import Palette from './components/palette/Palette'
+import Sidebar from './components/sidebar/Sidebar'
 import Preview from './components/preview/Preview'
 import Contrast from './components/contrast/Contrast'
 import Workarea from './components/Workarea'
@@ -37,26 +35,21 @@ const App = () => {
   return (
     <Router>
       <DndProvider backend={Backend}>
-        <div className={styles.app}>
-          <Route path="/:shadeId?/:view?">
-            <SplitPane
-              split="vertical"
-              defaultSize={350}
-              minSize={250}
-              maxSize={500}
-            >
-              <Palette colors={colors} setColors={setColors} setLab={setLab} />
+        <Route path="/:shadeId?/:view?">
+          <div className={styles.app}>
+            <Sidebar colors={colors} setColors={setColors} setLab={setLab} />
 
-              <Workarea
-                areas={[
-                  ['Charts', <Charts colors={colors} setLab={setLab} />],
-                  ['Preview', <Preview colors={colors} />],
-                  ['Contrast', <Contrast colors={colors} />]
-                ]}
-              ></Workarea>
-            </SplitPane>
-          </Route>
-        </div>
+            <div className={styles.spacer} />
+
+            <Workarea
+              areas={[
+                ['Charts', <Charts colors={colors} setLab={setLab} />],
+                ['Preview', <Preview colors={colors} />],
+                ['Contrast', <Contrast colors={colors} />]
+              ]}
+            />
+          </div>
+        </Route>
       </DndProvider>
     </Router>
   )

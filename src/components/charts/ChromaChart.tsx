@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {Shade} from '../../types/color'
-import {labToRGB, Lab} from '../../util/color'
+import {labToRGB, Lab, labToHex} from '../../util/color'
 import Chart from './Chart'
 
 const radToDeg = (rad: number) => (rad / Math.PI) * 180 + (rad > 0 ? 0 : 360)
@@ -59,6 +59,9 @@ const ChromaChart = ({id, shades, setLab}: Props) => {
       shades={shades}
       updateValue={(i, value) =>
         setLab(shades[i].id, applyChromaToLab(shades[i].lab, value))
+      }
+      convertValueToHex={(i: number, value: number) =>
+        labToHex(applyChromaToLab(shades[i].lab, value))
       }
     />
   )

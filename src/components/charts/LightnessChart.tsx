@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {Shade} from '../../types/color'
-import {labToRGB, Lab} from '../../util/color'
+import {labToRGB, Lab, labToHex} from '../../util/color'
 import Chart from './Chart'
 
 interface Props {
@@ -58,6 +58,7 @@ const LightnessChart = ({id, shades, setLab}: Props) => {
       updateValue={(i, value) =>
         setLab(shades[i].id, {...shades[i].lab, l: value})
       }
+      convertValueToHex={(i, value) => labToHex({...shades[i].lab, l: value})}
     />
   )
 }

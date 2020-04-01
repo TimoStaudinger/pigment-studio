@@ -4,7 +4,8 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  margin-top: 10px;
 }
 
 .label {
@@ -12,13 +13,13 @@
 
   font-size: 0.8em;
   color: #444;
+  text-align: center;
 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.sample {
-  height: 5px;
-  margin-top: 2px;
+.spacer {
+  width: 110px;
 }

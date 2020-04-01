@@ -2,10 +2,10 @@ import React, {useRef, useEffect, useState} from 'react'
 import {useMeasure} from 'react-use'
 import classnames from 'classnames'
 
-import {convertCoordsToOffset} from '../../util/canvas'
-import {labToRGB, Lab} from '../../util/color'
-import {isPointOnHandle2D} from '../../util/coordinates'
-import {throttle} from '../../util/throttle'
+import {convertCoordsToOffset} from '../../../util/canvas'
+import {labToRGB, Lab} from '../../../util/color'
+import {isPointOnHandle2D} from '../../../util/coordinates'
+import {throttle} from '../../../util/throttle'
 
 import styles from './ShadePicker.module.css'
 
@@ -44,16 +44,21 @@ const ShadePicker = ({lab, setLab}: Props): JSX.Element => {
             let aFraction = x / width
             let bFraction = y / height
 
-            let rgb = labToRGB({
-              l: 60,
-              a: fractionToAB(aFraction),
-              b: fractionToAB(bFraction)
-            })
+            let rgb = labToRGB(
+              {
+                l: lab.l,
+                a: fractionToAB(aFraction),
+                b: fractionToAB(bFraction)
+              },
+              true
+            )
 
-            imageData.data[pixelOffset + 0] = rgb?.r ?? 255
-            imageData.data[pixelOffset + 1] = rgb?.g ?? 0
-            imageData.data[pixelOffset + 2] = rgb?.b ?? 0
-            imageData.data[pixelOffset + 3] = 255
+            if (rgb) {
+              imageData.data[pixelOffset + 0] = rgb?.r ?? 255
+              imageData.data[pixelOffset + 1] = rgb?.g ?? 0
+              imageData.data[pixelOffset + 2] = rgb?.b ?? 0
+              imageData.data[pixelOffset + 3] = 255
+            }
           }
         }
 
@@ -64,9 +69,11 @@ const ShadePicker = ({lab, setLab}: Props): JSX.Element => {
           let x = ((a + 128) / 256) * width
           let y = ((b + 128) / 256) * height
 
+          let rgb = labToRGB(lab, true)
+
           context.beginPath()
           context.lineWidth = 1
-          context.strokeStyle = l > 50 ? '#111' : '#fff'
+          context.strokeStyle = l > 50 || rgb === null ? '#111' : '#fff'
           context.arc(x, y, 8, 0, Math.PI * 2, true)
           context.stroke()
         }
