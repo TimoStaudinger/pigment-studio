@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "start": "cd packages/app && yarn start",
-    "build": "cd packages/app && yarn build"
+    "start": "yarn --cwd packages/app start",
+    "build": "yarn --cwd packages/app build"
   },
   "workspaces": [
     "packages/*"
