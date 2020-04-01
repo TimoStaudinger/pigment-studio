@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Shade} from '../../types/color'
-import {Lab} from '../../util/color'
+import {Lab, labToHex} from '../../util/color'
 
 import Chart from './Chart'
 
@@ -36,10 +36,12 @@ const LightnessChart = ({id, shades, setLab}: Props) => {
       minValue={hueMin}
       maxValue={hueMax}
       shades={shades}
-      updateValue={(i, value) => {
-        console.log(i, value)
+      updateValue={(i, value) =>
         setLab(shades[i].id, applyHueToLab(shades[i].lab, value))
-      }}
+      }
+      convertValueToHex={(i, value) =>
+        labToHex(applyHueToLab(shades[i].lab, value))
+      }
     />
   )
 }

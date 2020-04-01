@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 
-import {Lab} from '../../util/color'
+import {Lab} from '../../../util/color'
 import ColorHeader from './ColorHeader'
-import ColorInputs from './ColorInputs'
+import ColorInputs from '../properties/ColorInputs'
 import LightnessPicker from './LightnessPicker'
 
 import styles from './Shade.module.css'

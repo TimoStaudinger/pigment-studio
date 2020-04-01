@@ -1,13 +1,13 @@
 import React from 'react'
 
 import ColorInput from './ColorInput'
-import {Lab} from '../../util/color'
+import {Lab} from '../../../util/color'
 
 import styles from './ColorInputs.module.css'
 
 interface Props {
   lab: Lab
-  setLab: (hsl: Lab) => void
+  setLab: (lab: Lab) => void
 }
 
 const ColorInputs = ({lab, setLab}: Props) => {

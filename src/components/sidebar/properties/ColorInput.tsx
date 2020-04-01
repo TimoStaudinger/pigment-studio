@@ -1,6 +1,6 @@
 import React from 'react'
 
-import NumberInput from '../common/NumberInput'
+import NumberInput from '../../common/NumberInput'
 
 import styles from './ColorInput.module.css'
 

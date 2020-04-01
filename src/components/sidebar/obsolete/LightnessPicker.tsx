@@ -1,8 +1,8 @@
 import React, {useRef, useEffect, useState, useCallback} from 'react'
 import {useMeasure} from 'react-use'
 
-import {labToRGB, Lab} from '../../util/color'
-import {convertCoordsToOffset} from '../../util/canvas'
+import {labToRGB, Lab} from '../../../util/color'
+import {convertCoordsToOffset} from '../../../util/canvas'
 
 import styles from './LightnessPicker.module.css'
 
