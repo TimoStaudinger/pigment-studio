@@ -4,8 +4,7 @@ import {Lab} from '@pigmentstudio/convert'
 import {Color, Shade} from '../../../types/color'
 import ColorInputs from './ColorInputs'
 
-import styles from './Properties.module.css'
-import ShadePicker from './ShadePicker'
+import Panel from '../../common/Panel'
 
 interface Props {
   color: Color
@@ -15,15 +14,9 @@ interface Props {
 }
 
 const Properties = ({color, shade, setLab, setName}: Props) => (
-  <div>
-    <h2 className={styles.header}>
-      <input value={color.name} onChange={e => setName(e.target.value)} />
-    </h2>
-
+  <Panel title="Properties">
     <ColorInputs lab={shade.lab} setLab={lab => setLab(shade.id, lab)} />
-
-    <ShadePicker lab={shade.lab} setLab={lab => setLab(shade.id, lab)} />
-  </div>
+  </Panel>
 )
 
 export default Properties

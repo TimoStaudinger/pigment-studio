@@ -24,7 +24,7 @@ interface Props {
 }
 
 const ColorSlot = ({defaultColorName, colors, children}: Props) => {
-  const [shade, setShade] = useState<Shade>(
+  const [shade] = useState<Shade>(
     getColor(colors, defaultColorName[0], defaultColorName[1])
   )
 
@@ -36,10 +36,7 @@ const ColorSlot = ({defaultColorName, colors, children}: Props) => {
       canDrop: monitor.canDrop()
     })
   })
-  const [
-    {canDrop: canDropBackground, isOver: isOverBackground},
-    dropBackground
-  ] = useDrop({
+  const [{isOver: isOverBackground}, dropBackground] = useDrop({
     accept: 'color',
     drop: () => ({name: 'Dustbin'}),
     collect: monitor => ({
@@ -47,7 +44,7 @@ const ColorSlot = ({defaultColorName, colors, children}: Props) => {
       canDrop: monitor.canDrop()
     })
   })
-  const [{canDrop: canDropBorder, isOver: isOverBorder}, dropBorder] = useDrop({
+  const [{isOver: isOverBorder}, dropBorder] = useDrop({
     accept: 'color',
     drop: () => ({name: 'Dustbin'}),
     collect: monitor => ({

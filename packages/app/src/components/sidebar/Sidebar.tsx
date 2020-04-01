@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
-import {ulid} from 'ulid'
 import {useParams, useHistory} from 'react-router-dom'
-import {hslToLab, Lab} from '@pigmentstudio/convert'
+import {Lab} from '@pigmentstudio/convert'
 
 import {Color} from '../../types/color'
 
@@ -9,6 +8,7 @@ import Palette from './palette/Palette'
 import Properties from './properties/Properties'
 
 import styles from './Sidebar.module.css'
+import Picker from './picker/Picker'
 
 interface Props {
   colors: Color[]
@@ -33,45 +33,47 @@ const Sidebar = ({colors, setColors, setLab}: Props) => {
       )
   })
 
-  const handleAddColor = () => {
-    setColors(colors => [
-      ...colors,
-      {
-        id: ulid(),
-        name: 'Untitled',
-        shades: [
-          {
-            id: ulid(),
-            name: '500',
-            lab: hslToLab({h: 250, s: 0.5, l: 0.5})
-          }
-        ]
-      }
-    ])
-  }
+  // const handleAddColor = () => {
+  //   setColors(colors => [
+  //     ...colors,
+  //     {
+  //       id: ulid(),
+  //       name: 'Untitled',
+  //       shades: [
+  //         {
+  //           id: ulid(),
+  //           name: '500',
+  //           lab: hslToLab({h: 250, s: 0.5, l: 0.5})
+  //         }
+  //       ]
+  //     }
+  //   ])
+  // }
 
   return (
     <div className={styles.palette}>
       <Palette colors={colors} />
 
-      <div className={styles.spacer} />
-
       {selectedShade && selectedColor && (
-        <Properties
-          color={selectedColor}
-          shade={selectedShade}
-          setLab={setLab}
-          setName={name =>
-            selectedColor &&
-            setColors(colors =>
-              colors.map(updatedColor =>
-                updatedColor.id === selectedColor?.id
-                  ? {...updatedColor, name}
-                  : updatedColor
+        <>
+          <Properties
+            color={selectedColor}
+            shade={selectedShade}
+            setLab={setLab}
+            setName={name =>
+              selectedColor &&
+              setColors(colors =>
+                colors.map(updatedColor =>
+                  updatedColor.id === selectedColor?.id
+                    ? {...updatedColor, name}
+                    : updatedColor
+                )
               )
-            )
-          }
-        />
+            }
+          />
+
+          <Picker shade={selectedShade} setLab={setLab} />
+        </>
       )}
 
       {/* {colors.map(currentColor => (
