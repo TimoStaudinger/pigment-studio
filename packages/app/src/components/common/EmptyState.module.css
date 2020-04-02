@@ -1,0 +1,19 @@
+.container {
+  margin: 10px;
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  color: #324d67;
+  opacity: 0.2;
+}
+
+.hint {
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+}

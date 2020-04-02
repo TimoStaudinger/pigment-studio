@@ -1,7 +1,4 @@
 import React, {useState} from 'react'
-import Backend from 'react-dnd-html5-backend'
-import {DndProvider} from 'react-dnd'
-import {HashRouter as Router, Route} from 'react-router-dom'
 import {ReflexContainer, ReflexSplitter, ReflexElement} from 'react-reflex'
 import {Lab} from '@pigmentstudio/convert'
 import 'react-reflex/styles.css'
@@ -15,9 +12,18 @@ import Workarea from './components/Workarea'
 import Charts from './components/charts/Charts'
 import Header from './components/header/Header'
 import Layout from './Layout'
+import Splash from './splash/Splash'
+import {useParams, useHistory} from 'react-router-dom'
+import EmptyState from './components/common/EmptyState'
+import {useEffect} from 'react'
 
 const App = () => {
-  const [colors, setColors] = useState<Color[]>(generatePalette())
+  let {shadeId} = useParams()
+  let history = useHistory()
+
+  const [showSplash, setShowSplash] = useState(true)
+
+  const [colors, setColors] = useState<Color[]>([])
 
   const setLab = (shadeId: string, lab: Lab) => {
     setColors(colors =>
@@ -34,34 +40,56 @@ const App = () => {
     )
   }
 
+  const createNewFromTemplate = () => {
+    setColors(generatePalette())
+    setShowSplash(false)
+  }
+  const createNewFromScratch = () => {
+    setColors([])
+    setShowSplash(false)
+  }
+
+  let selectedColor = colors.find(color =>
+    color.shades.some(shade => shade.id === shadeId)
+  )
+
+  useEffect(() => {
+    if (shadeId && !selectedColor) history.push('/')
+  })
+
+  // let selectedShade =
+  //   selectedColor && selectedColor.shades.find(shade => shade.id === shadeId)
+
   return (
-    <Router>
-      <DndProvider backend={Backend}>
-        <Route path="/:shadeId?/:view?">
-          <Layout header={<Header />}>
-            <ReflexContainer orientation="vertical">
-              <ReflexElement className="left-pane" size={600} minSize={400}>
-                <Sidebar
-                  colors={colors}
-                  setColors={setColors}
-                  setLab={setLab}
-                />
-              </ReflexElement>
-              <ReflexSplitter />
-              <ReflexElement className="right-pane" style={{height: 'auto'}}>
-                <Workarea
-                  areas={[
-                    ['Charts', <Charts colors={colors} setLab={setLab} />],
-                    ['Preview', <Preview colors={colors} />],
-                    ['Contrast', <Contrast colors={colors} />]
-                  ]}
-                />
-              </ReflexElement>
-            </ReflexContainer>
-          </Layout>
-        </Route>
-      </DndProvider>
-    </Router>
+    <>
+      <Splash
+        showSplash={showSplash}
+        createNewFromTemplate={createNewFromTemplate}
+        createNewFromScratch={createNewFromScratch}
+      />
+
+      <Layout header={<Header />}>
+        <ReflexContainer orientation="vertical" windowResizeAware>
+          <ReflexElement className="left-pane" size={600} minSize={400}>
+            <Sidebar colors={colors} setColors={setColors} setLab={setLab} />
+          </ReflexElement>
+          <ReflexSplitter />
+          <ReflexElement className="right-pane" style={{height: 'auto'}}>
+            {shadeId ? (
+              <Workarea
+                areas={[
+                  ['Charts', <Charts colors={colors} setLab={setLab} />],
+                  ['Preview', <Preview colors={colors} />],
+                  ['Contrast', <Contrast colors={colors} />]
+                ]}
+              />
+            ) : (
+              <EmptyState />
+            )}
+          </ReflexElement>
+        </ReflexContainer>
+      </Layout>
+    </>
   )
 }
 

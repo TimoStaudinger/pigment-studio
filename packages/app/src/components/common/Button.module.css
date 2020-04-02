@@ -1,0 +1,31 @@
+.button {
+  padding: 10px;
+
+  transition: all 0.2s;
+  background: none;
+  color: #324d67;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  cursor: pointer;
+
+  font-family: 'Open Sans';
+  font-size: 0.9em;
+}
+
+.button:focus {
+  border-color: #2680c0;
+  outline: none;
+}
+
+.button:hover {
+  background-color: #ddd;
+}
+
+.primary {
+  background-color: #324d67;
+  color: #f1f5f8;
+}
+
+.primary:hover {
+  background-color: #213446;
+}
