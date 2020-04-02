@@ -1,1 +1,1 @@
-# Pigment
+![Splash Screen](assets/splash.png)
