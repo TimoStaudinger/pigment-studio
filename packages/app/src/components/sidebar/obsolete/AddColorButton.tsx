@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Button from '../../common/Button'
+
 import styles from './AddColorButton.module.css'
 
 interface Props {
@@ -7,9 +9,9 @@ interface Props {
 }
 
 const AddColorButton = ({onClick}: Props) => (
-  <button className={styles.button} onClick={onClick}>
+  <Button className={styles.button} onClick={onClick}>
     Add color
-  </button>
+  </Button>
 )
 
 export default AddColorButton

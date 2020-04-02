@@ -1,0 +1,39 @@
+.dialog {
+  color: #324d67;
+  background-color: #f1f5f8;
+}
+
+.content {
+  display: flex;
+}
+
+.recent {
+  flex: 1;
+}
+
+.recentHeader {
+  font-weight: 700;
+}
+
+.logo {
+  width: 300px;
+  height: 300px;
+}
+
+.toolbar {
+  display: flex;
+}
+
+.toolbar button {
+  margin-left: 10px;
+}
+
+.toolbarSpacer {
+  flex: 1;
+}
+
+.hint {
+  display: block;
+  text-align: right;
+  margin-bottom: 10px;
+}

@@ -5,7 +5,6 @@ body {
   color: #324d67;
 }
 
-button,
 input {
   font-family: 'Open Sans';
 }
@@ -24,77 +23,34 @@ input:hover {
   background-color: #f5f5f5;
 }
 input:focus {
-  border-color: #2680c0;
+  border-color: #324d67;
   outline: none;
 }
 
-button {
-  background: none;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding: 10px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.9em;
+[data-reach-dialog-overlay] {
+  z-index: 200;
+  background: hsla(0, 0%, 0%, 0.5);
 }
 
-button:focus {
-  border-color: #2680c0;
-  outline: none;
-}
-
-button:hover {
-  background-color: #ddd;
-}
-
-.Resizer {
-  background: #000;
-  opacity: 0.2;
-  z-index: 1;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding;
-  background-clip: padding-box;
-}
-
-.Resizer:hover {
-  -webkit-transition: all 2s ease;
-  transition: all 2s ease;
-}
-
-.Resizer.horizontal {
-  height: 11px;
-  margin: -5px 0;
-  border-top: 5px solid rgba(255, 255, 255, 0);
-  border-bottom: 5px solid rgba(255, 255, 255, 0);
-  cursor: row-resize;
-  width: 100%;
-}
-
-.Resizer.horizontal:hover {
-  border-top: 5px solid rgba(0, 0, 0, 0.5);
-  border-bottom: 5px solid rgba(0, 0, 0, 0.5);
-}
-
-.Resizer.vertical {
-  width: 10px;
+.reflex-splitter {
+  width: 11px !important;
   margin: 0 -5px;
-  border-left: 5px solid rgba(255, 255, 255, 0);
-  border-right: 5px solid rgba(255, 255, 255, 0);
-  cursor: col-resize;
+
+  border-left: 5px solid rgba(50, 77, 103, 0) !important;
+  border-right: 5px solid rgba(50, 77, 103, 0) !important;
+
+  background-color: #324d67 !important;
+  opacity: 0.3 !important;
+
+  transition: border 200ms !important;
+
+  box-sizing: border-box !important;
+  background-clip: padding-box !important;
 }
 
-.Resizer.vertical:hover {
-  border-left: 5px solid rgba(0, 0, 0, 0.5);
-  border-right: 5px solid rgba(0, 0, 0, 0.5);
-}
-.Resizer.disabled {
-  cursor: not-allowed;
-}
-.Resizer.disabled:hover {
-  border-color: transparent;
+.reflex-splitter:hover {
+  border-left: 5px solid rgba(50, 77, 103, 0.7) !important;
+  border-right: 5px solid rgba(50, 77, 103, 0.7) !important;
 }
 
 .Pane {
@@ -106,7 +62,6 @@ button:hover {
   width: 16px;
 }
 
-/* background of the scrollbar except button or resizer */
 *::-webkit-scrollbar-track {
   background-color: #fafafa;
 }
@@ -118,7 +73,6 @@ button:hover {
   border: 4px solid #fafafa;
 }
 
-/* set button(top and bottom of the scrollbar) */
 *::-webkit-scrollbar-button {
   display: none;
 }

@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import {useParams, useHistory} from 'react-router-dom'
+import React from 'react'
+import {useParams} from 'react-router-dom'
 import {Lab} from '@pigmentstudio/convert'
 
 import {Color} from '../../types/color'
@@ -18,20 +18,12 @@ interface Props {
 
 const Sidebar = ({colors, setColors, setLab}: Props) => {
   let {shadeId} = useParams()
-  let history = useHistory()
 
   let selectedColor = colors.find(color =>
     color.shades.some(shade => shade.id === shadeId)
   )
   let selectedShade =
     selectedColor && selectedColor.shades.find(shade => shade.id === shadeId)
-
-  useEffect(() => {
-    if (!selectedShade && colors && colors.length)
-      history.push(
-        `/${colors[0].shades.find(shade => shade.name === '500')?.id}`
-      )
-  })
 
   // const handleAddColor = () => {
   //   setColors(colors => [
@@ -75,30 +67,6 @@ const Sidebar = ({colors, setColors, setLab}: Props) => {
           <Picker shade={selectedShade} setLab={setLab} />
         </>
       )}
-
-      {/* {colors.map(currentColor => (
-        <ColorComponent
-          key={currentColor.id}
-          {...currentColor}
-          setLab={setLab}
-          setName={name =>
-            setColors(colors =>
-              colors.map(updatedColor =>
-                updatedColor.id === currentColor.id
-                  ? {...updatedColor, name}
-                  : updatedColor
-              )
-            )
-          }
-          removeColor={() =>
-            setColors(colors =>
-              colors.filter(updatedColor => updatedColor.id !== currentColor.id)
-            )
-          }
-        />
-      ))} */}
-
-      {/* <AddColorButton onClick={handleAddColor} /> */}
     </div>
   )
 }

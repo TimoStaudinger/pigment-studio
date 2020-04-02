@@ -22,9 +22,9 @@
   cursor: pointer;
   transition: all 0.2s;
 
-  border: 0;
-  border-radius: 0%;
-  border-bottom: 2px solid transparent;
+  border: 0 !important;
+  border-radius: 0% !important;
+  border-bottom: 2px solid transparent !important;
 }
 
 .tabbarItem:hover {
@@ -32,8 +32,7 @@
 }
 
 .tabbarItem.selected {
-  /* font-weight: 700; */
-  border-bottom: 2px solid #2680c0;
+  border-bottom: 2px solid #2680c0 !important;
 }
 
 .content {

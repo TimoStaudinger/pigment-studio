@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import {ChevronRight} from 'react-feather'
 
 import styles from './Panel.module.css'
+import Button from './Button'
 
 interface Props {
   title: string
@@ -16,7 +17,7 @@ const Panel = ({title, children, defaultExpanded = true}: Props) => {
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>
-        <button
+        <Button
           onClick={() => setExpanded(!expanded)}
           className={styles.expandButton}
         >
@@ -24,7 +25,7 @@ const Panel = ({title, children, defaultExpanded = true}: Props) => {
             size={14}
             className={classnames({[styles.expanded]: expanded})}
           />
-        </button>
+        </Button>
         <div className={styles.panelTitle}>{title}</div>
       </div>
 

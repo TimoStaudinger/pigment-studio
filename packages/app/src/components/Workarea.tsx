@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import classnames from 'classnames'
 
 import styles from './Workarea.module.css'
+import Button from './common/Button'
 
 interface Props {
   areas: [string, React.ReactNode][]
@@ -14,14 +15,14 @@ const Workarea = ({areas}: Props) => {
     <div className={styles.container}>
       <div className={styles.tabbar}>
         {areas.map(area => (
-          <button
+          <Button
             className={classnames(styles.tabbarItem, {
               [styles.selected]: selectedArea === area[0]
             })}
             onClick={() => setSelectedArea(area[0])}
           >
             {area[0]}
-          </button>
+          </Button>
         ))}
       </div>
 
