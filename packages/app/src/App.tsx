@@ -57,9 +57,6 @@ const App = () => {
     if (shadeId && !selectedColor) history.push('/')
   })
 
-  // let selectedShade =
-  //   selectedColor && selectedColor.shades.find(shade => shade.id === shadeId)
-
   return (
     <>
       <Splash

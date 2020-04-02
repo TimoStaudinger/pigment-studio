@@ -5,10 +5,11 @@ import {Lab} from '@pigmentstudio/convert'
 import {Color} from '../../types/color'
 
 import Palette from './palette/Palette'
-import Properties from './properties/Properties'
+import ShadeProperties from './shade-properties/ShadeProperties'
 
 import styles from './Sidebar.module.css'
 import Picker from './picker/Picker'
+import ColorProperties from './color-properties/ColorProperties'
 
 interface Props {
   colors: Color[]
@@ -46,24 +47,25 @@ const Sidebar = ({colors, setColors, setLab}: Props) => {
     <div className={styles.palette}>
       <Palette colors={colors} />
 
+      {selectedColor && (
+        <ColorProperties
+          color={selectedColor}
+          setName={name =>
+            selectedColor &&
+            setColors(colors =>
+              colors.map(updatedColor =>
+                updatedColor.id === selectedColor?.id
+                  ? {...updatedColor, name}
+                  : updatedColor
+              )
+            )
+          }
+        />
+      )}
+
       {selectedShade && selectedColor && (
         <>
-          <Properties
-            color={selectedColor}
-            shade={selectedShade}
-            setLab={setLab}
-            setName={name =>
-              selectedColor &&
-              setColors(colors =>
-                colors.map(updatedColor =>
-                  updatedColor.id === selectedColor?.id
-                    ? {...updatedColor, name}
-                    : updatedColor
-                )
-              )
-            }
-          />
-
+          <ShadeProperties shade={selectedShade} setLab={setLab} />
           <Picker shade={selectedShade} setLab={setLab} />
         </>
       )}

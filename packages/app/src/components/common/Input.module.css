@@ -1,0 +1,21 @@
+.input {
+  font-family: 'Open Sans';
+}
+
+.input {
+  width: 100%;
+  border: 1px solid #ccc;
+  background-color: #fefefe;
+  color: #324d67;
+  padding: 3px;
+  font-size: 1.2em;
+  transition: all 0.2s;
+}
+
+.input:hover {
+  background-color: #f5f5f5;
+}
+.input:focus {
+  border-color: #324d67;
+  outline: none;
+}
