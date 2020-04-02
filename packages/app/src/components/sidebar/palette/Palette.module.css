@@ -1,31 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
 .swatches {
+  flex: 1;
   display: flex;
   flex-direction: column;
   overflow: visible;
 }
 
 .row {
+  flex: 1;
   display: flex;
   flex-direction: row;
 }
 
-.label {
-  width: 100px;
-  line-height: 40px;
-  padding-right: 10px;
-
-  flex: 1 1;
-  font-size: 0.8em;
-  color: #444;
-  text-align: right;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .swatch {
-  width: 50px;
-  height: 50px;
+  flex: 1;
+  /* width: 50px;
+  height: 50px; */
   position: relative;
   cursor: pointer;
 }
