@@ -14,14 +14,14 @@ const Workarea = ({areas}: Props) => {
     <div className={styles.container}>
       <div className={styles.tabbar}>
         {areas.map(area => (
-          <div
+          <button
             className={classnames(styles.tabbarItem, {
               [styles.selected]: selectedArea === area[0]
             })}
             onClick={() => setSelectedArea(area[0])}
           >
             {area[0]}
-          </div>
+          </button>
         ))}
       </div>
 

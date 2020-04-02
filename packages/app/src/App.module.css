@@ -1,14 +1,1 @@
-.app {
-  background-color: #fafafa;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  overflow: hidden;
-}
 
-.spacer {
-  width: 0;
-  border-left: 1px solid #ddd;
-  margin-left: 10px;
-  margin-right: 10px;
-}

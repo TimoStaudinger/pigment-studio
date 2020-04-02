@@ -1,0 +1,19 @@
+.labels {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  width: 100px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  flex: 1;
+  font-size: 0.8em;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

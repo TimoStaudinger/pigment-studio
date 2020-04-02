@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import Backend from 'react-dnd-html5-backend'
 import {DndProvider} from 'react-dnd'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {ReflexContainer, ReflexSplitter, ReflexElement} from 'react-reflex'
 import {Lab} from '@pigmentstudio/convert'
+import 'react-reflex/styles.css'
 
 import {generatePalette} from './util/sample'
 import {Color} from './types/color'
@@ -11,8 +13,8 @@ import Preview from './components/preview/Preview'
 import Contrast from './components/contrast/Contrast'
 import Workarea from './components/Workarea'
 import Charts from './components/charts/Charts'
-
-import styles from './App.module.css'
+import Header from './components/header/Header'
+import Layout from './Layout'
 
 const App = () => {
   const [colors, setColors] = useState<Color[]>(generatePalette())
@@ -36,19 +38,27 @@ const App = () => {
     <Router>
       <DndProvider backend={Backend}>
         <Route path="/:shadeId?/:view?">
-          <div className={styles.app}>
-            <Sidebar colors={colors} setColors={setColors} setLab={setLab} />
-
-            <div className={styles.spacer} />
-
-            <Workarea
-              areas={[
-                ['Charts', <Charts colors={colors} setLab={setLab} />],
-                ['Preview', <Preview colors={colors} />],
-                ['Contrast', <Contrast colors={colors} />]
-              ]}
-            />
-          </div>
+          <Layout header={<Header />}>
+            <ReflexContainer orientation="vertical">
+              <ReflexElement className="left-pane" size={600} minSize={400}>
+                <Sidebar
+                  colors={colors}
+                  setColors={setColors}
+                  setLab={setLab}
+                />
+              </ReflexElement>
+              <ReflexSplitter />
+              <ReflexElement className="right-pane" style={{height: 'auto'}}>
+                <Workarea
+                  areas={[
+                    ['Charts', <Charts colors={colors} setLab={setLab} />],
+                    ['Preview', <Preview colors={colors} />],
+                    ['Contrast', <Contrast colors={colors} />]
+                  ]}
+                />
+              </ReflexElement>
+            </ReflexContainer>
+          </Layout>
         </Route>
       </DndProvider>
     </Router>
