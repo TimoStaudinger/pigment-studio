@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Backend from 'react-dnd-html5-backend'
 import {DndProvider} from 'react-dnd'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {HashRouter as Router, Route} from 'react-router-dom'
 import {ReflexContainer, ReflexSplitter, ReflexElement} from 'react-reflex'
 import {Lab} from '@pigmentstudio/convert'
 import 'react-reflex/styles.css'
