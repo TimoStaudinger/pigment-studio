@@ -1,6 +1,6 @@
 .picker {
   margin-bottom: 5px;
-  /* cursor: grab; */
+  cursor: grab;
 }
 
 .picker.isDraggingOverLight {

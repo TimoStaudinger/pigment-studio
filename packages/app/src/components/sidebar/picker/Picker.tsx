@@ -1,9 +1,9 @@
 import React from 'react'
 import {Lab} from '@pigmentstudio/convert'
 
-import Panel from '../../common/Panel'
-import ShadePicker from '../properties/ShadePicker'
 import {Shade} from '../../../types/color'
+import Panel from '../../common/Panel'
+import ShadePicker from './ShadePicker'
 
 interface Props {
   shade: Shade

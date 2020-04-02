@@ -5,28 +5,6 @@ body {
   color: #324d67;
 }
 
-input {
-  font-family: 'Open Sans';
-}
-
-input {
-  border: 1px solid #ccc;
-  background-color: #fefefe;
-  color: #324d67;
-  padding: 3px;
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  transition: all 0.2s;
-}
-
-input:hover {
-  background-color: #f5f5f5;
-}
-input:focus {
-  border-color: #324d67;
-  outline: none;
-}
-
 [data-reach-dialog-overlay] {
   z-index: 200;
   background: hsla(0, 0%, 0%, 0.5);

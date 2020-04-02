@@ -5,6 +5,7 @@ import {AlertTriangle} from 'react-feather'
 import BlockPageScroll from './BlockPageScroll'
 
 import styles from './NumberInput.module.css'
+import Input from './Input'
 
 interface Props {
   value: number
@@ -32,7 +33,7 @@ const NumberInput = ({value, onChange, allowMouseWheelChanges}: Props) => {
   return (
     <BlockPageScroll>
       <div style={{position: 'relative'}}>
-        <input
+        <Input
           value={buffer}
           onChange={e => handleChange(e.target.value)}
           className={classnames(styles.input, {[styles.invalid]: !isValid})}

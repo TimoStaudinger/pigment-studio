@@ -1,11 +1,10 @@
 .input {
   width: calc(100% - 8px);
-  font-family: 'Fira Mono';
-  text-align: right;
+  font-family: 'Fira Mono' !important;
   height: 12px;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   border-radius: 0;
-  font-size: 0.8em;
+  font-size: 0.8em !important;
   touch-action: none;
   text-align: center;
 }
