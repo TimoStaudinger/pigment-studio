@@ -2,7 +2,9 @@
   "private": true,
   "scripts": {
     "start": "yarn --cwd packages/app start",
-    "build": "yarn --cwd packages/app build"
+    "build": "yarn build:convert && yarn build:app",
+    "build:app": "yarn --cwd packages/app build",
+    "build:convert": "yarn --cwd packages/convert build"
   },
   "workspaces": [
     "packages/*"
