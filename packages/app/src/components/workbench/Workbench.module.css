@@ -12,7 +12,7 @@
   margin-bottom: 20px;
 }
 
-.tabbarItem {
+.tabbar button {
   flex: 1;
   text-align: center;
 
@@ -22,17 +22,24 @@
   cursor: pointer;
   transition: all 0.2s;
 
-  border: 0 !important;
+  border: 1px solid transparent !important;
   border-radius: 0% !important;
   border-bottom: 2px solid transparent !important;
+
+  background-color: #fbfdff;
 }
 
-.tabbarItem:hover {
+.tabbar button:hover {
   background-color: #ccc;
 }
 
-.tabbarItem.selected {
-  border-bottom: 2px solid #2680c0 !important;
+.tabbar button:focus {
+  border: 1px solid rgb(16, 42, 66) !important;
+  outline: none;
+}
+
+.tabbar button[data-selected] {
+  border-bottom: 2px solid rgb(16, 42, 66) !important;
 }
 
 .content {
