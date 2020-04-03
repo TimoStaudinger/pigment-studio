@@ -7,7 +7,7 @@ import Chart from './Chart'
 interface Props {
   id: string
   shades: Shade[]
-  setLab: (shadeId: string, lab: Lab) => void
+  setLab: (lab: Lab, index: number) => void
 }
 
 const LightnessChart = ({id, shades, setLab}: Props) => {
@@ -55,9 +55,7 @@ const LightnessChart = ({id, shades, setLab}: Props) => {
       minValue={0}
       maxValue={100}
       shades={shades}
-      updateValue={(i, value) =>
-        setLab(shades[i].id, {...shades[i].lab, l: value})
-      }
+      updateValue={(i, value) => setLab({...shades[i].lab, l: value}, i)}
       convertValueToHex={(i, value) => labToHex({...shades[i].lab, l: value})}
     />
   )

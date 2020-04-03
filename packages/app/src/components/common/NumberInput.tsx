@@ -3,9 +3,9 @@ import classnames from 'classnames'
 import {AlertTriangle} from 'react-feather'
 
 import BlockPageScroll from './BlockPageScroll'
+import Input from './Input'
 
 import styles from './NumberInput.module.css'
-import Input from './Input'
 
 interface Props {
   value: number

@@ -5,7 +5,7 @@ import {labToRGB, Lab} from '@pigmentstudio/convert'
 
 import {convertCoordsToOffset} from '../../../util/canvas'
 import {isPointOnHandle2D} from '../../../util/coordinates'
-import {throttle} from '../../../util/throttle'
+import throttle from '../../../util/throttle'
 
 import styles from './ShadePicker.module.css'
 

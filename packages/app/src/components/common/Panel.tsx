@@ -2,8 +2,9 @@ import React, {useState} from 'react'
 import classnames from 'classnames'
 import {ChevronRight} from 'react-feather'
 
-import styles from './Panel.module.css'
 import Button from './Button'
+
+import styles from './Panel.module.css'
 
 interface Props {
   title: string

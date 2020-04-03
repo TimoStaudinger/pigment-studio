@@ -8,12 +8,12 @@ import Panel from '../../common/Panel'
 
 interface Props {
   shade: Shade
-  setLab: (shadeId: string, lab: Lab) => void
+  setLab: (lab: Lab) => void
 }
 
 const ShadeProperties = ({shade, setLab}: Props) => (
   <Panel title="Shade">
-    <ColorInputs lab={shade.lab} setLab={lab => setLab(shade.id, lab)} />
+    <ColorInputs lab={shade.lab} setLab={setLab} />
   </Panel>
 )
 

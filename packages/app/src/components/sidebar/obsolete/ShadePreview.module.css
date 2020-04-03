@@ -1,7 +1,0 @@
-.container {
-  margin-left: 35px;
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
