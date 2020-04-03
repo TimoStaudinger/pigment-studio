@@ -1,7 +1,7 @@
 import React from 'react'
 import {labToHex} from '@pigmentstudio/convert'
 
-import {Shade} from '../../types/color'
+import {Shade} from '../../../types/color'
 
 import styles from './Labels.module.css'
 

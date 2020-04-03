@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {useMeasure} from 'react-use'
 import {labToHex, Lab, Hex} from '@pigmentstudio/convert'
 
-import {Shade} from '../../types/color'
-import NumberInput from '../common/NumberInput'
 import {
   getXScale,
   getYScale,
@@ -17,6 +15,8 @@ import {
 } from './chartUtils'
 
 import styles from './Chart.module.css'
+import {Shade} from '../../../types/color'
+import NumberInput from '../../common/NumberInput'
 
 const height = 200
 

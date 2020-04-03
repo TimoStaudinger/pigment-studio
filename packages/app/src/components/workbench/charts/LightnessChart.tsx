@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {labToRGB, Lab, labToHex} from '@pigmentstudio/convert'
 
-import {Shade} from '../../types/color'
+import {Shade} from '../../../types/color'
 import Chart from './Chart'
 
 interface Props {

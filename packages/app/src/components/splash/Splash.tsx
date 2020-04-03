@@ -1,11 +1,12 @@
 import React from 'react'
 import {Dialog} from '@reach/dialog'
 
+import Hint from '../common/Hint'
+import Button from '../common/Button'
+
+import logo from './logo.png'
 import '@reach/dialog/styles.css'
 import styles from './Splash.module.css'
-import logo from './logo.png'
-import Hint from '../components/common/Hint'
-import Button from '../components/common/Button'
 
 interface Props {
   showSplash: boolean

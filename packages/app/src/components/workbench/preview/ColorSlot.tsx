@@ -3,7 +3,7 @@ import {useDrop} from 'react-dnd'
 import classnames from 'classnames'
 import {labToRGB, Lab} from '@pigmentstudio/convert'
 
-import {Color, Shade} from '../../types/color'
+import {Color, Shade} from '../../../types/color'
 
 import styles from './ColorSlot.module.css'
 
