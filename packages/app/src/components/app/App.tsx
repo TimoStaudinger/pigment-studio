@@ -76,6 +76,13 @@ const App = () => {
       )
     )
 
+  const setPaletteName = (name: string) =>
+    setPalettes((palettes) =>
+      palettes.map((palette) =>
+        palette.id === paletteId ? {...palette, name} : palette
+      )
+    )
+
   const createNewPaletteFromTemplate = () => {
     let newPalette = generateFromTemplate()
     setPalettes((palettes) => [...palettes, newPalette])
@@ -92,8 +99,12 @@ const App = () => {
     setShowSplash(false)
     history.push(`/${paletteId}`)
   }
+  const deletePalette = () =>
+    setPalettes((palettes) =>
+      palettes.filter((palette) => palette.id !== paletteId)
+    )
 
-  let palette = palettes.find((palette) => palette.id === paletteId)
+  let palette = palettes.find((palette) => palette.id === paletteId) ?? null
 
   useEffect(() => {
     if (paletteId && !palette) {
@@ -122,15 +133,24 @@ const App = () => {
         createNewPaletteFromTemplate={createNewPaletteFromTemplate}
         createNewPaletteFromScratch={createNewPaletteFromScratch}
         openPalette={openPalette}
+        dismissSplash={() => setShowSplash(false)}
         palettes={palettes}
       />
 
-      <Layout header={<Header />}>
+      <Layout
+        header={
+          <Header
+            showSplash={() => setShowSplash(true)}
+            deletePalette={deletePalette}
+          />
+        }
+      >
         <ReflexContainer orientation="vertical" windowResizeAware>
           <ReflexElement className="left-pane" size={600} minSize={400}>
             <Sidebar
-              colors={(palette && palette.colors) ?? []}
+              palette={palette}
               setColorName={setColorName}
+              setPaletteName={setPaletteName}
               setLab={setLab}
             />
           </ReflexElement>

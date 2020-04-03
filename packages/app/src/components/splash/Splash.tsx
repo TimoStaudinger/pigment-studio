@@ -14,6 +14,7 @@ interface Props {
   createNewPaletteFromTemplate: () => void
   createNewPaletteFromScratch: () => void
   openPalette: (paletteId: string) => void
+  dismissSplash: () => void
   palettes: Palette[]
 }
 
@@ -22,11 +23,12 @@ const Splash = ({
   createNewPaletteFromTemplate,
   createNewPaletteFromScratch,
   openPalette,
+  dismissSplash,
   palettes
 }: Props) => (
   <Dialog
     isOpen={showSplash}
-    onDismiss={createNewPaletteFromScratch}
+    onDismiss={dismissSplash}
     className={styles.dialog}
   >
     <div className={styles.content}>
@@ -34,15 +36,15 @@ const Splash = ({
 
       <div className={styles.recent}>
         <div className={styles.recentHeader}>Recent:</div>
-        <ul>
+        <div className={styles.recentList}>
           {palettes.slice(Math.max(palettes.length - 10, 0)).map((palette) => (
-            <li>
-              <Button onClick={() => openPalette(palette.id)}>
-                {palette.name} ({palette.id})
-              </Button>
-            </li>
+            <Button
+              link
+              onClick={() => openPalette(palette.id)}
+              text={`${palette.name}`}
+            />
           ))}
-        </ul>
+        </div>
       </div>
     </div>
     <Hint className={styles.hint}>
@@ -50,11 +52,13 @@ const Splash = ({
     </Hint>
     <div className={styles.toolbar}>
       <div className={styles.toolbarSpacer} />
-      <Button>Import my colors</Button>
-      <Button onClick={createNewPaletteFromScratch}>Start from scratch</Button>
-      <Button primary onClick={createNewPaletteFromTemplate}>
-        Start with a template
-      </Button>
+      <Button text="Import my colors" />
+      <Button onClick={createNewPaletteFromScratch} text="Start from scratch" />
+      <Button
+        primary
+        onClick={createNewPaletteFromTemplate}
+        text="Start with a template"
+      />
     </div>
   </Dialog>
 )

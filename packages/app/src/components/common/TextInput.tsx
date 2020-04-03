@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Input from '../../common/Input'
+import Input from './Input'
 
-import styles from './NameInput.module.css'
+import styles from './TextInput.module.css'
 
 interface Props {
   label: string
@@ -10,7 +10,7 @@ interface Props {
   onChange: (value: string) => void
 }
 
-const NameInput = ({label, value, onChange}: Props) => (
+const TextInput = ({label, value, onChange}: Props) => (
   <>
     <div className={styles.row}>
       <label className={styles.label}>{label}</label>
@@ -24,4 +24,4 @@ const NameInput = ({label, value, onChange}: Props) => (
   </>
 )
 
-export default NameInput
+export default TextInput
