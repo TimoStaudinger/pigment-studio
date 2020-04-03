@@ -7,7 +7,10 @@ body {
 
 [data-reach-dialog-overlay] {
   z-index: 200;
-  background: hsla(0, 0%, 0%, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-reach-popover] {
+  z-index: 200;
 }
 
 .reflex-splitter {

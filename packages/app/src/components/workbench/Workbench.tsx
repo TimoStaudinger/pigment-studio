@@ -1,9 +1,6 @@
 import React from 'react'
-import classnames from 'classnames'
 import {useParams, useHistory, generatePath} from 'react-router-dom'
 import {Tabs, TabList, Tab, TabPanels, TabPanel} from '@reach/tabs'
-
-import Button from '../common/Button'
 
 import '@reach/tabs/styles.css'
 import styles from './Workbench.module.css'

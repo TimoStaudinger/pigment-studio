@@ -1,0 +1,22 @@
+.container {
+  height: 100%;
+  margin-right: 40px;
+
+  display: flex;
+  align-items: center;
+}
+
+.selector {
+  font-size: 0.9em;
+}
+
+.selector [data-reach-listbox-button] {
+  width: 200px;
+  height: 37px;
+
+  border-radius: 3px;
+}
+
+.selector [data-reach-listbox-arrow] {
+  margin-left: auto;
+}
