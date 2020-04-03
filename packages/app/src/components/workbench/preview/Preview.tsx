@@ -1,7 +1,7 @@
 import React from 'react'
 import {labToRGB, Lab} from '@pigmentstudio/convert'
 
-import {Color} from '../../types/color'
+import {Color} from '../../../types/color'
 import ColorSlot from './ColorSlot'
 
 import styles from './Preview.module.css'

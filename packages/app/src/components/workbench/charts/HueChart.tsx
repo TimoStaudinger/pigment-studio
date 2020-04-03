@@ -1,7 +1,7 @@
 import React from 'react'
 import {Lab, labToHex} from '@pigmentstudio/convert'
 
-import {Shade} from '../../types/color'
+import {Shade} from '../../../types/color'
 
 import Chart from './Chart'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {useParams} from 'react-router-dom'
 import {Lab} from '@pigmentstudio/convert'
 
-import {Color, Shade} from '../../types/color'
+import {Color, Shade} from '../../../types/color'
 import Labels from './Labels'
 import LightnessChart from './LightnessChart'
 import ChromaChart from './ChromaChart'
