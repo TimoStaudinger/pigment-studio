@@ -1,4 +1,6 @@
 .dialog {
+  max-width: 750px;
+
   color: #324d67;
   background-color: #f1f5f8;
 }
@@ -17,7 +19,9 @@
 
 .logo {
   width: 300px;
-  height: 300px;
+  height: 310px;
+  margin-right: 20px;
+  margin-bottom: 30px;
 }
 
 .toolbar {
