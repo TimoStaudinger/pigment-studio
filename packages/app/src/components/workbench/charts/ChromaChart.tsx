@@ -23,7 +23,7 @@ const applyChromaToLab = (lab: Lab, chroma: number) => {
 interface Props {
   id: string
   shades: Shade[]
-  setLab: (shadeId: string, lab: Lab) => void
+  setLab: (lab: Lab, index: number) => void
 }
 
 const ChromaChart = ({id, shades, setLab}: Props) => {
@@ -58,7 +58,7 @@ const ChromaChart = ({id, shades, setLab}: Props) => {
       maxValue={chromaMax}
       shades={shades}
       updateValue={(i, value) =>
-        setLab(shades[i].id, applyChromaToLab(shades[i].lab, value))
+        setLab(applyChromaToLab(shades[i].lab, value), i)
       }
       convertValueToHex={(i: number, value: number) =>
         labToHex(applyChromaToLab(shades[i].lab, value))

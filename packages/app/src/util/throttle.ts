@@ -1,8 +1,9 @@
-export const throttle = (func: Function, limit: number) => {
+const throttle = (func: Function, limit: number) => {
   let inThrottle: boolean
+
   return function() {
     const args = arguments
-    //@ts-ignore
+    // @ts-ignore
     const context = this
     if (!inThrottle) {
       func.apply(context, args)
@@ -11,3 +12,5 @@ export const throttle = (func: Function, limit: number) => {
     }
   }
 }
+
+export default throttle

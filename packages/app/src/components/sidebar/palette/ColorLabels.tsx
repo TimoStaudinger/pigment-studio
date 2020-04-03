@@ -1,7 +1,8 @@
 import React from 'react'
 
-import styles from './ColorLabels.module.css'
 import {Color} from '../../../types/color'
+
+import styles from './ColorLabels.module.css'
 
 interface Props {
   colors: Color[]

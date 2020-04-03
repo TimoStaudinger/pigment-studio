@@ -7,12 +7,12 @@ import ShadePicker from './ShadePicker'
 
 interface Props {
   shade: Shade
-  setLab: (shadeId: string, lab: Lab) => void
+  setLab: (lab: Lab) => void
 }
 
 const Picker = ({shade, setLab}: Props) => (
   <Panel title="Shade Picker" defaultExpanded={false}>
-    <ShadePicker lab={shade.lab} setLab={lab => setLab(shade.id, lab)} />
+    <ShadePicker lab={shade.lab} setLab={setLab} />
   </Panel>
 )
 

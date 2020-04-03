@@ -23,7 +23,7 @@ const applyHueToLab = (lab: Lab, hue: number) => {
 interface Props {
   id: string
   shades: Shade[]
-  setLab: (shadeId: string, lab: Lab) => void
+  setLab: (lab: Lab, index: number) => void
 }
 
 const LightnessChart = ({id, shades, setLab}: Props) => {
@@ -36,9 +36,7 @@ const LightnessChart = ({id, shades, setLab}: Props) => {
       minValue={hueMin}
       maxValue={hueMax}
       shades={shades}
-      updateValue={(i, value) =>
-        setLab(shades[i].id, applyHueToLab(shades[i].lab, value))
-      }
+      updateValue={(i, value) => setLab(applyHueToLab(shades[i].lab, value), i)}
       convertValueToHex={(i, value) =>
         labToHex(applyHueToLab(shades[i].lab, value))
       }

@@ -1,8 +1,8 @@
 import React from 'react'
 import classnames from 'classnames'
+import {Info} from 'react-feather'
 
 import styles from './Hint.module.css'
-import {Info} from 'react-feather'
 
 interface Props {
   children: string

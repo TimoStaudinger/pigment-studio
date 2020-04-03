@@ -1,8 +1,9 @@
 import React from 'react'
 import {Coffee} from 'react-feather'
 
-import styles from './EmptyState.module.css'
 import Hint from './Hint'
+
+import styles from './EmptyState.module.css'
 
 const EmptyState = () => (
   <div className={styles.container}>

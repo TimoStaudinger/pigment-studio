@@ -1,7 +1,6 @@
 import React from 'react'
 
 import {Color} from '../../../types/color'
-
 import Panel from '../../common/Panel'
 
 interface Props {
