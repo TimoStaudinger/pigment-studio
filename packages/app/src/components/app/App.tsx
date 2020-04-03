@@ -145,33 +145,37 @@ const App = () => {
           />
         }
       >
-        <ReflexContainer orientation="vertical" windowResizeAware>
-          <ReflexElement className="left-pane" size={600} minSize={400}>
-            <Sidebar
-              palette={palette}
-              setColorName={setColorName}
-              setPaletteName={setPaletteName}
-              setLab={setLab}
-            />
-          </ReflexElement>
-          <ReflexSplitter />
-          <ReflexElement className="right-pane" style={{height: 'auto'}}>
-            {palette && shadeIndex !== null ? (
-              <Workarea
-                areas={[
-                  [
-                    'Charts',
-                    <Charts colors={palette.colors} setLab={setLab} />
-                  ],
-                  ['Preview', <Preview colors={palette.colors} />],
-                  ['Contrast', <Contrast colors={palette.colors} />]
-                ]}
+        {palette ? (
+          <ReflexContainer orientation="vertical" windowResizeAware>
+            <ReflexElement className="left-pane" size={600} minSize={400}>
+              <Sidebar
+                palette={palette}
+                setColorName={setColorName}
+                setPaletteName={setPaletteName}
+                setLab={setLab}
               />
-            ) : (
-              <EmptyState />
-            )}
-          </ReflexElement>
-        </ReflexContainer>
+            </ReflexElement>
+            <ReflexSplitter />
+            <ReflexElement className="right-pane" style={{height: 'auto'}}>
+              {shadeIndex !== null ? (
+                <Workarea
+                  areas={[
+                    [
+                      'Charts',
+                      <Charts colors={palette.colors} setLab={setLab} />
+                    ],
+                    ['Preview', <Preview colors={palette.colors} />],
+                    ['Contrast', <Contrast colors={palette.colors} />]
+                  ]}
+                />
+              ) : (
+                <EmptyState hint="Select a shade in the palette to start designing your colors" />
+              )}
+            </ReflexElement>
+          </ReflexContainer>
+        ) : (
+          <EmptyState hint="Select or create a new palette to begin" />
+        )}
       </Layout>
     </>
   )

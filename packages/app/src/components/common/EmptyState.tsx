@@ -1,16 +1,24 @@
 import React from 'react'
-import {Coffee} from 'react-feather'
 
 import Hint from './Hint'
 
+import placeholder from './empty.png'
 import styles from './EmptyState.module.css'
 
-const EmptyState = () => (
+interface Props {
+  hint?: string
+}
+
+const EmptyState = ({hint}: Props) => (
   <div className={styles.container}>
-    <Coffee className={styles.icon} size={200} />
-    <Hint className={styles.hint}>
-      Select a shade in the palette to start designing your colors
-    </Hint>
+    <img
+      className={styles.placeholder}
+      src={placeholder}
+      aria-hidden={true}
+      alt="Placeholder"
+    />
+
+    {hint && <Hint className={styles.hint}>{hint}</Hint>}
   </div>
 )
 
