@@ -1,0 +1,20 @@
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.label {
+  flex: 0 0 100px;
+  line-height: 28px;
+  height: 20px;
+  font-size: 0.8em;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.inputContainer {
+  position: relative;
+  min-width: 0;
+  flex-basis: 100%;
+  margin-bottom: 2px;
+}

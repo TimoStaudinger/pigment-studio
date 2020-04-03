@@ -28,3 +28,7 @@
 .expanded {
   transform: rotate(90deg);
 }
+
+.content {
+  padding-top: 10px;
+}

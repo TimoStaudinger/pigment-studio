@@ -30,7 +30,7 @@ const Panel = ({title, children, defaultExpanded = true}: Props) => {
         <div className={styles.panelTitle}>{title}</div>
       </div>
 
-      {expanded ? children : null}
+      <div className={styles.content}>{expanded ? children : null}</div>
     </div>
   )
 }
