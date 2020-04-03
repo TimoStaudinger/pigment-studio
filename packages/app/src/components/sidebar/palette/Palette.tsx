@@ -10,12 +10,15 @@ import ShadeLabels from './ShadeLabels'
 import ColorLabels from './ColorLabels'
 
 import styles from './Palette.module.css'
+import TextInput from '../../common/TextInput'
 
 interface Props {
   colors: Color[]
+  name: string
+  setName: (name: string) => void
 }
 
-const Quickview = ({colors}: Props) => {
+const Palette = ({colors, name, setName}: Props) => {
   let {paletteId, view, ...params} = useParams()
   let selectedColorIndex = params.colorIndex
     ? parseInt(params.colorIndex)
@@ -30,12 +33,14 @@ const Quickview = ({colors}: Props) => {
 
   return (
     <Panel title="Palette">
-      <div className={styles.container}>
-        <ColorLabels colors={colors} />
+      <TextInput label="Palette Name" value={name || ''} onChange={setName} />
+      <div className={styles.palette}>
+        <ColorLabels colors={colors} selectedColorIndex={selectedColorIndex} />
 
         <div className={styles.swatches}>
           <ShadeLabels
-            labels={colors?.[0]?.shades.map(shade => shade.name) ?? []}
+            labels={colors?.[0]?.shades.map((shade) => shade.name) ?? []}
+            selectedShadeIndex={selectedShadeIndex}
           />
 
           {colors.map((color, colorIndex) => (
@@ -69,4 +74,4 @@ const Quickview = ({colors}: Props) => {
     </Panel>
   )
 }
-export default Quickview
+export default Palette

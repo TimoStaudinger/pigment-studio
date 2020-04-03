@@ -1,5 +1,6 @@
 .dialog {
   max-width: 750px;
+  overflow: hidden;
 
   color: #324d67;
   background-color: #f1f5f8;
@@ -7,14 +8,25 @@
 
 .content {
   display: flex;
+  overflow: hidden;
 }
 
 .recent {
   flex: 1;
+  overflow: hidden;
 }
 
 .recentHeader {
   font-weight: 700;
+}
+
+.recentList {
+  display: flex;
+  flex-direction: column;
+}
+
+.recentList * {
+  margin-top: 5px;
 }
 
 .logo {

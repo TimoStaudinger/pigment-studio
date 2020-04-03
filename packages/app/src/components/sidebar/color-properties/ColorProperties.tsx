@@ -2,7 +2,7 @@ import React from 'react'
 
 import {Color} from '../../../types/color'
 import Panel from '../../common/Panel'
-import NameInput from './NameInput'
+import TextInput from '../../common/TextInput'
 
 interface Props {
   color: Color
@@ -11,7 +11,7 @@ interface Props {
 
 const ColorProperties = ({color, setName}: Props) => (
   <Panel title="Color">
-    <NameInput label="Name" value={color.name} onChange={setName} />
+    <TextInput label="Color Name" value={color.name} onChange={setName} />
   </Panel>
 )
 

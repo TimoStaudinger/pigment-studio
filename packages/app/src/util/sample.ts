@@ -5,13 +5,13 @@ import {Palette} from '../types/color'
 
 export const generateBlank = (): Palette => ({
   id: ulid(),
-  name: null,
+  name: 'Untitled',
   colors: []
 })
 
 export const generateFromTemplate = (): Palette => ({
   id: ulid(),
-  name: null,
+  name: 'Untitled',
   colors: [
     {
       name: 'Primary 1',

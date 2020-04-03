@@ -19,7 +19,7 @@ const Workbench = ({areas}: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.tabbar}>
-        {areas.map(area => (
+        {areas.map((area) => (
           <Button
             className={classnames(styles.tabbarItem, {
               [styles.selected]: selectedView === area[0]
@@ -32,14 +32,13 @@ const Workbench = ({areas}: Props) => {
                 })
               )
             }
-          >
-            {area[0]}
-          </Button>
+            text={area[0]}
+          />
         ))}
       </div>
 
       <div className={styles.content}>
-        {areas ? areas.find(area => area[0] === selectedView)?.[1] : null}
+        {areas ? areas.find((area) => area[0] === selectedView)?.[1] : null}
       </div>
     </div>
   )

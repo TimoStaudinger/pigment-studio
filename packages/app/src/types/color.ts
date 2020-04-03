@@ -13,6 +13,6 @@ export interface Color {
 
 export interface Palette {
   id: string
-  name: string | null
+  name: string
   colors: Color[]
 }

@@ -12,9 +12,15 @@
   flex: 1;
 
   font-size: 0.8em;
-  text-align: center;
+  justify-content: center !important;
 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  text-decoration: none;
+}
+
+.selected {
+  font-weight: 700;
 }

@@ -11,6 +11,8 @@
 }
 
 .title {
+  flex: 1;
+
   line-height: 80px;
   font-size: 1.8em;
   margin-left: 10px;

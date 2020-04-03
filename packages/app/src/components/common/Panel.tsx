@@ -21,12 +21,13 @@ const Panel = ({title, children, defaultExpanded = true}: Props) => {
         <Button
           onClick={() => setExpanded(!expanded)}
           className={styles.expandButton}
-        >
-          <ChevronRight
-            size={14}
-            className={classnames({[styles.expanded]: expanded})}
-          />
-        </Button>
+          icon={
+            <ChevronRight
+              size={14}
+              className={classnames({[styles.expanded]: expanded})}
+            />
+          }
+        />
         <div className={styles.panelTitle}>{title}</div>
       </div>
 
