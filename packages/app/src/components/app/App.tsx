@@ -140,6 +140,7 @@ const App = () => {
       <Layout
         header={
           <Header
+            palettes={palettes}
             showSplash={() => setShowSplash(true)}
             deletePalette={deletePalette}
           />

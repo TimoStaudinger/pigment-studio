@@ -5,6 +5,7 @@
   "dependencies": {
     "@pigmentstudio/convert": "*",
     "@reach/dialog": "^0.9.1",
+    "@reach/listbox": "^0.9.1",
     "@reach/tabs": "^0.9.1",
     "classnames": "^2.2.6",
     "d3": "^5.15.0",
