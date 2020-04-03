@@ -12,11 +12,11 @@ import styles from './Sidebar.module.css'
 
 interface Props {
   colors: Color[]
-  setColors: (colors: (prev: Color[]) => Color[]) => void
+  setColorName: (name: string) => void
   setLab: (lab: Lab) => void
 }
 
-const Sidebar = ({colors, setColors, setLab}: Props) => {
+const Sidebar = ({colors, setColorName, setLab}: Props) => {
   let {paletteId, ...params} = useParams()
   let colorIndex = params.colorIndex ? parseInt(params.colorIndex) : null
   let shadeIndex = params.shadeIndex ? parseInt(params.shadeIndex) : null
@@ -26,16 +26,7 @@ const Sidebar = ({colors, setColors, setLab}: Props) => {
       <Palette colors={colors} />
 
       {colorIndex !== null && (
-        <ColorProperties
-          color={colors[colorIndex]}
-          setName={name =>
-            setColors(colors =>
-              colors.map((updatedColor, i) =>
-                i === colorIndex ? {...updatedColor, name} : updatedColor
-              )
-            )
-          }
-        />
+        <ColorProperties color={colors[colorIndex]} setName={setColorName} />
       )}
 
       {colorIndex !== null && shadeIndex !== null && (

@@ -10,3 +10,9 @@ export interface Color {
   name: string
   shades: Shade[]
 }
+
+export interface Palette {
+  id: string
+  name: string | null
+  colors: Color[]
+}

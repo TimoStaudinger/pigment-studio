@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react'
 import {useParams, useHistory} from 'react-router-dom'
 import {ReflexContainer, ReflexSplitter, ReflexElement} from 'react-reflex'
 import {Lab} from '@pigmentstudio/convert'
-import 'react-reflex/styles.css'
+import {useLocalStorage} from 'react-use'
 
-import {generatePalette} from '../../util/sample'
-import {Color} from '../../types/color'
+import {generateFromTemplate, generateBlank} from '../../util/sample'
+import {Palette} from '../../types/color'
 import EmptyState from '../common/EmptyState'
 import Sidebar from '../sidebar/Sidebar'
 import Workarea from '../workbench/Workbench'
@@ -16,6 +16,8 @@ import Header from '../header/Header'
 import Splash from '../splash/Splash'
 import Layout from './Layout'
 
+import 'react-reflex/styles.css'
+
 const App = () => {
   let {paletteId, ...params} = useParams()
   let colorIndex = params.colorIndex ? parseInt(params.colorIndex) : null
@@ -23,54 +25,93 @@ const App = () => {
 
   let history = useHistory()
 
-  const [showSplash, setShowSplash] = useState(true)
+  const [showSplash, setShowSplash] = useState(!paletteId)
 
-  const [colors, setColors] = useState<Color[]>([])
+  const [palettes, setPalettes] = useLocalStorage<Palette[]>('palettes', [])
 
   const setLab = (
     lab: Lab,
     updatedColorIndex?: number,
     updatedShadeIndex?: number
   ) => {
-    setColors(colors =>
-      colors.map((color, currentColorIndex) =>
-        currentColorIndex === (updatedColorIndex ?? colorIndex)
+    setPalettes((palettes) =>
+      palettes.map((palette) =>
+        paletteId === palette.id
           ? {
-              ...color,
-              shades: color.shades.map((shade, currentShadeIndex) =>
-                currentShadeIndex === (updatedShadeIndex ?? shadeIndex)
-                  ? {...shade, lab: lab}
-                  : shade
+              ...palette,
+              colors: palette.colors.map((color, currentColorIndex) =>
+                currentColorIndex === (updatedColorIndex ?? colorIndex)
+                  ? {
+                      ...color,
+                      shades: color.shades.map((shade, currentShadeIndex) =>
+                        currentShadeIndex === (updatedShadeIndex ?? shadeIndex)
+                          ? {...shade, lab: lab}
+                          : shade
+                      )
+                    }
+                  : color
               )
             }
-          : color
+          : palette
       )
     )
   }
 
-  const createNewFromTemplate = () => {
-    setColors(generatePalette())
+  const setColorName = (name: string) =>
+    setPalettes((palettes) =>
+      palettes.map((palette) =>
+        palette.id === paletteId
+          ? {
+              ...palette,
+              colors: palette.colors.map((color, i) =>
+                i === colorIndex
+                  ? {
+                      ...color,
+                      name
+                    }
+                  : color
+              )
+            }
+          : palette
+      )
+    )
+
+  const createNewPaletteFromTemplate = () => {
+    let newPalette = generateFromTemplate()
+    setPalettes((palettes) => [...palettes, newPalette])
     setShowSplash(false)
-    history.push('/foo')
+    history.push(`/${newPalette.id}`)
   }
-  const createNewFromScratch = () => {
-    setColors([])
+  const createNewPaletteFromScratch = () => {
+    let newPalette = generateBlank()
+    setPalettes((palettes) => [...palettes, newPalette])
     setShowSplash(false)
-    history.push('/foo')
+    history.push(`/${newPalette.id}`)
   }
+  const openPalette = (paletteId: string) => {
+    setShowSplash(false)
+    history.push(`/${paletteId}`)
+  }
+
+  let palette = palettes.find((palette) => palette.id === paletteId)
 
   useEffect(() => {
-    if (colorIndex !== null && colorIndex >= colors.length) {
-      history.push(`/${paletteId}`)
+    if (paletteId && !palette) {
+      history.push('/')
       return
-    }
+    } else if (palette) {
+      if (colorIndex !== null && colorIndex >= palette.colors.length) {
+        history.push(`/${paletteId}`)
+        return
+      }
 
-    if (
-      colorIndex !== null &&
-      shadeIndex !== null &&
-      colors[colorIndex].shades.length <= shadeIndex
-    ) {
-      history.push(`/${paletteId}/${colorIndex}`)
+      if (
+        colorIndex !== null &&
+        shadeIndex !== null &&
+        palette.colors[colorIndex].shades.length <= shadeIndex
+      ) {
+        history.push(`/${paletteId}/${colorIndex}`)
+      }
     }
   })
 
@@ -78,23 +119,32 @@ const App = () => {
     <>
       <Splash
         showSplash={showSplash}
-        createNewFromTemplate={createNewFromTemplate}
-        createNewFromScratch={createNewFromScratch}
+        createNewPaletteFromTemplate={createNewPaletteFromTemplate}
+        createNewPaletteFromScratch={createNewPaletteFromScratch}
+        openPalette={openPalette}
+        palettes={palettes}
       />
 
       <Layout header={<Header />}>
         <ReflexContainer orientation="vertical" windowResizeAware>
           <ReflexElement className="left-pane" size={600} minSize={400}>
-            <Sidebar colors={colors} setColors={setColors} setLab={setLab} />
+            <Sidebar
+              colors={(palette && palette.colors) ?? []}
+              setColorName={setColorName}
+              setLab={setLab}
+            />
           </ReflexElement>
           <ReflexSplitter />
           <ReflexElement className="right-pane" style={{height: 'auto'}}>
-            {shadeIndex !== null ? (
+            {palette && shadeIndex !== null ? (
               <Workarea
                 areas={[
-                  ['Charts', <Charts colors={colors} setLab={setLab} />],
-                  ['Preview', <Preview colors={colors} />],
-                  ['Contrast', <Contrast colors={colors} />]
+                  [
+                    'Charts',
+                    <Charts colors={palette.colors} setLab={setLab} />
+                  ],
+                  ['Preview', <Preview colors={palette.colors} />],
+                  ['Contrast', <Contrast colors={palette.colors} />]
                 ]}
               />
             ) : (

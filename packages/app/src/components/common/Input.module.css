@@ -3,12 +3,12 @@
 }
 
 .input {
-  width: 100%;
+  width: calc(100% - 8px);
   border: 1px solid #ccc;
   background-color: #fefefe;
   color: #324d67;
   padding: 3px;
-  font-size: 1.2em;
+  height: 18px;
   transition: all 0.2s;
 }
 
