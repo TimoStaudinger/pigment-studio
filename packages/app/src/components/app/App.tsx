@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useHistory} from 'react-router-dom'
 import {ReflexContainer, ReflexSplitter, ReflexElement} from 'react-reflex'
-import {Lab} from '@pigmentstudio/convert'
-import {useLocalStorage} from 'react-use'
 
-import {generateFromTemplate, generateBlank} from '../../util/sample'
-import {Palette} from '../../types/color'
+import usePalettes from '../../util/usePalettes'
 import EmptyState from '../common/EmptyState'
 import Sidebar from '../sidebar/Sidebar'
 import Workarea from '../workbench/Workbench'
@@ -19,7 +16,13 @@ import Layout from './Layout'
 import 'react-reflex/styles.css'
 
 const App = () => {
-  let {paletteId, ...params} = useParams()
+  let params = useParams<{
+    paletteId?: string
+    colorIndex?: string
+    shadeIndex?: string
+    view?: string
+  }>()
+  let paletteId = params.paletteId ?? null
   let colorIndex = params.colorIndex ? parseInt(params.colorIndex) : null
   let shadeIndex = params.shadeIndex ? parseInt(params.shadeIndex) : null
 
@@ -27,84 +30,31 @@ const App = () => {
 
   const [showSplash, setShowSplash] = useState(!paletteId)
 
-  const [palettes, setPalettes] = useLocalStorage<Palette[]>('palettes', [])
+  const {
+    palettes,
+    palette,
+    createNewPaletteFromScratch,
+    createNewPaletteFromTemplate,
+    deletePalette,
+    setPaletteName,
+    setColorName,
+    setLab
+  } = usePalettes(paletteId, colorIndex, shadeIndex)
 
-  const setLab = (
-    lab: Lab,
-    updatedColorIndex?: number,
-    updatedShadeIndex?: number
-  ) => {
-    setPalettes((palettes) =>
-      palettes.map((palette) =>
-        paletteId === palette.id
-          ? {
-              ...palette,
-              colors: palette.colors.map((color, currentColorIndex) =>
-                currentColorIndex === (updatedColorIndex ?? colorIndex)
-                  ? {
-                      ...color,
-                      shades: color.shades.map((shade, currentShadeIndex) =>
-                        currentShadeIndex === (updatedShadeIndex ?? shadeIndex)
-                          ? {...shade, lab: lab}
-                          : shade
-                      )
-                    }
-                  : color
-              )
-            }
-          : palette
-      )
-    )
-  }
-
-  const setColorName = (name: string) =>
-    setPalettes((palettes) =>
-      palettes.map((palette) =>
-        palette.id === paletteId
-          ? {
-              ...palette,
-              colors: palette.colors.map((color, i) =>
-                i === colorIndex
-                  ? {
-                      ...color,
-                      name
-                    }
-                  : color
-              )
-            }
-          : palette
-      )
-    )
-
-  const setPaletteName = (name: string) =>
-    setPalettes((palettes) =>
-      palettes.map((palette) =>
-        palette.id === paletteId ? {...palette, name} : palette
-      )
-    )
-
-  const createNewPaletteFromTemplate = () => {
-    let newPalette = generateFromTemplate()
-    setPalettes((palettes) => [...palettes, newPalette])
+  const newPaletteFromTemplate = () => {
+    let paletteId = createNewPaletteFromTemplate()
     setShowSplash(false)
-    history.push(`/${newPalette.id}`)
+    history.push(`/${paletteId}`)
   }
-  const createNewPaletteFromScratch = () => {
-    let newPalette = generateBlank()
-    setPalettes((palettes) => [...palettes, newPalette])
+  const newPaletteFromScratch = () => {
+    let paletteId = createNewPaletteFromScratch()
     setShowSplash(false)
-    history.push(`/${newPalette.id}`)
+    history.push(`/${paletteId}`)
   }
   const openPalette = (paletteId: string) => {
     setShowSplash(false)
     history.push(`/${paletteId}`)
   }
-  const deletePalette = () =>
-    setPalettes((palettes) =>
-      palettes.filter((palette) => palette.id !== paletteId)
-    )
-
-  let palette = palettes.find((palette) => palette.id === paletteId) ?? null
 
   useEffect(() => {
     if (paletteId && !palette) {
@@ -130,8 +80,8 @@ const App = () => {
     <>
       <Splash
         showSplash={showSplash}
-        createNewPaletteFromTemplate={createNewPaletteFromTemplate}
-        createNewPaletteFromScratch={createNewPaletteFromScratch}
+        createNewPaletteFromTemplate={newPaletteFromTemplate}
+        createNewPaletteFromScratch={newPaletteFromScratch}
         openPalette={openPalette}
         dismissSplash={() => setShowSplash(false)}
         palettes={palettes}
