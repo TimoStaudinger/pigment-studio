@@ -1,8 +1,17 @@
 import {useLocalStorage} from 'react-use'
-
-import {Palette} from '../types/color'
+import {ulid} from 'ulid'
+import {DateTime} from 'luxon'
 import {Lab} from '@pigmentstudio/convert'
-import {generateFromTemplate, generateBlank} from './sample'
+
+import {Palette, Color} from '../types/color'
+import sample from './sample'
+
+const generatePalette = (colors: Color[] = []): Palette => ({
+  id: ulid(),
+  name: 'Untitled',
+  lastChanged: DateTime.local().toMillis(),
+  colors: colors
+})
 
 interface UsePalettes {
   palettes: Palette[]
@@ -26,32 +35,34 @@ const usePalettes = (
 ): UsePalettes => {
   const [palettes, setPalettes] = useLocalStorage<Palette[]>('palettes', [])
 
+  const updatePalette = (updater: (palette: Palette) => Palette) =>
+    setPalettes((palettes) =>
+      palettes.map((palette) =>
+        paletteId === palette.id ? updater(palette) : palette
+      )
+    )
+
   const setLab = (
     lab: Lab,
     updatedColorIndex?: number,
     updatedShadeIndex?: number
   ) => {
-    setPalettes((palettes) =>
-      palettes.map((palette) =>
-        paletteId === palette.id
+    updatePalette((palette) => ({
+      ...palette,
+      lastChanged: DateTime.local().toMillis(),
+      colors: palette.colors.map((color, currentColorIndex) =>
+        currentColorIndex === (updatedColorIndex ?? colorIndex)
           ? {
-              ...palette,
-              colors: palette.colors.map((color, currentColorIndex) =>
-                currentColorIndex === (updatedColorIndex ?? colorIndex)
-                  ? {
-                      ...color,
-                      shades: color.shades.map((shade, currentShadeIndex) =>
-                        currentShadeIndex === (updatedShadeIndex ?? shadeIndex)
-                          ? {...shade, lab: lab}
-                          : shade
-                      )
-                    }
-                  : color
+              ...color,
+              shades: color.shades.map((shade, currentShadeIndex) =>
+                currentShadeIndex === (updatedShadeIndex ?? shadeIndex)
+                  ? {...shade, lab: lab}
+                  : shade
               )
             }
-          : palette
+          : color
       )
-    )
+    }))
   }
 
   const setPaletteName = (name: string) =>
@@ -81,12 +92,12 @@ const usePalettes = (
     )
 
   const createNewPaletteFromTemplate = () => {
-    let newPalette = generateFromTemplate()
+    let newPalette = generatePalette(sample)
     setPalettes((palettes) => [...palettes, newPalette])
     return newPalette.id
   }
   const createNewPaletteFromScratch = () => {
-    let newPalette = generateBlank()
+    let newPalette = generatePalette()
     setPalettes((palettes) => [...palettes, newPalette])
     return newPalette.id
   }

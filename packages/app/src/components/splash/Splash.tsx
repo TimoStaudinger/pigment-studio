@@ -8,6 +8,7 @@ import {Palette} from '../../types/color'
 import logo from './logo.png'
 import '@reach/dialog/styles.css'
 import styles from './Splash.module.css'
+import {DateTime} from 'luxon'
 
 interface Props {
   showSplash: boolean
@@ -37,13 +38,22 @@ const Splash = ({
       <div className={styles.recent}>
         <div className={styles.recentHeader}>Recent:</div>
         <div className={styles.recentList}>
-          {palettes.slice(Math.max(palettes.length - 10, 0)).map((palette) => (
-            <Button
-              link
-              onClick={() => openPalette(palette.id)}
-              text={`${palette.name}`}
-            />
-          ))}
+          {palettes
+            .sort((a, b) => b.lastChanged - a.lastChanged)
+            .slice(Math.max(palettes.length - 10, 0))
+            .map((palette) => (
+              <div>
+                <Button
+                  link
+                  onClick={() => openPalette(palette.id)}
+                  text={palette.name}
+                />
+                <span className={styles.recentLastChanged}>
+                  last changed{' '}
+                  {DateTime.fromMillis(palette.lastChanged ?? 0).toRelative()}
+                </span>
+              </div>
+            ))}
         </div>
       </div>
     </div>

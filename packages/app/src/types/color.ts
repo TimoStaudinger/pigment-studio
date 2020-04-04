@@ -14,5 +14,6 @@ export interface Color {
 export interface Palette {
   id: string
   name: string
+  lastChanged: number
   colors: Color[]
 }

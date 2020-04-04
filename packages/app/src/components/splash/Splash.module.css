@@ -25,8 +25,15 @@
   flex-direction: column;
 }
 
-.recentList * {
+.recentList > * {
   margin-top: 5px;
+}
+
+.recentLastChanged {
+  margin-left: 5px;
+  text-decoration: none !important;
+  color: #9daebd;
+  font-size: 0.8em;
 }
 
 .logo {
