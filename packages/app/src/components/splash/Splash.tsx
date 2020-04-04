@@ -50,7 +50,7 @@ const Splash = ({
                 />
                 <span className={styles.recentLastChanged}>
                   last changed{' '}
-                  {DateTime.fromMillis(palette.lastChanged ?? 0).toRelative()}
+                  {DateTime.fromMillis(palette.lastChanged).toRelative()}
                 </span>
               </div>
             ))}
