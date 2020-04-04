@@ -93,6 +93,7 @@ const App = () => {
             selectedPalette={selectedPalette}
             showSplash={() => setShowSplash(true)}
             selectPalette={selectPalette}
+            deselectPalette={deselectPalette}
             deletePalette={deletePalette}
           />
         }

@@ -10,6 +10,10 @@
   font-size: 0.9em;
 }
 
+.selector[data-state='expanded'] {
+  border-radius: 3px 3px 0 0;
+}
+
 .selector [data-reach-listbox-button] {
   width: 200px;
   height: 37px;
@@ -19,4 +23,33 @@
 
 .selector [data-reach-listbox-arrow] {
   margin-left: auto;
+}
+
+.defaultOption {
+  display: none;
+}
+
+.popover {
+  background-color: #fbfdff;
+  width: 220px !important;
+  transform: translateY(-1px);
+
+  border-radius: 0 0 3px 3px;
+
+  font-size: 0.9em;
+  color: rgb(50, 77, 103);
+}
+
+.popover:focus-within {
+  border-color: #324d67;
+  outline: none;
+}
+
+.option {
+  padding: 8px;
+}
+
+.option[aria-selected='true'] {
+  background-color: rgb(50, 77, 103);
+  color: #fbfdff;
 }
