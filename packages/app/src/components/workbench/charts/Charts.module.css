@@ -12,3 +12,10 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.hint {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
