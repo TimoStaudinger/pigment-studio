@@ -38,7 +38,9 @@ const usePalettes = (
   const updatePalette = (updater: (palette: Palette) => Palette) =>
     setPalettes((palettes) =>
       palettes.map((palette) =>
-        paletteId === palette.id ? updater(palette) : palette
+        paletteId === palette.id
+          ? {...updater(palette), lastChanged: DateTime.local().toMillis()}
+          : palette
       )
     )
 
@@ -66,30 +68,20 @@ const usePalettes = (
   }
 
   const setPaletteName = (name: string) =>
-    setPalettes((palettes) =>
-      palettes.map((palette) =>
-        palette.id === paletteId ? {...palette, name} : palette
-      )
-    )
+    updatePalette((palette) => ({...palette, name}))
 
   const setColorName = (name: string, updatedColorIndex?: number) =>
-    setPalettes((palettes) =>
-      palettes.map((palette) =>
-        palette.id === paletteId
+    updatePalette((palette) => ({
+      ...palette,
+      colors: palette.colors.map((color, i) =>
+        i === (updatedColorIndex ?? colorIndex)
           ? {
-              ...palette,
-              colors: palette.colors.map((color, i) =>
-                i === (updatedColorIndex ?? colorIndex)
-                  ? {
-                      ...color,
-                      name
-                    }
-                  : color
-              )
+              ...color,
+              name
             }
-          : palette
+          : color
       )
-    )
+    }))
 
   const createNewPaletteFromTemplate = () => {
     let newPalette = generatePalette(sample)
