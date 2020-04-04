@@ -12,6 +12,7 @@ interface Props {
   selectedPalette: Palette | null
   showSplash: () => void
   selectPalette: (paletteId: string) => void
+  deselectPalette: () => void
   deletePalette: () => void
 }
 
@@ -20,6 +21,7 @@ const Header = ({
   selectedPalette,
   showSplash,
   selectPalette,
+  deselectPalette,
   deletePalette
 }: Props) => (
   <div className={styles.header}>
@@ -33,6 +35,7 @@ const Header = ({
       palettes={palettes}
       selectedPalette={selectedPalette}
       selectPalette={selectPalette}
+      deselectPalette={deselectPalette}
     />
 
     <Toolbar

@@ -1,5 +1,11 @@
 import React from 'react'
-import {Listbox, ListboxOption} from '@reach/listbox'
+import {
+  ListboxOption,
+  ListboxButton,
+  ListboxInput,
+  ListboxList,
+  ListboxPopover
+} from '@reach/listbox'
 import {Palette} from '../../../types/color'
 
 import '@reach/listbox/styles.css'
@@ -9,21 +15,41 @@ interface Props {
   palettes: Palette[]
   selectedPalette: Palette | null
   selectPalette: (paletteId: string) => void
+  deselectPalette: () => void
 }
 
-const PaletteSelector = ({palettes, selectedPalette, selectPalette}: Props) => (
+const PaletteSelector = ({
+  palettes,
+  selectedPalette,
+  selectPalette,
+  deselectPalette
+}: Props) => (
   <div className={styles.container}>
-    <Listbox
-      value={selectedPalette?.id}
-      onChange={selectPalette}
+    <ListboxInput
       className={styles.selector}
+      onChange={(paletteId) =>
+        paletteId === '_' ? deselectPalette() : selectPalette(paletteId)
+      }
     >
-      {palettes.map((palette) => (
-        <ListboxOption value={palette.id} key={palette.id}>
-          {palette.name}
-        </ListboxOption>
-      ))}
-    </Listbox>
+      <ListboxButton arrow>{selectedPalette?.name || undefined}</ListboxButton>
+      <ListboxPopover className={styles.popover}>
+        <ListboxList className={styles.popoverList}>
+          <ListboxOption className={styles.defaultOption} value="_">
+            Choose a palette...
+          </ListboxOption>
+
+          {palettes.map((palette) => (
+            <ListboxOption
+              value={palette.id}
+              key={palette.id}
+              className={styles.option}
+            >
+              {palette.name}
+            </ListboxOption>
+          ))}
+        </ListboxList>
+      </ListboxPopover>
+    </ListboxInput>
   </div>
 )
 
