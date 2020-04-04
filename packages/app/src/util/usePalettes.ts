@@ -15,7 +15,7 @@ const generatePalette = (colors: Color[] = []): Palette => ({
 
 interface UsePalettes {
   palettes: Palette[]
-  palette: Palette | null
+  selectedPalette: Palette | null
   setLab: (
     lab: Lab,
     updatedColorIndex?: number,
@@ -106,11 +106,12 @@ const usePalettes = (
       palettes.filter((palette) => palette.id !== paletteId)
     )
 
-  let palette = palettes.find((palette) => palette.id === paletteId) ?? null
+  let selectedPalette =
+    palettes.find((palette) => palette.id === paletteId) ?? null
 
   return {
     palettes,
-    palette,
+    selectedPalette,
     setLab,
     setPaletteName,
     setColorName,

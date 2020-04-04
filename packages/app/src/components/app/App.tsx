@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, useHistory} from 'react-router-dom'
 import {ReflexContainer, ReflexSplitter, ReflexElement} from 'react-reflex'
 
+import useSelection from '../../util/useSelection'
 import usePalettes from '../../util/usePalettes'
 import EmptyState from '../common/EmptyState'
 import Sidebar from '../sidebar/Sidebar'
@@ -15,65 +15,65 @@ import Layout from './Layout'
 import 'react-reflex/styles.css'
 
 const App = () => {
-  let params = useParams<{
-    paletteId?: string
-    colorIndex?: string
-    shadeIndex?: string
-    view?: string
-  }>()
-  let paletteId = params.paletteId ?? null
-  let colorIndex = params.colorIndex ? parseInt(params.colorIndex) : null
-  let shadeIndex = params.shadeIndex ? parseInt(params.shadeIndex) : null
-
-  let history = useHistory()
+  let {
+    paletteId,
+    selectedColorIndex,
+    selectedShadeIndex,
+    selectedView,
+    selectPalette,
+    selectColor,
+    selectShade,
+    selectView,
+    deselectPalette,
+    deselectColor,
+    deselectShade
+  } = useSelection()
 
   const [showSplash, setShowSplash] = useState(!paletteId)
 
   const {
     palettes,
-    palette,
+    selectedPalette,
     createNewPaletteFromScratch,
     createNewPaletteFromTemplate,
     deletePalette,
     setPaletteName,
     setColorName,
     setLab
-  } = usePalettes(paletteId, colorIndex, shadeIndex)
+  } = usePalettes(paletteId, selectedColorIndex, selectedShadeIndex)
+
+  useEffect(() => {
+    if (paletteId !== null && selectedPalette === null) deselectPalette()
+    else if (selectedPalette) {
+      if (
+        selectedColorIndex !== null &&
+        selectedColorIndex >= selectedPalette.colors.length
+      )
+        deselectColor()
+      else if (
+        selectedColorIndex !== null &&
+        selectedShadeIndex !== null &&
+        selectedShadeIndex >=
+          selectedPalette.colors[selectedColorIndex].shades.length
+      )
+        deselectShade()
+    }
+  })
 
   const newPaletteFromTemplate = () => {
     let paletteId = createNewPaletteFromTemplate()
+    selectPalette(paletteId)
     setShowSplash(false)
-    history.push(`/${paletteId}`)
   }
   const newPaletteFromScratch = () => {
     let paletteId = createNewPaletteFromScratch()
+    selectPalette(paletteId)
     setShowSplash(false)
-    history.push(`/${paletteId}`)
   }
   const openPalette = (paletteId: string) => {
+    selectPalette(paletteId)
     setShowSplash(false)
-    history.push(`/${paletteId}`)
   }
-
-  useEffect(() => {
-    if (paletteId && !palette) {
-      history.push('/')
-      return
-    } else if (palette) {
-      if (colorIndex !== null && colorIndex >= palette.colors.length) {
-        history.push(`/${paletteId}`)
-        return
-      }
-
-      if (
-        colorIndex !== null &&
-        shadeIndex !== null &&
-        palette.colors[colorIndex].shades.length <= shadeIndex
-      ) {
-        history.push(`/${paletteId}/${colorIndex}`)
-      }
-    }
-  })
 
   return (
     <>
@@ -90,31 +90,44 @@ const App = () => {
         header={
           <Header
             palettes={palettes}
+            selectedPalette={selectedPalette}
             showSplash={() => setShowSplash(true)}
+            selectPalette={selectPalette}
             deletePalette={deletePalette}
           />
         }
       >
-        {palette ? (
+        {selectedPalette ? (
           <ReflexContainer orientation="vertical" windowResizeAware>
             <ReflexElement className="left-pane" size={600} minSize={400}>
               <Sidebar
-                palette={palette}
+                selectedPalette={selectedPalette}
+                selectedColorIndex={selectedColorIndex}
+                selectedShadeIndex={selectedShadeIndex}
                 setColorName={setColorName}
                 setPaletteName={setPaletteName}
                 setLab={setLab}
+                selectColor={selectColor}
+                selectShade={selectShade}
               />
             </ReflexElement>
             <ReflexSplitter />
             <ReflexElement className="right-pane" style={{height: 'auto'}}>
-              {shadeIndex !== null ? (
+              {selectedShadeIndex !== null ? (
                 <Workarea
-                  areas={[
+                  selectedView={selectedView}
+                  selectView={selectView}
+                  views={[
                     [
                       'Charts',
-                      <Charts colors={palette.colors} setLab={setLab} />
+                      <Charts
+                        colors={selectedPalette.colors}
+                        selectedColorIndex={selectedColorIndex}
+                        selectedShadeIndex={selectedShadeIndex}
+                        setLab={setLab}
+                      />
                     ],
-                    ['Preview', <Preview colors={palette.colors} />]
+                    ['Preview', <Preview colors={selectedPalette.colors} />]
                     // ['Contrast', <Contrast colors={palette.colors} />]
                   ]}
                 />

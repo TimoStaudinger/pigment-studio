@@ -1,6 +1,5 @@
 import React from 'react'
 import classnames from 'classnames'
-import {useHistory, useParams, generatePath} from 'react-router-dom'
 import {useMeasure} from 'react-use'
 import {labToHex} from '@pigmentstudio/convert'
 
@@ -14,33 +13,44 @@ import TextInput from '../../common/TextInput'
 
 interface Props {
   colors: Color[]
-  name: string
-  setName: (name: string) => void
+  selectedColorIndex: number | null
+  selectedShadeIndex: number | null
+  paletteName: string
+  setPaletteName: (name: string) => void
+  selectColor: (colorIndex: number, shadeIndex?: number) => void
+  selectShade: (shadeIndex: number) => void
 }
 
-const Palette = ({colors, name, setName}: Props) => {
-  let {paletteId, view, ...params} = useParams()
-  let selectedColorIndex = params.colorIndex
-    ? parseInt(params.colorIndex)
-    : null
-  let selectedShadeIndex = params.shadeIndex
-    ? parseInt(params.shadeIndex)
-    : null
-
-  let history = useHistory()
-
+const Palette = ({
+  colors,
+  selectedColorIndex,
+  selectedShadeIndex,
+  paletteName,
+  setPaletteName,
+  selectColor,
+  selectShade
+}: Props) => {
   const [ref, {width}] = useMeasure()
 
   return (
     <Panel title="Palette">
-      <TextInput label="Palette Name" value={name || ''} onChange={setName} />
+      <TextInput
+        label="Palette Name"
+        value={paletteName || ''}
+        onChange={setPaletteName}
+      />
       <div className={styles.palette}>
-        <ColorLabels colors={colors} selectedColorIndex={selectedColorIndex} />
+        <ColorLabels
+          colors={colors}
+          selectColor={selectColor}
+          selectedColorIndex={selectedColorIndex}
+        />
 
         <div className={styles.swatches}>
           <ShadeLabels
             labels={colors?.[0]?.shades.map((shade) => shade.name) ?? []}
             selectedShadeIndex={selectedShadeIndex}
+            selectShade={selectShade}
           />
 
           {colors.map((color, colorIndex) => (
@@ -57,15 +67,10 @@ const Palette = ({colors, name, setName}: Props) => {
                     backgroundColor: `#${labToHex(shade.lab)}`,
                     height: width
                   }}
-                  onClick={() =>
-                    history.push(
-                      generatePath(
-                        '/:paletteId?/:colorIndex?/:shadeIndex?/:view?',
-                        {paletteId, view, colorIndex, shadeIndex}
-                      )
-                    )
-                  }
-                ></div>
+                  onClick={() => {
+                    selectColor(colorIndex, shadeIndex)
+                  }}
+                />
               ))}
             </div>
           ))}

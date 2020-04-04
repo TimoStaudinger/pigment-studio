@@ -1,5 +1,4 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
 import {Lab} from '@pigmentstudio/convert'
 
 import {Palette as PaletteType} from '../../types/color'
@@ -11,48 +10,69 @@ import ColorProperties from './color-properties/ColorProperties'
 import styles from './Sidebar.module.css'
 
 interface Props {
-  palette: PaletteType | null
+  selectedPalette: PaletteType | null
+  selectedColorIndex: number | null
+  selectedShadeIndex: number | null
   setColorName: (name: string) => void
   setPaletteName: (name: string) => void
   setLab: (lab: Lab) => void
+  selectColor: (colorIndex: number, shadeIndex?: number) => void
+  selectShade: (shadeIndex: number) => void
 }
 
-const Sidebar = ({palette, setColorName, setPaletteName, setLab}: Props) => {
-  let {paletteId, ...params} = useParams()
-  let colorIndex = params.colorIndex ? parseInt(params.colorIndex) : null
-  let shadeIndex = params.shadeIndex ? parseInt(params.shadeIndex) : null
+const Sidebar = ({
+  selectedPalette,
+  selectedColorIndex,
+  selectedShadeIndex,
+  setColorName,
+  setPaletteName,
+  setLab,
+  selectColor,
+  selectShade
+}: Props) => (
+  <div className={styles.container}>
+    {selectedPalette && (
+      <Palette
+        paletteName={selectedPalette.name}
+        colors={selectedPalette.colors}
+        selectedColorIndex={selectedColorIndex}
+        selectedShadeIndex={selectedShadeIndex}
+        setPaletteName={setPaletteName}
+        selectColor={selectColor}
+        selectShade={selectShade}
+      />
+    )}
 
-  return (
-    <div className={styles.container}>
-      {palette && (
-        <Palette
-          name={palette.name}
-          colors={palette.colors}
-          setName={setPaletteName}
-        />
-      )}
+    {selectedPalette && selectedColorIndex !== null && (
+      <ColorProperties
+        color={selectedPalette.colors[selectedColorIndex]}
+        setName={setColorName}
+      />
+    )}
 
-      {palette && colorIndex !== null && (
-        <ColorProperties
-          color={palette.colors[colorIndex]}
-          setName={setColorName}
-        />
-      )}
-
-      {palette && colorIndex !== null && shadeIndex !== null && (
+    {selectedPalette &&
+      selectedColorIndex !== null &&
+      selectedShadeIndex !== null && (
         <>
           <ShadeProperties
-            shade={palette.colors[colorIndex].shades[shadeIndex]}
+            shade={
+              selectedPalette.colors[selectedColorIndex].shades[
+                selectedShadeIndex
+              ]
+            }
             setLab={setLab}
           />
           <Picker
-            shade={palette.colors[colorIndex].shades[shadeIndex]}
+            shade={
+              selectedPalette.colors[selectedColorIndex].shades[
+                selectedShadeIndex
+              ]
+            }
             setLab={setLab}
           />
         </>
       )}
-    </div>
-  )
-}
+  </div>
+)
 
 export default Sidebar

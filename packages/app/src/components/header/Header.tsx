@@ -9,11 +9,19 @@ import PaletteSelector from './palette-selector/PaletteSelector'
 
 interface Props {
   palettes: Palette[]
+  selectedPalette: Palette | null
   showSplash: () => void
+  selectPalette: (paletteId: string) => void
   deletePalette: () => void
 }
 
-const Header = ({palettes, showSplash, deletePalette}: Props) => (
+const Header = ({
+  palettes,
+  selectedPalette,
+  showSplash,
+  selectPalette,
+  deletePalette
+}: Props) => (
   <div className={styles.header}>
     <img src={logo} className={styles.logo} alt="Pigment Studio" />
 
@@ -21,9 +29,17 @@ const Header = ({palettes, showSplash, deletePalette}: Props) => (
       <span>PIGMENT</span>STUDIO
     </div>
 
-    <PaletteSelector palettes={palettes} />
+    <PaletteSelector
+      palettes={palettes}
+      selectedPalette={selectedPalette}
+      selectPalette={selectPalette}
+    />
 
-    <Toolbar showSplash={showSplash} deletePalette={deletePalette} />
+    <Toolbar
+      selectedPalette={selectedPalette}
+      showSplash={showSplash}
+      deletePalette={deletePalette}
+    />
   </div>
 )
 
