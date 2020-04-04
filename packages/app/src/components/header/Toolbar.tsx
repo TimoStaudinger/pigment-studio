@@ -1,10 +1,11 @@
 import React from 'react'
-import {PlusCircle, Trash} from 'react-feather'
 
 import {Palette} from '../../types/color'
 import Button from '../common/Button'
 
 import styles from './Toolbar.module.css'
+import DocumentAdd from '../icons/DocumentAdd'
+import Trash from '../icons/Trash'
 
 interface Props {
   selectedPalette: Palette | null
@@ -18,7 +19,7 @@ const Toolbar = ({selectedPalette, showSplash, deletePalette}: Props) => (
       <Button
         onClick={showSplash}
         toolbar
-        icon={<PlusCircle size={22} />}
+        icon={<DocumentAdd />}
         text="New Palette"
       />
     </div>
@@ -28,7 +29,7 @@ const Toolbar = ({selectedPalette, showSplash, deletePalette}: Props) => (
         <Button
           onClick={deletePalette}
           toolbar
-          icon={<Trash size={22} />}
+          icon={<Trash />}
           text="Delete Palette"
         />
       </div>
