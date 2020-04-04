@@ -1,1 +1,1 @@
-![Splash Screen](assets/splash.png)
+![Splash Screen](assets/logo-detailed/github-social.png)
