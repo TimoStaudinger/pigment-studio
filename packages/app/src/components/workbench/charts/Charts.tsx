@@ -1,31 +1,37 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
 import {Lab} from '@pigmentstudio/convert'
 
 import {Color, Shade} from '../../../types/color'
+import Hint from '../../common/Hint'
 import Labels from './Labels'
 import LightnessChart from './LightnessChart'
 import ChromaChart from './ChromaChart'
 import HueChart from './HueChart'
 
 import styles from './Charts.module.css'
-import Hint from '../../common/Hint'
 
 interface Props {
+  selectedColorIndex: number | null
+  selectedShadeIndex: number | null
   colors: Color[]
   setLab: (lab: Lab, colorIndex: number, shadeIndex: number) => void
 }
 
-const Charts = ({colors, setLab}: Props) => {
-  let {paletteId, ...params} = useParams()
-  let colorIndex = params.colorIndex ? parseInt(params.colorIndex) : null
-  let shadeIndex = params.shadeIndex ? parseInt(params.shadeIndex) : null
+const Charts = ({
+  colors,
+  selectedColorIndex,
+  selectedShadeIndex,
+  setLab
+}: Props) => {
+  let color = selectedColorIndex !== null ? colors[selectedColorIndex] : null
+  let shade =
+    color && selectedShadeIndex !== null
+      ? color.shades[selectedShadeIndex]
+      : null
 
-  let color = colorIndex !== null ? colors[colorIndex] : null
-  let shade = color && shadeIndex !== null ? color.shades[shadeIndex] : null
-
-  let crossColorShades = (shadeIndex &&
-    colors.map((color) => color.shades[shadeIndex as number])) as Shade[]
+  let crossColorShades =
+    selectedShadeIndex &&
+    colors.map((color) => color.shades[selectedShadeIndex])
 
   return color && shade && crossColorShades ? (
     <div>
@@ -36,21 +42,24 @@ const Charts = ({colors, setLab}: Props) => {
             id={`shades-lightness`}
             shades={color.shades}
             setLab={(lab, shadeIndex) =>
-              setLab(lab, colorIndex as number, shadeIndex)
+              selectedColorIndex !== null &&
+              setLab(lab, selectedColorIndex, shadeIndex)
             }
           />
           <ChromaChart
             id={`shades-chroma`}
             shades={color.shades}
             setLab={(lab, shadeIndex) =>
-              setLab(lab, colorIndex as number, shadeIndex)
+              selectedColorIndex !== null &&
+              setLab(lab, selectedColorIndex, shadeIndex)
             }
           />
           <HueChart
             id={`shades-hue`}
             shades={color.shades}
             setLab={(lab, shadeIndex) =>
-              setLab(lab, colorIndex as number, shadeIndex)
+              selectedColorIndex !== null &&
+              setLab(lab, selectedColorIndex, shadeIndex)
             }
           />
         </div>
@@ -70,21 +79,24 @@ const Charts = ({colors, setLab}: Props) => {
             id={`colors-lightness`}
             shades={crossColorShades}
             setLab={(lab, colorIndex) =>
-              setLab(lab, colorIndex, shadeIndex as number)
+              selectedShadeIndex !== null &&
+              setLab(lab, colorIndex, selectedShadeIndex)
             }
           />
           <ChromaChart
             id={`colors-chroma`}
             shades={crossColorShades}
             setLab={(lab, colorIndex) =>
-              setLab(lab, colorIndex, shadeIndex as number)
+              selectedShadeIndex !== null &&
+              setLab(lab, colorIndex, selectedShadeIndex)
             }
           />
           <HueChart
             id={'colors-hue'}
             shades={crossColorShades}
             setLab={(lab, colorIndex) =>
-              setLab(lab, colorIndex, shadeIndex as number)
+              selectedShadeIndex !== null &&
+              setLab(lab, colorIndex, selectedShadeIndex)
             }
           />
         </div>

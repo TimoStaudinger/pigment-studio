@@ -1,41 +1,38 @@
 import React from 'react'
 import {PlusCircle, Trash} from 'react-feather'
-import {useParams} from 'react-router-dom'
 
+import {Palette} from '../../types/color'
 import Button from '../common/Button'
 
 import styles from './Toolbar.module.css'
 
 interface Props {
+  selectedPalette: Palette | null
   showSplash: () => void
   deletePalette: () => void
 }
 
-const Toolbar = ({showSplash, deletePalette}: Props) => {
-  let {paletteId} = useParams()
+const Toolbar = ({selectedPalette, showSplash, deletePalette}: Props) => (
+  <div className={styles.toolbar}>
+    <div className={styles.toolbarItem}>
+      <Button
+        onClick={showSplash}
+        toolbar
+        icon={<PlusCircle size={22} />}
+        text="New Palette"
+      />
+    </div>
 
-  return (
-    <div className={styles.toolbar}>
+    {selectedPalette ? (
       <div className={styles.toolbarItem}>
         <Button
-          onClick={showSplash}
+          onClick={deletePalette}
           toolbar
-          icon={<PlusCircle size={22} />}
-          text="New Palette"
+          icon={<Trash size={22} />}
+          text="Delete Palette"
         />
       </div>
-
-      {paletteId ? (
-        <div className={styles.toolbarItem}>
-          <Button
-            onClick={deletePalette}
-            toolbar
-            icon={<Trash size={22} />}
-            text="Delete Palette"
-          />
-        </div>
-      ) : null}
-    </div>
-  )
-}
+    ) : null}
+  </div>
+)
 export default Toolbar

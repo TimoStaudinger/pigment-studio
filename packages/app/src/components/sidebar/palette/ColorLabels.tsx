@@ -1,6 +1,5 @@
 import React from 'react'
 import classnames from 'classnames'
-import {useHistory, useParams, generatePath} from 'react-router-dom'
 
 import {Color} from '../../../types/color'
 import Button from '../../common/Button'
@@ -9,13 +8,11 @@ import styles from './ColorLabels.module.css'
 
 interface Props {
   colors: Color[]
+  selectColor: (colorIndex: number) => void
   selectedColorIndex: number | null
 }
 
-const ColorLabels = ({colors, selectedColorIndex}: Props) => {
-  let {paletteId, shadeIndex} = useParams()
-  let history = useHistory()
-
+const ColorLabels = ({colors, selectColor, selectedColorIndex}: Props) => {
   return (
     <div className={styles.labels}>
       {colors.map((color, colorIndex) => (
@@ -25,15 +22,7 @@ const ColorLabels = ({colors, selectedColorIndex}: Props) => {
             [styles.selected]: selectedColorIndex === colorIndex
           })}
           text={color.name}
-          onClick={() =>
-            history.push(
-              generatePath('/:paletteId?/:colorIndex?/:shadeIndex?/:view?', {
-                paletteId,
-                colorIndex,
-                shadeIndex
-              })
-            )
-          }
+          onClick={() => selectColor(colorIndex)}
         />
       ))}
     </div>
