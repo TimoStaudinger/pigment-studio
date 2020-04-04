@@ -10,6 +10,7 @@
 .panelTitle {
   flex: 1;
 
+  line-height: 22px;
   font-size: 0.9em;
   font-weight: 700;
 }
