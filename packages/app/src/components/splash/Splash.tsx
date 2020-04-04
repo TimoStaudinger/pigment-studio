@@ -40,7 +40,7 @@ const Splash = ({
         <div className={styles.recentList}>
           {palettes
             .sort((a, b) => b.lastChanged - a.lastChanged)
-            .slice(Math.max(palettes.length - 10, 0))
+            .slice(0, 10)
             .map((palette) => (
               <div>
                 <Button
