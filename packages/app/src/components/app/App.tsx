@@ -7,7 +7,6 @@ import EmptyState from '../common/EmptyState'
 import Sidebar from '../sidebar/Sidebar'
 import Workarea from '../workbench/Workbench'
 import Preview from '../workbench/preview/Preview'
-import Contrast from '../workbench/contrast/Contrast'
 import Charts from '../workbench/charts/Charts'
 import Header from '../header/Header'
 import Splash from '../splash/Splash'
@@ -115,8 +114,8 @@ const App = () => {
                       'Charts',
                       <Charts colors={palette.colors} setLab={setLab} />
                     ],
-                    ['Preview', <Preview colors={palette.colors} />],
-                    ['Contrast', <Contrast colors={palette.colors} />]
+                    ['Preview', <Preview colors={palette.colors} />]
+                    // ['Contrast', <Contrast colors={palette.colors} />]
                   ]}
                 />
               ) : (
