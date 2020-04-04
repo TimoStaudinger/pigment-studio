@@ -6,7 +6,9 @@ import {
   ListboxList,
   ListboxPopover
 } from '@reach/listbox'
+
 import {Palette} from '../../../types/color'
+import SelectorIcon from '../../icons/Selector'
 
 import '@reach/listbox/styles.css'
 import styles from './PaletteSelector.module.css'
@@ -31,7 +33,9 @@ const PaletteSelector = ({
         paletteId === '_' ? deselectPalette() : selectPalette(paletteId)
       }
     >
-      <ListboxButton arrow>{selectedPalette?.name || undefined}</ListboxButton>
+      <ListboxButton arrow={SelectorIcon}>
+        {selectedPalette?.name || undefined}
+      </ListboxButton>
       <ListboxPopover className={styles.popover}>
         <ListboxList className={styles.popoverList}>
           <ListboxOption className={styles.defaultOption} value="_">

@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import classnames from 'classnames'
-import {AlertTriangle} from 'react-feather'
 
 import BlockPageScroll from './BlockPageScroll'
 import Input from './Input'
 
 import styles from './NumberInput.module.css'
+import Exclamation from '../icons/Exclamation'
 
 interface Props {
   value: number
@@ -35,13 +35,13 @@ const NumberInput = ({value, onChange, allowMouseWheelChanges}: Props) => {
       <div style={{position: 'relative'}}>
         <Input
           value={buffer}
-          onChange={e => handleChange(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
           className={classnames(styles.input, {[styles.invalid]: !isValid})}
           spellCheck={false}
-          onFocus={e => e.target.select()}
+          onFocus={(e) => e.target.select()}
           onWheel={
             allowMouseWheelChanges
-              ? e => {
+              ? (e) => {
                   let intValue = parseFloat(buffer)
                   if (!isNaN(intValue)) {
                     let delta = e.ctrlKey ? 0.5 : e.shiftKey ? 5 : 1
@@ -54,7 +54,7 @@ const NumberInput = ({value, onChange, allowMouseWheelChanges}: Props) => {
           }
         />
 
-        <AlertTriangle
+        <Exclamation
           size={13}
           className={classnames(styles.warningIcon, {
             [styles.invalid]: !isValid
