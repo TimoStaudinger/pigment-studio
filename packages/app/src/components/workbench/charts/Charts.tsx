@@ -9,6 +9,7 @@ import ChromaChart from './ChromaChart'
 import HueChart from './HueChart'
 
 import styles from './Charts.module.css'
+import Hint from '../../common/Hint'
 
 interface Props {
   colors: Color[]
@@ -24,68 +25,73 @@ const Charts = ({colors, setLab}: Props) => {
   let shade = color && shadeIndex !== null ? color.shades[shadeIndex] : null
 
   let crossColorShades = (shadeIndex &&
-    colors.map(color => color.shades[shadeIndex as number])) as Shade[]
+    colors.map((color) => color.shades[shadeIndex as number])) as Shade[]
 
   return color && shade && crossColorShades ? (
-    <div className={styles.container}>
-      <div className={styles.column}>
-        <Labels shades={color.shades} />
-        <LightnessChart
-          id={`shades-lightness`}
-          shades={color.shades}
-          setLab={(lab, shadeIndex) =>
-            setLab(lab, colorIndex as number, shadeIndex)
-          }
-        />
-        <ChromaChart
-          id={`shades-chroma`}
-          shades={color.shades}
-          setLab={(lab, shadeIndex) =>
-            setLab(lab, colorIndex as number, shadeIndex)
-          }
-        />
-        <HueChart
-          id={`shades-hue`}
-          shades={color.shades}
-          setLab={(lab, shadeIndex) =>
-            setLab(lab, colorIndex as number, shadeIndex)
-          }
-        />
-      </div>
+    <div>
+      <div className={styles.container}>
+        <div className={styles.column}>
+          <Labels shades={color.shades} />
+          <LightnessChart
+            id={`shades-lightness`}
+            shades={color.shades}
+            setLab={(lab, shadeIndex) =>
+              setLab(lab, colorIndex as number, shadeIndex)
+            }
+          />
+          <ChromaChart
+            id={`shades-chroma`}
+            shades={color.shades}
+            setLab={(lab, shadeIndex) =>
+              setLab(lab, colorIndex as number, shadeIndex)
+            }
+          />
+          <HueChart
+            id={`shades-hue`}
+            shades={color.shades}
+            setLab={(lab, shadeIndex) =>
+              setLab(lab, colorIndex as number, shadeIndex)
+            }
+          />
+        </div>
 
-      <div className={styles.column}>
-        <Labels
-          shades={
-            colors
-              .map(color => [
-                color.name,
-                color.shades.find(s => s.name === shade?.name)
-              ])
-              .filter(Boolean) as [string, Shade][]
-          }
-        />
-        <LightnessChart
-          id={`colors-lightness`}
-          shades={crossColorShades}
-          setLab={(lab, colorIndex) =>
-            setLab(lab, colorIndex, shadeIndex as number)
-          }
-        />
-        <ChromaChart
-          id={`colors-chroma`}
-          shades={crossColorShades}
-          setLab={(lab, colorIndex) =>
-            setLab(lab, colorIndex, shadeIndex as number)
-          }
-        />
-        <HueChart
-          id={'colors-hue'}
-          shades={crossColorShades}
-          setLab={(lab, colorIndex) =>
-            setLab(lab, colorIndex, shadeIndex as number)
-          }
-        />
+        <div className={styles.column}>
+          <Labels
+            shades={
+              colors
+                .map((color) => [
+                  color.name,
+                  color.shades.find((s) => s.name === shade?.name)
+                ])
+                .filter(Boolean) as [string, Shade][]
+            }
+          />
+          <LightnessChart
+            id={`colors-lightness`}
+            shades={crossColorShades}
+            setLab={(lab, colorIndex) =>
+              setLab(lab, colorIndex, shadeIndex as number)
+            }
+          />
+          <ChromaChart
+            id={`colors-chroma`}
+            shades={crossColorShades}
+            setLab={(lab, colorIndex) =>
+              setLab(lab, colorIndex, shadeIndex as number)
+            }
+          />
+          <HueChart
+            id={'colors-hue'}
+            shades={crossColorShades}
+            setLab={(lab, colorIndex) =>
+              setLab(lab, colorIndex, shadeIndex as number)
+            }
+          />
+        </div>
       </div>
+      <Hint className={styles.hint}>
+        Try using your mouse wheel to adjust value on the chart
+      </Hint>
     </div>
   ) : null
 }
