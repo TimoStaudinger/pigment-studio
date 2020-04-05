@@ -8,7 +8,6 @@ interface Props {
   className?: string
   text?: string
   icon?: React.ReactNode
-  children?: React.ReactNode
   primary?: boolean
   link?: boolean
   autoFocus?: boolean
@@ -19,7 +18,6 @@ const Button = ({
   onClick,
   text,
   icon,
-  children,
   className,
   primary,
   link,
@@ -36,14 +34,8 @@ const Button = ({
     onClick={onClick}
     autoFocus={autoFocus}
   >
-    {children ? (
-      children
-    ) : (
-      <>
-        {icon}
-        {text && <span className={styles.text}>{text}</span>}
-      </>
-    )}
+    {icon}
+    {text && <span className={styles.text}>{text}</span>}
   </button>
 )
 
