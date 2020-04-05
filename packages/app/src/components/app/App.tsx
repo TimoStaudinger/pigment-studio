@@ -13,6 +13,7 @@ import Splash from '../splash/Splash'
 import Layout from './Layout'
 
 import 'react-reflex/styles.css'
+import NewColorDialog from '../new-color/NewColorDialog'
 
 const App = () => {
   let {
@@ -30,6 +31,7 @@ const App = () => {
   } = useSelection()
 
   const [showSplash, setShowSplash] = useState(!paletteId)
+  const [showNewColorDialog, setShowNewColorDialog] = useState(true)
 
   const {
     palettes,
@@ -86,6 +88,11 @@ const App = () => {
         palettes={palettes}
       />
 
+      <NewColorDialog
+        showNewColorDialog={showNewColorDialog}
+        dismissNewColorDialog={() => setShowNewColorDialog(false)}
+      />
+
       <Layout
         header={
           <Header
@@ -110,6 +117,7 @@ const App = () => {
                 setLab={setLab}
                 selectColor={selectColor}
                 selectShade={selectShade}
+                showNewColorDialog={() => setShowNewColorDialog(true)}
               />
             </ReflexElement>
             <ReflexSplitter />

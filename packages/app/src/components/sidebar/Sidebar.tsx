@@ -18,6 +18,7 @@ interface Props {
   setLab: (lab: Lab) => void
   selectColor: (colorIndex: number, shadeIndex?: number) => void
   selectShade: (shadeIndex: number) => void
+  showNewColorDialog: () => void
 }
 
 const Sidebar = ({
@@ -28,7 +29,8 @@ const Sidebar = ({
   setPaletteName,
   setLab,
   selectColor,
-  selectShade
+  selectShade,
+  showNewColorDialog
 }: Props) => (
   <div className={styles.container}>
     {selectedPalette && (
@@ -40,6 +42,7 @@ const Sidebar = ({
         setPaletteName={setPaletteName}
         selectColor={selectColor}
         selectShade={selectShade}
+        showNewColorDialog={showNewColorDialog}
       />
     )}
 

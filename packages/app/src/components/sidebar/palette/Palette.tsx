@@ -10,6 +10,7 @@ import ColorLabels from './ColorLabels'
 
 import styles from './Palette.module.css'
 import TextInput from '../../common/TextInput'
+import Button from '../../common/Button'
 
 interface Props {
   colors: Color[]
@@ -19,6 +20,7 @@ interface Props {
   setPaletteName: (name: string) => void
   selectColor: (colorIndex: number, shadeIndex?: number) => void
   selectShade: (shadeIndex: number) => void
+  showNewColorDialog: () => void
 }
 
 const Palette = ({
@@ -28,7 +30,8 @@ const Palette = ({
   paletteName,
   setPaletteName,
   selectColor,
-  selectShade
+  selectShade,
+  showNewColorDialog
 }: Props) => {
   const [ref, {width}] = useMeasure()
 
@@ -39,6 +42,7 @@ const Palette = ({
         value={paletteName || ''}
         onChange={setPaletteName}
       />
+
       <div className={styles.palette}>
         <ColorLabels
           colors={colors}
@@ -76,6 +80,13 @@ const Palette = ({
           ))}
         </div>
       </div>
+
+      <Button
+        link
+        text="Add a new color…"
+        onClick={showNewColorDialog}
+        className={styles.newColorButton}
+      />
     </Panel>
   )
 }

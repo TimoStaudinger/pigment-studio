@@ -5,6 +5,12 @@ body {
   color: #324d67;
 }
 
+h1 {
+  font-family: Montserrat;
+  font-weight: 300;
+  margin: 0;
+}
+
 [data-reach-dialog-overlay] {
   z-index: 200;
   background: rgba(0, 0, 0, 0.5);
