@@ -1,7 +1,7 @@
 .button {
   padding: 10px;
 
-  transition: all 0.2s;
+  transition: background 0.2s, border 0.2s;
   background: none;
   color: #324d67;
   border: 1px solid #cccccc;
@@ -48,13 +48,13 @@
   border: none;
   background: none;
 
-  text-decoration: underline;
   padding: 0;
 }
 
 .link:hover {
   background: none !important;
-  font-weight: 700;
+  /* font-weight: 700; */
+  text-decoration: underline;
 }
 
 .toolbar {
