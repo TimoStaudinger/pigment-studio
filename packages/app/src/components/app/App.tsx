@@ -31,7 +31,7 @@ const App = () => {
   } = useSelection()
 
   const [showSplash, setShowSplash] = useState(!paletteId)
-  const [showNewColorDialog, setShowNewColorDialog] = useState(true)
+  const [showNewColorDialog, setShowNewColorDialog] = useState(false)
 
   const {
     palettes,
