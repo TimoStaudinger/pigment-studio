@@ -30,7 +30,7 @@ const Charts = ({
       : null
 
   let crossColorShades =
-    selectedShadeIndex &&
+    selectedShadeIndex !== null &&
     colors.map((color) => color.shades[selectedShadeIndex])
 
   return color && shade && crossColorShades ? (
