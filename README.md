@@ -12,3 +12,5 @@ _PIGMENTstudio is your partner in crime for designing your application's color p
 - Add your **personal touch** with our tooling as your guide
 - **Collaborate** with your team
 - Share the results or directly use your palette **in your code**
+
+This document describes how to develop PIGMENTstudio. You don't need it to use the application – you can simply visit https://pigment.studio for that!
