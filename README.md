@@ -5,7 +5,7 @@
 <img src="assets/readme-logo.png" align="right"
      alt="PIGMENTstudio logo" width="300" height="300">
   
-_PIGMENTstudio is your partner in crime for designing your application's color palette._
+PIGMENTstudio _is your partner in crime for designing your application's color palette._
 
 - Choose from several **templates** to help you get started
 - **Import your brand**'s colors if you want
@@ -15,4 +15,4 @@ _PIGMENTstudio is your partner in crime for designing your application's color p
 
 ---
 
-This document describes how to develop PIGMENTstudio. You don't need follow to use the application – you can simply **visit https://pigment.studio** for that!
+This guide describes how to run and develop PIGMENTstudio. You don't need follow it to use the application – you can simply **visit https://pigment.studio**!
