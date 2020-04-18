@@ -1,14 +1,8 @@
-import React, {useEffect, useRef} from 'react'
+import React from 'react'
 import {Dialog} from '@reach/dialog'
-import {labToHex} from '@pigmentstudio/convert'
-// // @ts-ignore next-line
-// import Refractor from 'react-refractor'
-// // @ts-ignore next-line
-// import css from 'refractor/lang/css'
-// // import 'prismjs/themes/prism.css'
-// import 'prismjs/themes/prism-dark.css'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import {tomorrowNight} from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import {rainbow as theme} from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import {labToHex} from '@pigmentstudio/convert'
 
 import Button from '../common/Button'
 import {Palette, Color} from '../../types/color'
@@ -16,8 +10,6 @@ import {nameToSlug} from '../../util/slug'
 
 import '@reach/dialog/styles.css'
 import styles from './ExportDialog.module.css'
-
-// Refractor.registerLanguage(css)
 
 const colorsToCSSVars = (colors: Color[]) =>
   colors
@@ -54,9 +46,9 @@ const ExportDialog = ({
       <h1 id="export-dialog-header">Export</h1>
 
       <SyntaxHighlighter
-        customStyle={{fontFamily: 'Fira Mono', maxHeight: 400}}
+        customStyle={{maxHeight: 400}}
         language="css"
-        style={tomorrowNight}
+        style={theme}
       >
         {colorsToCSSVars(selectedPalette.colors)}
       </SyntaxHighlighter>

@@ -11,6 +11,11 @@ h1 {
   margin: 0;
 }
 
+code {
+  font-family: 'Fira Mono';
+  font-size: 0.85em;
+}
+
 [data-reach-dialog-overlay] {
   z-index: 200;
   background: rgba(0, 0, 0, 0.5);
