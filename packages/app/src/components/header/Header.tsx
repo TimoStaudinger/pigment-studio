@@ -14,6 +14,7 @@ interface Props {
   selectPalette: (paletteId: string) => void
   deselectPalette: () => void
   deletePalette: () => void
+  exportPalette: () => void
 }
 
 const Header = ({
@@ -22,7 +23,8 @@ const Header = ({
   showSplash,
   selectPalette,
   deselectPalette,
-  deletePalette
+  deletePalette,
+  exportPalette
 }: Props) => (
   <div className={styles.header}>
     <img src={logo} className={styles.logo} alt="Pigment Studio" />
@@ -42,6 +44,7 @@ const Header = ({
       selectedPalette={selectedPalette}
       showSplash={showSplash}
       deletePalette={deletePalette}
+      exportPalette={exportPalette}
     />
   </div>
 )

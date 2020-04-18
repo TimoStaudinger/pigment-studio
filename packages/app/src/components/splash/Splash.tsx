@@ -31,9 +31,15 @@ const Splash = ({
     isOpen={showSplash}
     onDismiss={dismissSplash}
     className={styles.dialog}
+    aria-labelledby="splash-header"
   >
     <div className={styles.content}>
-      <img className={styles.logo} src={logo} alt="Pigment Studio" />
+      <img
+        id="splash-header"
+        className={styles.logo}
+        src={logo}
+        alt="Pigment Studio"
+      />
 
       <div className={styles.recent}>
         <div className={styles.recentHeader}>Recent:</div>
@@ -42,7 +48,7 @@ const Splash = ({
             .sort((a, b) => b.lastChanged - a.lastChanged)
             .slice(0, 10)
             .map((palette) => (
-              <div>
+              <div key={palette.id}>
                 <Button
                   link
                   onClick={() => openPalette(palette.id)}

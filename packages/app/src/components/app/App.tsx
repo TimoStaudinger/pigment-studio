@@ -11,9 +11,10 @@ import Charts from '../workbench/charts/Charts'
 import Header from '../header/Header'
 import Splash from '../splash/Splash'
 import Layout from './Layout'
+import NewColorDialog from '../new-color/NewColorDialog'
+import ExportDialog from '../export/ExportDialog'
 
 import 'react-reflex/styles.css'
-import NewColorDialog from '../new-color/NewColorDialog'
 
 const App = () => {
   let {
@@ -32,6 +33,7 @@ const App = () => {
 
   const [showSplash, setShowSplash] = useState(!paletteId)
   const [showNewColorDialog, setShowNewColorDialog] = useState(false)
+  const [showExportDialog, setShowExportDialog] = useState(false)
 
   const {
     palettes,
@@ -93,6 +95,14 @@ const App = () => {
         dismissNewColorDialog={() => setShowNewColorDialog(false)}
       />
 
+      {selectedPalette !== null && (
+        <ExportDialog
+          showExportDialog={showExportDialog}
+          dismissExportDialog={() => setShowExportDialog(false)}
+          selectedPalette={selectedPalette}
+        />
+      )}
+
       <Layout
         header={
           <Header
@@ -102,6 +112,7 @@ const App = () => {
             selectPalette={selectPalette}
             deselectPalette={deselectPalette}
             deletePalette={deletePalette}
+            exportPalette={() => setShowExportDialog(true)}
           />
         }
       >

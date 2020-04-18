@@ -58,9 +58,10 @@ const Palette = ({
           />
 
           {colors.map((color, colorIndex) => (
-            <div className={styles.row}>
+            <div className={styles.row} key={color.name}>
               {color.shades.map((shade, shadeIndex) => (
                 <div
+                  key={shade.name}
                   ref={colorIndex === 0 && shadeIndex === 0 ? ref : undefined}
                   className={classnames(styles.swatch, {
                     [styles.selected]:
