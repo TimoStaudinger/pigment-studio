@@ -47,9 +47,7 @@ export const addOrUpdateLinearGradient = (
   id: string,
   colors: string[]
 ) => {
-  console.log(defs)
   let gradient = defs.select<SVGLinearGradientElement>('linearGradient')
-  console.log('gradient', gradient.size(), gradient)
   if (!gradient.size()) gradient = defs.append('linearGradient')
 
   gradient.attr('id', id)
@@ -59,13 +57,13 @@ export const addOrUpdateLinearGradient = (
     .enter()
     .append('stop')
     .attr('offset', (_, i) => `${(100 * i) / (colors.length - 1)}%`)
-    .attr('stop-color', d => '#' + d)
+    .attr('stop-color', (d) => '#' + d)
   stops.exit().remove()
   stops
     .transition()
     .duration(100)
     .attr('offset', (_, i) => `${(100 * i) / (colors.length - 1)}%`)
-    .attr('stop-color', d => '#' + d)
+    .attr('stop-color', (d) => '#' + d)
 }
 
 export const getXScale = (itemCount: number, width: number) =>
@@ -75,10 +73,7 @@ export const getXScale = (itemCount: number, width: number) =>
     .range([0, width])
 
 export const getYScale = (minValue: number, maxValue: number, height: number) =>
-  d3
-    .scaleLinear()
-    .domain([minValue, maxValue])
-    .range([height, 0])
+  d3.scaleLinear().domain([minValue, maxValue]).range([height, 0])
 
 export const getLineGenerator = (
   xScale: d3.ScaleLinear<number, number>,
@@ -87,7 +82,7 @@ export const getLineGenerator = (
   d3
     .line<number>()
     .x((_, i) => xScale(i))
-    .y(d => yScale(d))
+    .y((d) => yScale(d))
     .curve(d3.curveMonotoneX)
 
 export const addOrUpdateLine = (
@@ -169,25 +164,22 @@ export const addOrUpdateDots = (
       .on('end', () => setIsInteracting(false))
   )
 
-  let groupsEnter = groups
-    .enter()
-    .append('g')
-    .attr('class', 'dot')
+  let groupsEnter = groups.enter().append('g').attr('class', 'dot')
   groupsEnter
     .append('circle')
     .attr('class', 'dot-border')
-    .attr('fill', _ => '#fff')
-    .attr('stroke', _ => '#ccc')
+    .attr('fill', (_) => '#fff')
+    .attr('stroke', (_) => '#ccc')
     .attr('cx', (_, i) => xScale(i))
-    .attr('cy', d => yScale(d[0]))
+    .attr('cy', (d) => yScale(d[0]))
     .attr('r', 5)
   groupsEnter
     .append('circle')
     .attr('class', 'dot-main')
-    .attr('fill', d => '#' + d[1])
-    .attr('stroke', _ => '#fff')
+    .attr('fill', (d) => '#' + d[1])
+    .attr('stroke', (_) => '#fff')
     .attr('cx', (_, i) => xScale(i))
-    .attr('cy', d => yScale(d[0]))
+    .attr('cy', (d) => yScale(d[0]))
     .attr('r', 4)
     .on('mouseenter', (_, i, dots) => d3.select(dots[i]).attr('r', 7))
     .on('mouseleave', (_, i, dots) => d3.select(dots[i]).attr('r', 4))
@@ -196,12 +188,12 @@ export const addOrUpdateDots = (
   transition
     .select('.dot-border')
     .attr('cx', (_, i) => xScale(i))
-    .attr('cy', d => yScale(d[0]))
+    .attr('cy', (d) => yScale(d[0]))
   transition
     .select('.dot-main')
-    .attr('fill', d => '#' + d[1])
+    .attr('fill', (d) => '#' + d[1])
     .attr('cx', (_, i) => xScale(i))
-    .attr('cy', d => yScale(d[0]))
+    .attr('cy', (d) => yScale(d[0]))
   let groupsExit = groups.exit().remove()
   groupsExit.selectAll('circle').attr('r', 0)
 }
@@ -216,8 +208,8 @@ export const addOrUpdateAreas = (
   const calculateArea = d3
     .area<{min: number; max: number}>()
     .x((_, i) => xScale(i))
-    .y0(value => yScale(value.min))
-    .y1(value => yScale(value.max))
+    .y0((value) => yScale(value.min))
+    .y1((value) => yScale(value.max))
     .curve(d3.curveCardinal)
 
   let groups = svg.selectAll('path.area').data(areas)
@@ -231,10 +223,7 @@ export const addOrUpdateAreas = (
     .attr('opacity', 0.5)
     .attr('d', calculateArea)
 
-  groups
-    .transition()
-    .duration(100)
-    .attr('d', calculateArea)
+  groups.transition().duration(100).attr('d', calculateArea)
 
   groups.exit().remove()
 }

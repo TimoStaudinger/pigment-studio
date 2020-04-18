@@ -17,6 +17,7 @@ const ColorLabels = ({colors, selectColor, selectedColorIndex}: Props) => {
     <div className={styles.labels}>
       {colors.map((color, colorIndex) => (
         <Button
+          key={color.name}
           link
           className={classnames(styles.label, {
             [styles.selected]: selectedColorIndex === colorIndex

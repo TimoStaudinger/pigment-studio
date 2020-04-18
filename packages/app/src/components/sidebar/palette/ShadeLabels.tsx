@@ -15,6 +15,7 @@ const Labels = ({labels, selectedShadeIndex, selectShade}: Props) => (
   <div className={styles.labels}>
     {labels.map((label, shadeIndex) => (
       <Button
+        key={label}
         link
         className={classnames(styles.label, {
           [styles.selected]: selectedShadeIndex === shadeIndex

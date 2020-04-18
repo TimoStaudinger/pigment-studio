@@ -16,8 +16,9 @@ const NewColorDialog = ({showNewColorDialog, dismissNewColorDialog}: Props) => (
     isOpen={showNewColorDialog}
     onDismiss={dismissNewColorDialog}
     className={styles.dialog}
+    aria-labelledby="new-color-header"
   >
-    <h1>Add a new color</h1>
+    <h1 id="new-color-header">Add a new color</h1>
     <p className={styles.content}>New color!</p>
     <div className={styles.toolbar}>
       <div className={styles.toolbarSpacer} />
