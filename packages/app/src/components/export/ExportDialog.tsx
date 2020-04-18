@@ -1,15 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import {useCopyToClipboard} from 'react-use'
 import {Dialog} from '@reach/dialog'
 import {labToHex} from '@pigmentstudio/convert'
 
 import Button from '../common/Button'
+import Code from '../common/Code'
 import {Palette, Color} from '../../types/color'
 import {nameToSlug} from '../../util/slug'
 
 import '@reach/dialog/styles.css'
 import styles from './ExportDialog.module.css'
-import Code from '../common/Code'
-import {useCopyToClipboard} from 'react-use'
 
 const colorsToCSSVars = (colors: Color[]) =>
   colors
@@ -37,6 +37,13 @@ const ExportDialog = ({
   selectedPalette
 }: Props) => {
   const [clipboardState, copyToClipboard] = useCopyToClipboard()
+  useEffect(() => {
+    if (clipboardState.error) {
+      console.log('failed to copy to clipboard', clipboardState.error)
+    } else if (clipboardState.value) {
+      console.log('copied to clipboard')
+    }
+  }, [clipboardState])
 
   return (
     <Dialog
