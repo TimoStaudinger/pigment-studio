@@ -58,7 +58,6 @@ code {
   background-color: #fafafa;
 }
 
-/* scrollbar itself */
 *::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 16px;
