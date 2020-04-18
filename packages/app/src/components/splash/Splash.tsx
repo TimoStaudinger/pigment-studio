@@ -64,7 +64,7 @@ const Splash = ({
       </div>
     </div>
     <Hint className={styles.hint}>
-      If you're not sure what to do, try starting with a template
+      If you're not sure what to do, try starting with a template!
     </Hint>
     <div className={styles.toolbar}>
       <div className={styles.toolbarSpacer} />

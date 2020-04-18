@@ -1,7 +1,5 @@
 import React from 'react'
 import {Dialog} from '@reach/dialog'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import {rainbow as theme} from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import {labToHex} from '@pigmentstudio/convert'
 
 import Button from '../common/Button'
@@ -10,6 +8,8 @@ import {nameToSlug} from '../../util/slug'
 
 import '@reach/dialog/styles.css'
 import styles from './ExportDialog.module.css'
+import Code from '../common/Code'
+import {useCopyToClipboard} from 'react-use'
 
 const colorsToCSSVars = (colors: Color[]) =>
   colors
@@ -36,6 +36,8 @@ const ExportDialog = ({
   dismissExportDialog,
   selectedPalette
 }: Props) => {
+  const [clipboardState, copyToClipboard] = useCopyToClipboard()
+
   return (
     <Dialog
       isOpen={showExportDialog}
@@ -45,16 +47,19 @@ const ExportDialog = ({
     >
       <h1 id="export-dialog-header">Export</h1>
 
-      <SyntaxHighlighter
-        customStyle={{maxHeight: 400}}
-        language="css"
-        style={theme}
-      >
+      <Code maxHeight={400} language="css">
         {colorsToCSSVars(selectedPalette.colors)}
-      </SyntaxHighlighter>
+      </Code>
+
       <div className={styles.toolbar}>
         <div className={styles.toolbarSpacer} />
-        <Button primary text="Done" />
+        <Button
+          text="Copy to clipboard"
+          onClick={() =>
+            copyToClipboard(colorsToCSSVars(selectedPalette.colors))
+          }
+        />
+        <Button primary text="Done" onClick={dismissExportDialog} />
       </div>
     </Dialog>
   )

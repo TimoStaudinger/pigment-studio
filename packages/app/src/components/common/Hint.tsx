@@ -16,6 +16,7 @@ const Hint = ({children, className}: Props) => (
       <LightBulb size={15} />
     </span>
 
+    <b>Tip: </b>
     {children}
   </span>
 )

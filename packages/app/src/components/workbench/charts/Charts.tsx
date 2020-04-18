@@ -102,7 +102,7 @@ const Charts = ({
         </div>
       </div>
       <Hint className={styles.hint}>
-        Try using your mouse wheel to adjust value on the chart
+        You can use your mouse wheel to adjust values on a chart
       </Hint>
     </div>
   ) : null
