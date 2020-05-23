@@ -13,7 +13,7 @@ ReactDOM.render(
   <Router>
     <DndProvider backend={Backend}>
       <Route path="/:paletteId?/:colorIndex?/:shadeIndex?/:view?">
-        <App />{' '}
+        <App />
       </Route>
     </DndProvider>
   </Router>,
