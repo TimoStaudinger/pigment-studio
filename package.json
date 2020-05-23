@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "yarn --cwd packages/app start",
+    "start": "yarn build:convert && yarn --cwd packages/app start",
     "build": "yarn build:convert && yarn build:app",
     "build:app": "yarn --cwd packages/app build",
     "build:convert": "yarn --cwd packages/convert build"
