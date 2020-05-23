@@ -41,7 +41,7 @@ const draw = (
   addOrUpdateLinearGradient(
     defs,
     `${containerId}-color-gradient`,
-    shades.map(shade => labToHex(shade.lab))
+    shades.map((shade) => labToHex(shade.lab))
   )
   addOrUpdateBadAreaPattern(defs, `${containerId}-bad-area-pattern`)
 
@@ -54,7 +54,7 @@ const draw = (
   )
 
   addOrUpdateLine(
-    shades.map(shade => convertLabToValue(shade.lab)),
+    shades.map((shade) => convertLabToValue(shade.lab)),
     `${containerId}-color-gradient`,
     svg,
     xScale,
@@ -62,7 +62,7 @@ const draw = (
   )
 
   addOrUpdateDots(
-    shades.map(shade => [convertLabToValue(shade.lab), labToHex(shade.lab)]),
+    shades.map((shade) => [convertLabToValue(shade.lab), labToHex(shade.lab)]),
     svg,
     xScale,
     yScale,
@@ -98,7 +98,7 @@ const Chart = ({
   title
 }: Props) => {
   let [isInteracting, setIsInteracting] = useState(false)
-  const [ref, {width}] = useMeasure()
+  const [ref, {width}] = useMeasure<HTMLDivElement>()
 
   useEffect(() => {
     if (!isInteracting)
@@ -135,7 +135,7 @@ const Chart = ({
           <div className={styles.value}>
             <NumberInput
               value={convertLabToValue(shade.lab)}
-              onChange={value => {
+              onChange={(value) => {
                 updateValue(i, value)
                 return value >= minValue && value <= maxValue
               }}
