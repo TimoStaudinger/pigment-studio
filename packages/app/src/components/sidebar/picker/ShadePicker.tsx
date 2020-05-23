@@ -21,7 +21,7 @@ const ShadePicker = ({lab, setLab}: Props): JSX.Element => {
   const [isDragging, setIsDragging] = useState(false)
 
   const [canvasWidth, setCanvasWidth] = useState(0)
-  const [ref, {width}] = useMeasure()
+  const [ref, {width}] = useMeasure<HTMLDivElement>()
   useEffect(() => setCanvasWidth(width), [width])
 
   const canvas = useRef<HTMLCanvasElement | null>(null)

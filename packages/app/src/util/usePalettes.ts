@@ -37,7 +37,7 @@ const usePalettes = (
 
   const updatePalette = (updater: (palette: Palette) => Palette) =>
     setPalettes((palettes) =>
-      palettes.map((palette) =>
+      (palettes || []).map((palette) =>
         paletteId === palette.id
           ? {...updater(palette), lastChanged: DateTime.local().toMillis()}
           : palette
@@ -85,24 +85,24 @@ const usePalettes = (
 
   const createNewPaletteFromTemplate = () => {
     let newPalette = generatePalette(sample)
-    setPalettes((palettes) => [...palettes, newPalette])
+    setPalettes((palettes) => [...(palettes || []), newPalette])
     return newPalette.id
   }
   const createNewPaletteFromScratch = () => {
     let newPalette = generatePalette()
-    setPalettes((palettes) => [...palettes, newPalette])
+    setPalettes((palettes) => [...(palettes || []), newPalette])
     return newPalette.id
   }
   const deletePalette = () =>
     setPalettes((palettes) =>
-      palettes.filter((palette) => palette.id !== paletteId)
+      (palettes || []).filter((palette) => palette.id !== paletteId)
     )
 
   let selectedPalette =
-    palettes.find((palette) => palette.id === paletteId) ?? null
+    (palettes || []).find((palette) => palette.id === paletteId) ?? null
 
   return {
-    palettes,
+    palettes: palettes || [],
     selectedPalette,
     setLab,
     setPaletteName,

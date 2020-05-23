@@ -33,7 +33,7 @@ const Palette = ({
   selectShade,
   showNewColorDialog
 }: Props) => {
-  const [ref, {width}] = useMeasure()
+  const [ref, {width}] = useMeasure<HTMLDivElement>()
 
   return (
     <Panel title="Palette">
