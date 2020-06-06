@@ -1,11 +1,11 @@
 import React from 'react'
 
 import {Palette} from '../../types/color'
-import Toolbar from './Toolbar'
+import Actions from './Actions'
+import PaletteSelector from './palette-selector/PaletteSelector'
 
 import logo from './logo.png'
 import styles from './Header.module.css'
-import PaletteSelector from './palette-selector/PaletteSelector'
 
 interface Props {
   palettes: Palette[]
@@ -40,7 +40,7 @@ const Header = ({
       deselectPalette={deselectPalette}
     />
 
-    <Toolbar
+    <Actions
       selectedPalette={selectedPalette}
       showSplash={showSplash}
       deletePalette={deletePalette}
