@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.9.0",
     "@pigmentstudio/convert": "*",
     "@reach/dialog": "^0.10.3",
     "@reach/listbox": "^0.10.3",
