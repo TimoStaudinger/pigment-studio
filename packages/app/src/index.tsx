@@ -8,16 +8,25 @@ import App from './components/app/App'
 // import * as serviceWorker from './serviceWorker'
 
 import './index.css'
+import {Auth0Provider} from './components/app/Auth0Provider'
 
-ReactDOM.render(
-  <Router>
-    <DndProvider backend={HTML5Backend}>
-      <Route path="/:paletteId?/:colorIndex?/:shadeIndex?/:view?">
-        <App />
-      </Route>
-    </DndProvider>
-  </Router>,
-  document.getElementById('root')
-)
+const Root = () => {
+  return (
+    <Router>
+      <Auth0Provider
+        domain="pigment.auth0.com"
+        client_id="fkzmeoPi1v7sPxFPTRAbTe5m4996MBAg"
+      >
+        <DndProvider backend={HTML5Backend}>
+          <Route path="/:paletteId?/:colorIndex?/:shadeIndex?/:view?">
+            <App />
+          </Route>
+        </DndProvider>
+      </Auth0Provider>
+    </Router>
+  )
+}
+
+ReactDOM.render(<Root />, document.getElementById('root'))
 
 // serviceWorker.register()
