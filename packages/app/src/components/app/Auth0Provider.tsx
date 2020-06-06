@@ -12,9 +12,22 @@ import createAuth0Client, {
 } from '@auth0/auth0-spa-js'
 import {useHistory} from 'react-router-dom'
 
+interface User {
+  email?: string
+  email_verified?: boolean
+  family_name?: string
+  given_name?: string
+  locale?: string
+  name?: string
+  nickname?: string
+  picture?: string
+  sub?: string
+  updated_at?: string
+}
+
 interface ContextType {
   isAuthenticated: boolean
-  user: object | null
+  user: User | null
   loading: boolean
   popupOpen: boolean
   loginWithPopup: (
@@ -41,6 +54,7 @@ export const Auth0Provider = ({children, ...initOptions}: Props) => {
   const history = useHistory()
 
   const onRedirectCallback = (appState: any) => {
+    console.log('appState', appState)
     history.push(
       appState && appState.targetUrl
         ? appState.targetUrl
@@ -62,6 +76,7 @@ export const Auth0Provider = ({children, ...initOptions}: Props) => {
   const [popupOpen, setPopupOpen] = useState(false)
 
   useEffect(() => {
+    console.log('initializing auth0')
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(options)
       setAuth0(auth0FromHook)
@@ -84,6 +99,9 @@ export const Auth0Provider = ({children, ...initOptions}: Props) => {
       }
 
       setLoading(false)
+      console.log('initializing auth0 done')
+      auth0FromHook.checkSession()
+      console.log('got token')
     }
     initAuth0()
     // eslint-disable-next-line
