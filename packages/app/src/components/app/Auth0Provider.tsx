@@ -76,7 +76,6 @@ export const Auth0Provider = ({children, ...initOptions}: Props) => {
   const [popupOpen, setPopupOpen] = useState(false)
 
   useEffect(() => {
-    console.log('initializing auth0')
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(options)
       setAuth0(auth0FromHook)
@@ -99,9 +98,6 @@ export const Auth0Provider = ({children, ...initOptions}: Props) => {
       }
 
       setLoading(false)
-      console.log('initializing auth0 done')
-      auth0FromHook.checkSession()
-      console.log('got token')
     }
     initAuth0()
     // eslint-disable-next-line
