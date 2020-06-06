@@ -53,7 +53,6 @@
 
 .link:hover {
   background: none !important;
-  /* font-weight: 700; */
   text-decoration: underline;
 }
 

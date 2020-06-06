@@ -30,6 +30,7 @@ const UserMenu = () => {
                 src={user?.picture}
               />
             </MenuButton>
+
             <MenuList className={styles.popover}>
               <MenuItem onSelect={() => logout()}>Logout</MenuItem>
             </MenuList>
