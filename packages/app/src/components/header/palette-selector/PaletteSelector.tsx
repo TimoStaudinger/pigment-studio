@@ -33,7 +33,7 @@ const PaletteSelector = ({
         paletteId === '_' ? deselectPalette() : selectPalette(paletteId)
       }
     >
-      <ListboxButton arrow={SelectorIcon}>
+      <ListboxButton arrow={<SelectorIcon />}>
         {selectedPalette?.name || undefined}
       </ListboxButton>
       <ListboxPopover className={styles.popover}>
