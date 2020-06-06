@@ -58,7 +58,8 @@
 
 .toolbar {
   color: #f1f5f8;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+  height: 44px;
 }
 
 .toolbar:hover {
