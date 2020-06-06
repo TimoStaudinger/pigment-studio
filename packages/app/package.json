@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.9.0",
     "@pigmentstudio/convert": "*",
     "@reach/dialog": "^0.10.3",
     "@reach/listbox": "^0.10.3",
+    "@reach/menu-button": "^0.10.3",
     "@reach/tabs": "^0.10.3",
     "classnames": "^2.2.6",
     "d3": "^5.16.0",

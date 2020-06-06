@@ -1,0 +1,56 @@
+.selector {
+  font-size: 0.9em;
+  height: 44px;
+
+  padding: 10px;
+  transition: background 0.2s, border 0.2s;
+  background: none;
+  color: #f1f5f8;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Inter';
+  font-size: 0.9em;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.selector:hover {
+  background-color: #30465a;
+}
+
+.profilePicture {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  border-radius: 50%;
+}
+
+.defaultOption {
+  display: none;
+}
+
+.popover {
+  background-color: #fbfdff;
+  width: 300px !important;
+
+  border-radius: 3px;
+
+  font-size: 0.9em;
+  color: rgb(50, 77, 103);
+}
+
+.popover:focus-within {
+  border-color: #324d67;
+  outline: none;
+}
+
+.popover [data-reach-menu-item] {
+  padding: 8px;
+}
+.popover [data-reach-menu-item][data-selected] {
+  background-color: rgb(50, 77, 103);
+  color: #fbfdff;
+}
