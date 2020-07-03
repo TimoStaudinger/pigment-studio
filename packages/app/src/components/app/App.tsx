@@ -6,7 +6,6 @@ import usePalettes from '../../util/usePalettes'
 import EmptyState from '../common/EmptyState'
 import Sidebar from '../sidebar/Sidebar'
 import Workarea from '../workbench/Workbench'
-import Preview from '../workbench/preview/Preview'
 import Charts from '../workbench/charts/Charts'
 import Header from '../header/Header'
 import Splash from '../splash/Splash'
@@ -146,8 +145,8 @@ const App = () => {
                         selectedShadeIndex={selectedShadeIndex}
                         setLab={setLab}
                       />
-                    ],
-                    ['Preview', <Preview colors={selectedPalette.colors} />]
+                    ]
+                    // ['Preview', <Preview colors={selectedPalette.colors} />]
                     // ['Contrast', <Contrast colors={palette.colors} />]
                   ]}
                 />
