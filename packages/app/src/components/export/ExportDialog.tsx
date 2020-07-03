@@ -59,6 +59,12 @@ const ExportDialog = ({
       </Code>
 
       <div className={styles.toolbar}>
+        <Button
+          text="Copy Lab values to clipboard"
+          onClick={() =>
+            copyToClipboard(JSON.stringify(selectedPalette.colors, null, 2))
+          }
+        />
         <div className={styles.toolbarSpacer} />
         <Button
           text="Copy to clipboard"
