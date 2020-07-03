@@ -7,13 +7,19 @@ import colors from './colors'
 
 import '@reach/dialog/styles.css'
 import styles from './NewColorDialog.module.css'
+import {Color} from '../../types/color'
 
 interface Props {
   showNewColorDialog: boolean
   dismissNewColorDialog: () => void
+  addColor: (color: Color) => void
 }
 
-const NewColorDialog = ({showNewColorDialog, dismissNewColorDialog}: Props) => (
+const NewColorDialog = ({
+  showNewColorDialog,
+  dismissNewColorDialog,
+  addColor
+}: Props) => (
   <Dialog
     isOpen={showNewColorDialog}
     onDismiss={dismissNewColorDialog}
@@ -34,6 +40,7 @@ const NewColorDialog = ({showNewColorDialog, dismissNewColorDialog}: Props) => (
               )}`
             }}
             className={styles.paletteEntry}
+            onClick={() => addColor(color)}
           >
             {color.name}
           </li>
