@@ -23,7 +23,8 @@
     "react-scripts": "3.4.1",
     "react-syntax-highlighter": "^12.2.1",
     "react-use": "^15.3.2",
-    "ulid": "^2.3.0"
+    "ulid": "^2.3.0",
+    "use-persisted-state": "^0.3.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^7.19.0",
@@ -41,6 +42,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-syntax-highlighter": "^11.0.4",
+    "@types/use-persisted-state": "^0.3.0",
     "eslint": "^7.3.1",
     "eslint-plugin-flowtype": "5.2.0",
     "typescript": "^3.9.6"
