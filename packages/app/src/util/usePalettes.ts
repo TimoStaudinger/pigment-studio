@@ -1,10 +1,12 @@
-import {useLocalStorage} from 'react-use'
+import createPersistedState from 'use-persisted-state'
 import {ulid} from 'ulid'
 import {DateTime} from 'luxon'
 import {Lab} from '@pigmentstudio/convert'
 
 import {Palette, Color} from '../types/color'
 import sample from './sample'
+
+const usePalettesState = createPersistedState('palettes')
 
 const generatePalette = (colors: Color[] = []): Palette => ({
   id: ulid(),
@@ -33,7 +35,7 @@ const usePalettes = (
   colorIndex: number | null,
   shadeIndex: number | null
 ): UsePalettes => {
-  const [palettes, setPalettes] = useLocalStorage<Palette[]>('palettes', [])
+  const [palettes, setPalettes] = usePalettesState<Palette[]>([])
 
   const updatePalette = (updater: (palette: Palette) => Palette) =>
     setPalettes((palettes) =>
