@@ -13,8 +13,6 @@ interface Props {
   dismissNewColorDialog: () => void
 }
 
-console.log('fr', process.env.FAST_REFRESH)
-
 const NewColorDialog = ({showNewColorDialog, dismissNewColorDialog}: Props) => (
   <Dialog
     isOpen={showNewColorDialog}
@@ -28,8 +26,12 @@ const NewColorDialog = ({showNewColorDialog, dismissNewColorDialog}: Props) => (
         {colors.map((color) => (
           <li
             style={{
-              color: `#${labToHex(color.text)}`,
-              backgroundColor: `#${labToHex(color.background)}`
+              color: `#${labToHex(
+                color.shades.find((shade) => shade.name === '700')!.lab
+              )}`,
+              backgroundColor: `#${labToHex(
+                color.shades.find((shade) => shade.name === '300')!.lab
+              )}`
             }}
             className={styles.paletteEntry}
           >
