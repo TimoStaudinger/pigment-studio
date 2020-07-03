@@ -25,6 +25,7 @@ interface UsePalettes {
   ) => void
   setPaletteName: (name: string) => void
   setColorName: (name: string, updatedColorIndex?: number) => void
+  addColor: (color: Color) => void
   createNewPaletteFromTemplate: () => string
   createNewPaletteFromScratch: () => string
   deletePalette: () => void
@@ -37,7 +38,7 @@ const usePalettes = (
 ): UsePalettes => {
   const [palettes, setPalettes] = usePalettesState<Palette[]>([])
 
-  const updatePalette = (updater: (palette: Palette) => Palette) =>
+  const updateCurrentPalette = (updater: (palette: Palette) => Palette) =>
     setPalettes((palettes) =>
       (palettes || []).map((palette) =>
         paletteId === palette.id
@@ -51,7 +52,7 @@ const usePalettes = (
     updatedColorIndex?: number,
     updatedShadeIndex?: number
   ) => {
-    updatePalette((palette) => ({
+    updateCurrentPalette((palette) => ({
       ...palette,
       lastChanged: DateTime.local().toMillis(),
       colors: palette.colors.map((color, currentColorIndex) =>
@@ -70,10 +71,10 @@ const usePalettes = (
   }
 
   const setPaletteName = (name: string) =>
-    updatePalette((palette) => ({...palette, name}))
+    updateCurrentPalette((palette) => ({...palette, name}))
 
   const setColorName = (name: string, updatedColorIndex?: number) =>
-    updatePalette((palette) => ({
+    updateCurrentPalette((palette) => ({
       ...palette,
       colors: palette.colors.map((color, i) =>
         i === (updatedColorIndex ?? colorIndex)
@@ -84,6 +85,13 @@ const usePalettes = (
           : color
       )
     }))
+
+  const addColor = (color: Color) => {
+    updateCurrentPalette((palette) => ({
+      ...palette,
+      colors: [...palette.colors, color]
+    }))
+  }
 
   const createNewPaletteFromTemplate = () => {
     let newPalette = generatePalette(sample)
@@ -109,6 +117,7 @@ const usePalettes = (
     setLab,
     setPaletteName,
     setColorName,
+    addColor,
     createNewPaletteFromTemplate,
     createNewPaletteFromScratch,
     deletePalette

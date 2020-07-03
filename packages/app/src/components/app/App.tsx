@@ -14,6 +14,7 @@ import NewColorDialog from '../new-color/NewColorDialog'
 import ExportDialog from '../export/ExportDialog'
 
 import 'react-reflex/styles.css'
+import {Color} from '../../types/color'
 
 const App = () => {
   let {
@@ -42,7 +43,8 @@ const App = () => {
     deletePalette,
     setPaletteName,
     setColorName,
-    setLab
+    setLab,
+    addColor
   } = usePalettes(paletteId, selectedColorIndex, selectedShadeIndex)
 
   useEffect(() => {
@@ -92,6 +94,10 @@ const App = () => {
       <NewColorDialog
         showNewColorDialog={showNewColorDialog}
         dismissNewColorDialog={() => setShowNewColorDialog(false)}
+        addColor={(color: Color) => {
+          setShowNewColorDialog(false)
+          addColor(color)
+        }}
       />
 
       {selectedPalette !== null && (
