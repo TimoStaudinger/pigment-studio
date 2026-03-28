@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
-import createAuth0Client, {
-  Auth0ClientOptions,
+import {
   Auth0Client,
+  Auth0ClientOptions,
   GetIdTokenClaimsOptions,
   RedirectLoginOptions,
   GetTokenSilentlyOptions,
@@ -10,7 +10,7 @@ import createAuth0Client, {
   IdToken,
   PopupLoginOptions
 } from '@auth0/auth0-spa-js'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 interface User {
   email?: string
@@ -51,11 +51,11 @@ interface Props extends Auth0ClientOptions {
 }
 
 export const Auth0Provider = ({children, ...initOptions}: Props) => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const onRedirectCallback = (appState: any) => {
     console.log('appState', appState)
-    history.push(
+    navigate(
       appState && appState.targetUrl
         ? appState.targetUrl
         : window.location.pathname
@@ -64,10 +64,9 @@ export const Auth0Provider = ({children, ...initOptions}: Props) => {
   const redirect_uri = window.location.origin
 
   const options: Auth0ClientOptions = {
-    onRedirectCallback,
     redirect_uri,
     ...initOptions
-  }
+  } as Auth0ClientOptions
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const [user, setUser] = useState<object | null>(null)
@@ -77,7 +76,7 @@ export const Auth0Provider = ({children, ...initOptions}: Props) => {
 
   useEffect(() => {
     const initAuth0 = async () => {
-      const auth0FromHook = await createAuth0Client(options)
+      const auth0FromHook = new Auth0Client(options)
       setAuth0(auth0FromHook)
 
       if (
