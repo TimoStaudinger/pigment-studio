@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  plugins: [react({jsxRuntime: 'classic'})],
+  plugins: [react()],
   resolve: {
     alias: {
       '@pigmentstudio/convert': path.resolve(__dirname, '../convert/src/index.ts')
@@ -11,9 +11,6 @@ export default defineConfig({
   },
   define: {
     global: 'globalThis'
-  },
-  optimizeDeps: {
-    exclude: ['react/jsx-runtime', 'react/jsx-dev-runtime']
   },
   server: {
     port: 3000,
