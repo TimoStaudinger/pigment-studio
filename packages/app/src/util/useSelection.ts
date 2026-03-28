@@ -1,4 +1,4 @@
-import {useParams, useHistory, generatePath} from 'react-router-dom'
+import {useParams, useNavigate, generatePath} from 'react-router-dom'
 
 interface UseSelection {
   paletteId: string | null
@@ -15,58 +15,52 @@ interface UseSelection {
 }
 
 const useSelection = (): UseSelection => {
-  let history = useHistory()
+  let navigate = useNavigate()
 
   let {paletteId, colorIndex, shadeIndex, view} = useParams<{
     paletteId?: string
     colorIndex?: string
     shadeIndex?: string
     view?: string
-  }>()
+  }>() as {
+    paletteId?: string
+    colorIndex?: string
+    shadeIndex?: string
+    view?: string
+  }
 
-  const selectPalette = (paletteId: string) => history.push(`/${paletteId}`)
+  const selectPalette = (paletteId: string) => navigate(`/${paletteId}`)
   const selectColor = (colorIndex: number, newShadeIndex?: number) =>
-    history.push(
-      generatePath('/:paletteId?/:colorIndex?/:shadeIndex?/:view?', {
-        paletteId,
-        shadeIndex: newShadeIndex ?? shadeIndex,
-        view,
-        colorIndex
+    navigate(
+      generatePath('/:paletteId/:colorIndex/:shadeIndex/:view', {
+        paletteId: paletteId!,
+        shadeIndex: String(newShadeIndex ?? shadeIndex ?? 0),
+        view: view ?? '0',
+        colorIndex: String(colorIndex)
       })
     )
   const selectShade = (shadeIndex: number) =>
-    history.push(
-      generatePath('/:paletteId?/:colorIndex?/:shadeIndex?/:view?', {
-        paletteId,
-        shadeIndex,
-        view,
-        colorIndex
+    navigate(
+      generatePath('/:paletteId/:colorIndex/:shadeIndex/:view', {
+        paletteId: paletteId!,
+        shadeIndex: String(shadeIndex),
+        view: view ?? '0',
+        colorIndex: colorIndex!
       })
     )
   const selectView = (view: number) =>
-    history.push(
-      generatePath('/:paletteId?/:colorIndex?/:shadeIndex?/:view?', {
-        paletteId,
-        shadeIndex,
-        view,
-        colorIndex
+    navigate(
+      generatePath('/:paletteId/:colorIndex/:shadeIndex/:view', {
+        paletteId: paletteId!,
+        shadeIndex: shadeIndex!,
+        view: String(view),
+        colorIndex: colorIndex!
       })
     )
 
-  const deselectPalette = () => history.push('/')
-  const deselectColor = () =>
-    history.push(
-      generatePath('/:paletteId?/:colorIndex?/:shadeIndex?/:view?', {
-        paletteId
-      })
-    )
-  const deselectShade = () =>
-    history.push(
-      generatePath('/:paletteId?/:colorIndex?/:shadeIndex?/:view?', {
-        paletteId,
-        colorIndex
-      })
-    )
+  const deselectPalette = () => navigate('/')
+  const deselectColor = () => navigate(`/${paletteId}`)
+  const deselectShade = () => navigate(`/${paletteId}/${colorIndex}`)
 
   return {
     paletteId: paletteId ?? null,

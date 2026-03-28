@@ -7,7 +7,7 @@
     "prebuild": "yarn clean",
     "build": "yarn build:source && yarn build:typings",
     "build:source": "babel src --out-dir dist --extensions \".js,.ts\" --source-maps inline && shx rm -r dist/**/*.test.js",
-    "build:typings": "tsc --declaration --declarationDir dist --emitDeclarationOnly && shx rm -r dist/**/*.test.d.ts",
+    "build:typings": "tsc --declaration --declarationDir dist --emitDeclarationOnly",
     "test": "jest --testRegex \".*\\.test\\.(js|ts)\" --passWithNoTests",
     "format": "echo Formatting changed files not supported. Use `yarn format:all` instead && exit 1",
     "format:all": "prettier --write \"src/**/*.{js,ts}\"",
@@ -30,19 +30,19 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.24.0",
-    "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0",
-    "@babel/preset-typescript": "^7.24.0",
-    "@types/jest": "^26.0.10",
-    "@types/node": "^14.6.0",
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-typescript": "^7.28.5",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.0",
     "babel-plugin-transform-dynamic-import": "^2.1.0",
     "crlf": "^1.1.1",
-    "eslint": "^7.7.0",
-    "jest-cli": "^26.4.2",
-    "prettier": "^2.1.0",
-    "shx": "^0.3.2",
-    "typescript": "^3.9.6"
+    "eslint": "^10.1.0",
+    "jest-cli": "^30.3.0",
+    "prettier": "^3.8.1",
+    "shx": "^0.4.0",
+    "typescript": "^6.0.2"
   },
   "babel": {
     "presets": [

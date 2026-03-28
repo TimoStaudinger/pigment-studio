@@ -130,15 +130,19 @@ export const addOrUpdateDots = (
   groups.select<SVGCircleElement>('circle.dot-main').call(
     d3
       .drag<SVGCircleElement, [number, string]>()
-      .on('start', (_, i, dots) => {
+      .on('start', () => {
         setIsInteracting(true)
       })
-      .on('drag', (d, i, dots) => {
-        const newVal = yScale.invert(d3.event.y)
+      .on('drag', function (event) {
+        const dot = this
+        const i = Array.from(
+          svg.selectAll<SVGCircleElement, [number, string]>('circle.dot-main').nodes()
+        ).indexOf(dot)
+
+        const newVal = yScale.invert(event.y)
 
         if (newVal > maxValue || newVal < minValue) return
 
-        const dot = dots[i]
         d3.select(dot).attr('cy', yScale(newVal))
 
         d3.select(svg.selectAll(`g.dot`).nodes()[i])
@@ -157,9 +161,9 @@ export const addOrUpdateDots = (
         let currentColor = `#${convertValueToHex(i, newVal)}`
         let gradient = svg.selectAll('linearGradient stop')
         d3.select(gradient.nodes()[i]).attr('stop-color', currentColor)
-        d3.select(dots[i]).attr('fill', currentColor)
+        d3.select(dot).attr('fill', currentColor)
 
-        updateValue(i, yScale.invert(d3.event.y))
+        updateValue(i, yScale.invert(event.y))
       })
       .on('end', () => setIsInteracting(false))
   )
@@ -181,8 +185,8 @@ export const addOrUpdateDots = (
     .attr('cx', (_, i) => xScale(i))
     .attr('cy', (d) => yScale(d[0]))
     .attr('r', 4)
-    .on('mouseenter', (_, i, dots) => d3.select(dots[i]).attr('r', 7))
-    .on('mouseleave', (_, i, dots) => d3.select(dots[i]).attr('r', 4))
+    .on('mouseenter', function () { d3.select(this).attr('r', 7) })
+    .on('mouseleave', function () { d3.select(this).attr('r', 4) })
 
   let transition = groups.transition().duration(100)
   transition
