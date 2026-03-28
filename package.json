@@ -3,7 +3,7 @@
   "scripts": {
     "start": "yarn build:convert && yarn --cwd packages/app start",
     "build": "yarn build:convert && yarn build:app",
-    "build:app": "yarn --cwd packages/app build",
+    "build:app": "NODE_OPTIONS=--openssl-legacy-provider yarn --cwd packages/app build",
     "build:convert": "yarn --cwd packages/convert build"
   },
   "workspaces": [
