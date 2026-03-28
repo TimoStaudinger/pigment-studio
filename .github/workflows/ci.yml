@@ -3,8 +3,6 @@ name: CI
 on:
   pull_request:
     branches: [main]
-  push:
-    branches: ['**']
 
 jobs:
   test:
@@ -21,6 +19,9 @@ jobs:
 
       - name: Test convert
         run: yarn --cwd packages/convert test
+
+      - name: Test app
+        run: yarn --cwd packages/app test
 
       - name: Build
         run: yarn build
