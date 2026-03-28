@@ -72,3 +72,10 @@ it('converts Hex to RGB correctly', () => {
   expect(hexToRGB('fff')).toEqual({r: 255, g: 255, b: 255})
   expect(hexToRGB('abc')).toEqual({r: 170, g: 187, b: 204})
 })
+
+it('throws on invalid hex input', () => {
+  expect(() => hexToRGB('')).toThrow('Invalid hex code')
+  expect(() => hexToRGB('zzzzzz')).toThrow('Invalid hex code')
+  expect(() => hexToRGB('12345')).toThrow('Invalid hex code')
+  expect(() => hexToRGB('1234567')).toThrow('Invalid hex code')
+})

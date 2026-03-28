@@ -15,3 +15,22 @@ it('converts XYZ to Lab correctly', () => {
   expect(lab.a).toBeCloseTo(27.957, 2)
   expect(lab.b).toBeCloseTo(26.725, 2)
 })
+
+it('handles near-zero values using the linear branch', () => {
+  // Very small XYZ values should trigger the linear (non-cubic) branch
+  let lab = xyzToLab({x: 0.001, y: 0.001, z: 0.001})
+  expect(lab.l).toBeCloseTo(0.903, 2)
+  expect(lab.a).toBeCloseTo(0.203, 1)
+  expect(lab.b).toBeCloseTo(0.082, 1)
+
+  // And back
+  let xyz = labToXYZ(lab)
+  expect(xyz.x).toBeCloseTo(0.001, 3)
+  expect(xyz.y).toBeCloseTo(0.001, 3)
+  expect(xyz.z).toBeCloseTo(0.001, 3)
+})
+
+it('converts black (origin) correctly', () => {
+  let lab = xyzToLab({x: 0, y: 0, z: 0})
+  expect(lab.l).toBeCloseTo(0, 1)
+})
