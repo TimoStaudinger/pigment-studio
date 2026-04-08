@@ -42,7 +42,7 @@
     "@types/use-persisted-state": "^0.3.5",
     "@vitejs/plugin-react": "^6.0.1",
     "typescript": "^6.0.2",
-    "vite": "^8.0.3",
+    "vite": "^8.0.5",
     "vitest": "^3.2.3"
   },
   "scripts": {
