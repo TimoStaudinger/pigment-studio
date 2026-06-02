@@ -38,7 +38,7 @@
     "babel-plugin-transform-dynamic-import": "^2.1.0",
     "crlf": "^1.1.1",
     "eslint": "^10.1.0",
-    "vitest": "^3.2.3",
+    "vitest": "^4.1.0",
     "prettier": "^3.8.1",
     "shx": "^0.4.0",
     "typescript": "^6.0.2"
